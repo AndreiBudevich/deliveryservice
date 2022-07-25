@@ -1,4 +1,4 @@
 package model;
 
-public enum Category {
+public class Category extends NamedEntity{
 }
