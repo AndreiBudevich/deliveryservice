@@ -2,6 +2,8 @@ package model;
 
 import lombok.*;
 
+import java.util.Set;
+
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -12,4 +14,5 @@ public class Product extends NamedEntity {
     private Shop shop;
     private Long price;
     private Integer discount;
+    Set<Category> categories;
 }
