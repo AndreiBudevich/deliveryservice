@@ -1,4 +1,4 @@
-package util;
+package by.deliveryservice.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
