@@ -2,7 +2,6 @@ package by.deliveryservice.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
-import com.fasterxml.jackson.databind.type.CollectionType;
 import com.fasterxml.jackson.databind.type.MapType;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -10,7 +9,6 @@ import lombok.experimental.UtilityClass;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static by.deliveryservice.util.FileUtil.getFileInResource;
@@ -18,9 +16,7 @@ import static by.deliveryservice.util.FileUtil.getFileInResource;
 @UtilityClass
 public class JsonUtil {
 
-    private static final ObjectMapper mapper = JsonMapper.builder()
-            .addModule(new JavaTimeModule())
-            .build();
+    private static final ObjectMapper mapper = JsonMapper.builder().addModule(new JavaTimeModule()).build();
 
     public static <K, V> void writeEntity(String nameFile, Map<K, V> map) {
         try {
