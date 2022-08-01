@@ -8,7 +8,7 @@ import java.util.List;
 
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PUBLIC)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString(callSuper = true, exclude = "products")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Shop extends NamedEntity {
