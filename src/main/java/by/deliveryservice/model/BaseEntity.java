@@ -10,6 +10,10 @@ public abstract class BaseEntity {
 
     protected Integer id;
 
+    public boolean isNew() {
+        return this.id == null;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -27,6 +31,6 @@ public abstract class BaseEntity {
 
     @Override
     public String toString() {
-        return getClass().getSimpleName() + ":" + id;
+        return getClass().getSimpleName() + " id:" + id;
     }
 }
