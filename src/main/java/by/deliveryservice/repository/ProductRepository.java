@@ -2,5 +2,5 @@ package by.deliveryservice.repository;
 
 import by.deliveryservice.model.Product;
 
-public interface ProductRepository extends BaseRepository<Product> {
+public interface ProductRepository extends Repository<Product> {
 }
