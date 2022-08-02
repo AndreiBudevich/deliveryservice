@@ -11,9 +11,9 @@ import static by.deliveryservice.util.JsonUtil.writeEntity;
 
 public class InFileRepository<T extends BaseEntity> implements Repository<T> {
 
-    private final String nameFile;
+    protected final String nameFile;
     private final Class<T> clazz;
-    private Map<Integer, T> repositoryInMemory = new HashMap<>();
+    protected Map<Integer, T> repositoryInMemory = new HashMap<>();
 
     public InFileRepository(String nameFile, Class<T> clazz) {
         this.nameFile = nameFile;
@@ -43,10 +43,9 @@ public class InFileRepository<T extends BaseEntity> implements Repository<T> {
     @Override
     public T save(T t) {
         int maxId = 0;
-        if (!isEmpty(nameFile)) {
-            readInFile();
-            maxId = getMaxId();
-        }
+        readInFile();
+        maxId = getMaxId();
+
         if (t.isNew()) {
             maxId++;
             t.setId(maxId);
@@ -60,15 +59,19 @@ public class InFileRepository<T extends BaseEntity> implements Repository<T> {
         return t;
     }
 
-    private void saveInFile() {
+    protected void saveInFile() {
         writeEntity(nameFile, repositoryInMemory);
     }
 
-    private void readInFile() {
+    protected void readInFile() {
+        if (isEmpty(nameFile)) {
+            System.out.println("Нет сохраненных данных");
+            return;
+        }
         repositoryInMemory = readValues(nameFile, Integer.class, clazz);
     }
 
-    private int getMaxId() {
+    protected int getMaxId() {
         return Collections.max(repositoryInMemory.keySet());
     }
 }
