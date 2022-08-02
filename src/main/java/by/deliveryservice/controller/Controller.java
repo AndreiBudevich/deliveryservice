@@ -23,7 +23,7 @@ public class Controller {
         acceptableCommands.put("client", new String[]{"getall", "delete", "create", "update"});
         acceptableCommands.put("category", new String[]{"getall", "delete", "create", "update"});
         acceptableCommands.put("order", new String[]{"getall", "delete", "create", "update"});
-        acceptableCommands.put("product", new String[]{"getall", "delete", "create", "update"});
+        acceptableCommands.put("product", new String[]{"getall", "delete", "create", "update", "getsortprice"});
         acceptableCommands.put("shop", new String[]{"getall", "delete", "create", "update"});
     }
 
@@ -36,7 +36,7 @@ public class Controller {
             if (commands.length > 1 && checkAcceptableEntity(commands[0], commands[1])) {
                 Class<?> clazzRepository = getRepositoryClass(commands[0]);
 
-                if (equals(commands[1], "getall")) {
+                if (contains(commands[1], "get")) {
                     print(ProxyUtil.getInstance(clazzRepository, commands[1]));
                 }
                 if (equals(commands[1], "create")) {
@@ -87,5 +87,9 @@ public class Controller {
 
     private static boolean equals(String actualCommand, String expectedCommand) {
         return actualCommand.toLowerCase(Locale.ROOT).equals(expectedCommand);
+    }
+
+    private static boolean contains (String actualCommand, String expectedCommand) {
+        return actualCommand.toLowerCase(Locale.ROOT).contains(expectedCommand);
     }
 }
