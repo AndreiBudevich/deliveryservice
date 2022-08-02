@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.LongStream;
 
@@ -33,7 +34,7 @@ public class Order extends BaseEntity {
     String deliveryAddress;
 
     @JsonProperty
-    List <Product> products;
+    List <Product> products = new ArrayList<>();
 
     public Order(Client client, Shop shop) {
         this.client = client;
