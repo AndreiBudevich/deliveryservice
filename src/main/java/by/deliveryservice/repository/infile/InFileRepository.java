@@ -36,24 +36,34 @@ public class InFileRepository<T extends BaseEntity> implements Repository<T> {
     public void delete(int id) {
         readInFile();
         T remove = repositoryInMemory.remove(id);
-        saveInFile();
-        System.out.println("remove " + remove + "by id :" + id);
+        if (remove != null) {
+            saveInFile();
+            System.out.println("remove " + remove + " by id :" + id);
+        } else {
+            System.out.println("remove didn't");
+        }
     }
 
     @Override
     public T save(T t) {
         int maxId = 0;
-        readInFile();
-        maxId = getMaxId();
-
+        if (!isEmpty(nameFile)) {
+            readInFile();
+            maxId = getMaxId();
+        }
         if (t.isNew()) {
             maxId++;
             t.setId(maxId);
             repositoryInMemory.put(t.getId(), t);
             System.out.println("create " + t + "by id :" + maxId);
         } else {
-            repositoryInMemory.computeIfPresent(t.getId(), (id, oldUser) -> t);
-            System.out.println("update " + t + "by id :" + maxId);
+            T tOld = repositoryInMemory.get(t.getId());
+            if (tOld != null) {
+                updateEntity(t, tOld);
+                System.out.println("update " + t + "by id :" + tOld.getId());
+            } else {
+                System.out.println("update did't");
+            }
         }
         saveInFile();
         return t;
@@ -73,5 +83,9 @@ public class InFileRepository<T extends BaseEntity> implements Repository<T> {
 
     protected int getMaxId() {
         return Collections.max(repositoryInMemory.keySet());
+    }
+
+    protected void updateEntity(T t, T tOld) {
+        repositoryInMemory.computeIfPresent(t.getId(), (id, oldUser) -> t);
     }
 }
