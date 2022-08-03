@@ -34,7 +34,7 @@ public class Order extends BaseEntity {
     String deliveryAddress;
 
     @JsonProperty
-    List <Product> products = new ArrayList<>();
+    List<Product> products = new ArrayList<>();
 
     public Order(Client client, Shop shop) {
         this.client = client;
@@ -42,5 +42,18 @@ public class Order extends BaseEntity {
         this.shop = shop;
         this.totalCost = products.stream().flatMapToLong(product -> LongStream.of(product.getPrice())).sum();
         this.deliveryAddress = client.getResidentialAddress();
+        this.products = new ArrayList<>();
+    }
+
+    @Override
+    public String toString() {
+        return "Order " +
+                "id=" + id +
+                ", client id=" + client.getId() + "[" + client.getName() + "]" +
+                ", dateTime=" + dateTime +
+                ", shop id=" + shop.getId() + "[" + shop.getName() + "]" +
+                ", totalCost=" + totalCost +
+                ", deliveryAddress='" + deliveryAddress + '\'' +
+                ", products=" + products;
     }
 }
