@@ -4,6 +4,7 @@ import by.deliveryservice.model.*;
 import by.deliveryservice.repository.Repository;
 import by.deliveryservice.repository.infile.InFileCategoryRepository;
 import by.deliveryservice.repository.infile.InFileClientRepository;
+import by.deliveryservice.repository.infile.InFileProductRepository;
 import by.deliveryservice.repository.infile.InFileShopRepository;
 import lombok.experimental.UtilityClass;
 
@@ -66,6 +67,9 @@ public class EntityUtil {
         if (clazz == Category.class) {
             return (T[]) getEntitiesInRepositoryByIdsArray(clazz, new InFileCategoryRepository(), ids);
         }
+        if (clazz == Product.class) {
+            return (T[]) getEntitiesInRepositoryByIdsArray(clazz, new InFileProductRepository(), ids);
+        }
         return null;
     }
 
@@ -73,18 +77,6 @@ public class EntityUtil {
         return Arrays.stream(ids)
                 .map(id -> repository.get(Integer.parseInt(id)).orElse(null))
                 .toArray(size -> (T[]) Array.newInstance(clazz, size));
-    }
-
-    public static String[] getSplit(String stringEntity, String regex) {
-        return stringEntity.split(regex);
-    }
-
-    public static boolean contains(String actualString, String expectedString) {
-        return actualString.toLowerCase(Locale.ROOT).contains(expectedString.toLowerCase(Locale.ROOT));
-    }
-
-    public static boolean equals(String actualString, String expectedString) {
-        return actualString.toLowerCase(Locale.ROOT).equals(expectedString.toLowerCase(Locale.ROOT));
     }
 }
 
