@@ -14,7 +14,6 @@ import static by.deliveryservice.util.DateTimeUtil.getCurrentDateTime;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@ToString(callSuper = true)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Order extends BaseEntity {
 
