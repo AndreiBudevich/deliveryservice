@@ -6,6 +6,7 @@ import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import static by.deliveryservice.util.DateTimeUtil.getCurrentDateTime;
@@ -32,7 +33,7 @@ public class Client extends NamedEntity {
     private LocalDateTime registered;
 
     @JsonProperty
-    private List<Order> orders;
+    private List<Order> orders = new ArrayList<>();
 
     public Client(String name, String surname, String middleName, String residentialAddress, LocalDate dateOfBirth) {
         super(null, name);
