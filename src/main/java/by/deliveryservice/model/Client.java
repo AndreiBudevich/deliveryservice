@@ -13,7 +13,6 @@ import static by.deliveryservice.util.DateTimeUtil.getCurrentDateTime;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@ToString(callSuper = true, exclude = "orders")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Client extends NamedEntity {
 
@@ -42,5 +41,18 @@ public class Client extends NamedEntity {
         this.residentialAddress = residentialAddress;
         this.dateOfBirth = dateOfBirth;
         this.registered = getCurrentDateTime();
+    }
+
+    @Override
+    public String toString() {
+        return "Client " +
+                "id=" + id +
+                ", surname='" + surname + '\'' +
+                ", middleName='" + middleName + '\'' +
+                ", residentialAddress='" + residentialAddress + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                ", registered=" + registered +
+                ", orders=" + orders +
+                ", name='" + name;
     }
 }
