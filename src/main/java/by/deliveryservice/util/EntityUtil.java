@@ -2,12 +2,13 @@ package by.deliveryservice.util;
 
 import by.deliveryservice.model.*;
 import by.deliveryservice.repository.Repository;
+import by.deliveryservice.repository.infile.InFileCategoryRepository;
 import by.deliveryservice.repository.infile.InFileClientRepository;
 import by.deliveryservice.repository.infile.InFileShopRepository;
 import lombok.experimental.UtilityClass;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.lang.reflect.Array;
+import java.util.*;
 
 import static by.deliveryservice.util.DateTimeUtil.getDateOfBirth;
 
@@ -30,9 +31,8 @@ public class EntityUtil {
         patterns.put("product", PATTERN_PRODUCT);
     }
 
-    public static BaseEntity creatEntityFromString(String stringNameEntity, String stringEntity) {
+    public static BaseEntity creatEntityFromString(String stringNameEntity, String[] split) {
         try {
-            String[] split = stringEntity.split("; ");
             switch (stringNameEntity) {
                 case ("client"):
                     return new Client(split[1], split[0], split[2], split[3], getDateOfBirth(split[4]));
@@ -60,6 +60,19 @@ public class EntityUtil {
     private static Client getClient(String id) {
         Repository<Client> clientRepository = new InFileClientRepository();
         return clientRepository.get(Integer.parseInt(id)).orElse(null);
+    }
+
+    public static <T> T[] getEntitiesByIdsArray(Class<?> clazz, String... ids) {
+        if (clazz == Category.class) {
+            return (T[]) getEntitiesInRepositoryByIdsArray(clazz, new InFileCategoryRepository(), ids);
+        }
+        return null;
+    }
+
+    private <T> T[] getEntitiesInRepositoryByIdsArray(Class<?> clazz, Repository<T> repository, String[] ids) {
+        return Arrays.stream(ids)
+                .map(id -> repository.get(Integer.parseInt(id)).orElse(null))
+                .toArray(size -> (T[]) Array.newInstance(clazz, size));
     }
 }
 
