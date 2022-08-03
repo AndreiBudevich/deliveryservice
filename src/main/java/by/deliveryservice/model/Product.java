@@ -2,14 +2,18 @@ package by.deliveryservice.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@ToString(callSuper = true)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Product extends NamedEntity {
 
@@ -26,7 +30,7 @@ public class Product extends NamedEntity {
     private Integer discount;
 
     @JsonProperty
-    Set<Category> categories;
+    Set<Category> categories = new HashSet<>();
 
     public Product(String name, String description, Shop shop, Long price, Integer discount) {
         super(null, name);
@@ -34,5 +38,22 @@ public class Product extends NamedEntity {
         this.shop = shop;
         this.price = price;
         this.discount = discount;
+    }
+
+    public void addCategories(Category... newCategories) {
+        categories.addAll(Arrays.asList(newCategories));
+    }
+
+    @Override
+    public String toString() {
+        return "Product " +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", shop id=" + shop.getId() + "[" + shop.getName() + "]" +
+                ", price=" + price +
+                ", discount=" + discount +
+                ", categories=" + categories +
+                '}';
     }
 }
