@@ -21,8 +21,14 @@ Java Delivery service Project
 #### Pattern delete
 -client(category, order, product, shop, pattern) -> entity/delete/id
 
-#### Pattern findByAttributes
+#### Pattern find By Attributes
 - product/findbyattributes/text in mame; text in mame description; id_shop; price; price; id_category_1, id_category_2 ...id_category_N
+
+#### Pattern add Products
+shop/addProducts/id_shop/id_shop, id_product_1, id_product_2 ... id_product_N
+
+#### Pattern delete Products
+shop/addProducts/id_shop/id_shop, id_product_1, id_product_2 ... id_product_N
 
 #### Example Create
 
@@ -67,13 +73,21 @@ Java Delivery service Project
 
 - product/addcategories/1/2
 - product/addcategories/2/2
-- product/addcategories/3/2; 3
-- product/addcategories/4/2; 3
-- product/addcategories/5/2; 3
-- product/addcategories/7/1; 3
-- product/addcategories/7/1; 3
+- product/addcategories/3/2, 3
+- product/addcategories/4/2, 3
+- product/addcategories/5/2, 3
+- product/addcategories/7/1, 3
+- product/addcategories/7/1, 3
 
 #### Example findByAttributes
 - product/findbyattributes/Телевизор LG; Smart; 1; 3000; 0; 1, 2, 3
 - product/findbyattributes/Теле; Sm; *; *; *; 1
 - product/findbyattributes/Теле; Sm; *; *; *; *
+
+#### Example add Products
+shop/addProducts/1/1, 2, 3
+shop/addProducts/2/2, 6, 8
+
+#### Example delete Products
+shop/deleteProducts/1/1, 2, 3
+shop/deleteProducts/2/2, 6, 8
