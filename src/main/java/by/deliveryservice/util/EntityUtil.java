@@ -74,5 +74,17 @@ public class EntityUtil {
                 .map(id -> repository.get(Integer.parseInt(id)).orElse(null))
                 .toArray(size -> (T[]) Array.newInstance(clazz, size));
     }
+
+    public static String[] getSplit(String stringEntity, String regex) {
+        return stringEntity.split(regex);
+    }
+
+    public static boolean contains(String actualString, String expectedString) {
+        return actualString.toLowerCase(Locale.ROOT).contains(expectedString.toLowerCase(Locale.ROOT));
+    }
+
+    public static boolean equals(String actualString, String expectedString) {
+        return actualString.toLowerCase(Locale.ROOT).equals(expectedString.toLowerCase(Locale.ROOT));
+    }
 }
 
