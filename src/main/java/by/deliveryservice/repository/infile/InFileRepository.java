@@ -55,14 +55,14 @@ public class InFileRepository<T extends BaseEntity> implements Repository<T> {
             maxId++;
             t.setId(maxId);
             repositoryInMemory.put(t.getId(), t);
-            System.out.println("create " + t + "by id :" + maxId);
+            System.out.println("create " + t + " by id :" + maxId);
         } else {
             T tOld = repositoryInMemory.get(t.getId());
             if (tOld != null) {
                 updateEntity(t, tOld);
-                System.out.println("update " + t + "by id :" + tOld.getId());
+                System.out.println("update " + t + " by id :" + tOld.getId());
             } else {
-                System.out.println("update did't");
+                System.out.println("update didn't");
             }
         }
         saveInFile();
