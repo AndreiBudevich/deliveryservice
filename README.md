@@ -5,7 +5,7 @@ Java Delivery service Project
 - create client pattern -> client/create/surname; name; middleName; residentialAddress; dateOfBirth
 - create category pattern -> category/create/name;
 - create shop pattern -> shop/create/name; address; description; contact
-- create product pattern -> product/create/name; description; id_shop; price; discount;
+- create product pattern -> product/create/name; description; id_shop; price; price;
 - create order pattern -> order/create/id_client; id_shop;
 
 #### Pattern update
@@ -20,6 +20,9 @@ Java Delivery service Project
 
 #### Pattern delete
 -client(category, order, product, shop, pattern) -> entity/delete/id
+
+#### Pattern findByAttributes
+- product/findbyattributes/text in mame; text in mame description; id_shop; price; price; id_category_1, id_category_2 ...id_category_N
 
 #### Example Create
 
@@ -69,3 +72,8 @@ Java Delivery service Project
 - product/addcategories/5/2; 3
 - product/addcategories/7/1; 3
 - product/addcategories/7/1; 3
+
+#### Example findByAttributes
+- product/findbyattributes/Телевизор LG; Smart; 1; 3000; 0; 1, 2, 3
+- product/findbyattributes/Теле; Sm; *; *; *; 1
+- product/findbyattributes/Теле; Sm; *; *; *; *
