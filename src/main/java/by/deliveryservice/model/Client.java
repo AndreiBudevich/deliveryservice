@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static by.deliveryservice.util.DateTimeUtil.getCurrentDateTime;
+import static by.deliveryservice.util.StringUtil.stringBuilderCollection;
 
 @Getter
 @Setter
@@ -53,7 +54,7 @@ public class Client extends NamedEntity {
                 ", residentialAddress='" + residentialAddress + '\'' +
                 ", dateOfBirth=" + dateOfBirth +
                 ", registered=" + registered +
-                ", orders=" + orders +
+                ", orders:" + stringBuilderCollection(orders) +
                 ", name='" + name;
     }
 }
