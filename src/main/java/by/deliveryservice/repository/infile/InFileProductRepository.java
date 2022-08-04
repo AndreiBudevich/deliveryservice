@@ -7,7 +7,7 @@ import by.deliveryservice.repository.ProductRepository;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static by.deliveryservice.util.EntityUtil.*;
+import static by.deliveryservice.util.EntityUtil.getEntitiesByIdsArray;
 import static by.deliveryservice.util.StringUtil.contains;
 import static by.deliveryservice.util.StringUtil.getSplit;
 
@@ -18,9 +18,24 @@ public class InFileProductRepository extends InFileRepository<Product> implement
 
     @Override
     public void addCategories(Integer id, Category... categories) {
+        operationsCategories(id, "add", categories);
+    }
+
+    @Override
+    public void deleteCategories(Integer id, Category... categories) {
+        operationsCategories(id, "delete", categories);
+    }
+
+    private void operationsCategories(Integer id, String operation, Category... categories) {
         readInFile();
         Product product = repositoryInMemory.get(id);
-        product.addCategories(categories);
+        Arrays.asList(categories).forEach(category -> {
+            if (operation.equals("add")) {
+                product.getCategories().add(category);
+            } else {
+                product.getCategories().remove(category);
+            }
+        });
         saveInFile();
         System.out.println(product);
     }
