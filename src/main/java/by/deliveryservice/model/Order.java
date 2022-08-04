@@ -2,7 +2,10 @@ package by.deliveryservice.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -10,6 +13,7 @@ import java.util.List;
 import java.util.stream.LongStream;
 
 import static by.deliveryservice.util.DateTimeUtil.getCurrentDateTime;
+import static by.deliveryservice.util.StringUtil.stringBuilderCollection;
 
 @Getter
 @Setter
@@ -18,22 +22,22 @@ import static by.deliveryservice.util.DateTimeUtil.getCurrentDateTime;
 public class Order extends BaseEntity {
 
     @JsonProperty
-    Client client;
+    private Client client;
 
     @JsonProperty
-    LocalDateTime dateTime;
+    private LocalDateTime dateTime;
 
     @JsonProperty
-    Shop shop;
+    private Shop shop;
 
     @JsonProperty
-    Long totalCost;
+    private Long totalCost;
 
     @JsonProperty
-    String deliveryAddress;
+    private String deliveryAddress;
 
     @JsonProperty
-    List<Product> products = new ArrayList<>();
+    private List<Product> products = new ArrayList<>();
 
     public Order(Client client, Shop shop) {
         this.client = client;
@@ -41,7 +45,6 @@ public class Order extends BaseEntity {
         this.shop = shop;
         this.totalCost = products.stream().flatMapToLong(product -> LongStream.of(product.getPrice())).sum();
         this.deliveryAddress = client.getResidentialAddress();
-        this.products = new ArrayList<>();
     }
 
     @Override
@@ -53,6 +56,6 @@ public class Order extends BaseEntity {
                 ", shop id=" + shop.getId() + "[" + shop.getName() + "]" +
                 ", totalCost=" + totalCost +
                 ", deliveryAddress='" + deliveryAddress + '\'' +
-                ", products=" + products;
+                ", products:" + stringBuilderCollection(products);
     }
 }
