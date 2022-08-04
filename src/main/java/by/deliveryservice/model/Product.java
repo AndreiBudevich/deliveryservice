@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -30,7 +29,7 @@ public class Product extends NamedEntity {
     private Integer discount;
 
     @JsonProperty
-    Set<Category> categories = new HashSet<>();
+    private Set<Category> categories = new HashSet<>();
 
     public Product(String name, String description, Shop shop, Long price, Integer discount) {
         super(null, name);
@@ -38,10 +37,6 @@ public class Product extends NamedEntity {
         this.shop = shop;
         this.price = price;
         this.discount = discount;
-    }
-
-    public void addCategories(Category... newCategories) {
-        categories.addAll(Arrays.asList(newCategories));
     }
 
     @Override
@@ -53,7 +48,6 @@ public class Product extends NamedEntity {
                 ", shop id=" + shop.getId() + "[" + shop.getName() + "]" +
                 ", price=" + price +
                 ", discount=" + discount +
-                ", categories=" + categories +
-                '}';
+                ", categories=" + categories;
     }
 }
