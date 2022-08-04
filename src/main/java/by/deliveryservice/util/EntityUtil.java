@@ -32,19 +32,19 @@ public class EntityUtil {
         patterns.put("product", PATTERN_PRODUCT);
     }
 
-    public static BaseEntity creatEntityFromString(String stringNameEntity, String[] split) {
+    public static BaseEntity creatEntityFromString(String stringNameEntity, String[] fields) {
         try {
             switch (stringNameEntity) {
                 case ("client"):
-                    return new Client(split[1], split[0], split[2], split[3], getDateOfBirth(split[4]));
+                    return new Client(fields[1], fields[0], fields[2], fields[3], getDateOfBirth(fields[4]));
                 case ("category"):
-                    return new Category(split[0]);
+                    return new Category(fields[0]);
                 case ("order"):
-                    return new Order(getClient(split[0]), getShop(split[0]));
+                    return new Order(getClient(fields[0]), getShop(fields[0]));
                 case ("product"):
-                    return new Product(split[0], split[1], getShop(split[2]), Long.parseLong(split[3]), Integer.parseInt(split[4]));
+                    return new Product(fields[0], fields[1], getShop(fields[2]), Long.parseLong(fields[3]), Integer.parseInt(fields[4]));
                 case ("shop"):
-                    return new Shop(split[0], split[1], split[2], split[3]);
+                    return new Shop(fields[0], fields[1], fields[2], fields[3]);
             }
         } catch (Exception e) {
             System.out.println("Не верно введены поля " + stringNameEntity + " по шаблону \n" +
