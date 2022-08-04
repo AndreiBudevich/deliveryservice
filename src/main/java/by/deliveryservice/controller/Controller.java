@@ -27,8 +27,8 @@ public class Controller {
     static {
         acceptableCommands.put("client", new String[]{"getall", "delete", "create", "update"});
         acceptableCommands.put("category", new String[]{"getall", "delete", "create", "update"});
-        acceptableCommands.put("order", new String[]{"getall", "delete", "create", "update"});
-        acceptableCommands.put("product", new String[]{"getall", "delete", "create", "update", "getsortprice", "addcategories", "findbyattributes"});
+        acceptableCommands.put("order", new String[]{"getall", "delete", "create", "update", "addproducts", "deleteproducts"});
+        acceptableCommands.put("product", new String[]{"getall", "delete", "create", "update", "getsortprice", "addcategories","deletecategories", "findbyattributes"});
         acceptableCommands.put("shop", new String[]{"getall", "delete", "create", "update", "addproducts", "deleteproducts"});
     }
 
@@ -83,6 +83,10 @@ public class Controller {
         if (StringUtil.equals(parameters[1], "addCategories")) {
             Category[] categories = getEntitiesByIdsArray(Category.class, getSplit(parameters[3], ", "));
             ProxyUtil.getInstance(clazzRepository, "addCategories", Integer.parseInt(parameters[2]), categories);
+        }
+        if (StringUtil.equals(parameters[1], "deleteCategories")) {
+            Category[] categories = getEntitiesByIdsArray(Category.class, getSplit(parameters[3], ", "));
+            ProxyUtil.getInstance(clazzRepository, "deleteCategories", Integer.parseInt(parameters[2]), categories);
         }
         if (StringUtil.equals(parameters[1], "findByAttributes")) {
             print(ProxyUtil.getInstance(clazzRepository, "findByAttributes", (Object) getSplit(parameters[2], "; ")));
