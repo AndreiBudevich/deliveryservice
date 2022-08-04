@@ -15,10 +15,6 @@ public class StringUtil {
         return actualString.toLowerCase(Locale.ROOT).contains(expectedString.toLowerCase(Locale.ROOT));
     }
 
-    public static boolean equals(String actualString, String expectedString) {
-        return actualString.toLowerCase(Locale.ROOT).equals(expectedString.toLowerCase(Locale.ROOT));
-    }
-
     public static <T> String stringBuilderCollection(Collection<T> collection) {
         StringBuilder stringBuilder = new StringBuilder();
         collection.forEach(o ->
