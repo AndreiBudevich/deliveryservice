@@ -16,6 +16,6 @@ public abstract class NamedEntity extends BaseEntity {
 
     @Override
     public String toString() {
-        return super.toString() + '[' + name + ']';
+        return "id:" + id + '[' + name + ']';
     }
 }
