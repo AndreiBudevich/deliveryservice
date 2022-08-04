@@ -9,6 +9,8 @@ public interface ProductRepository extends Repository<Product> {
 
     void addCategories(Integer id, Category... categories);
 
+    void deleteCategories(Integer id, Category... categories);
+
     List<Product> findByAttributes(String... attributes);
 
     List<Product> getSortPrice();
