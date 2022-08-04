@@ -43,6 +43,10 @@ product/addcategories/id_product/id_category_1, id_category_2 ... id_category_N
 #### Pattern delete Categories in Product
 product/deletecategories/id_product/id_category_1, id_category_2 ... id_category_N
 
+#### Pattern get Shop grouping Products in Shop 
+
+shop/getshopproducts/id_shop
+
 #### Example Create
 
 - shop/create/Auchan; г.Лида, ул. Машерова 63; Продовольственный магазин; 80447324144
@@ -122,3 +126,6 @@ order/deleteProducts/2/2, 6, 8
 - product/findbyattributes/Теле; Sm; *; *; *; 1
 - product/findbyattributes/Теле; Sm; *; *; *; *
 
+#### Example get Shop Products in Shop
+
+shop/getshopproducts/1

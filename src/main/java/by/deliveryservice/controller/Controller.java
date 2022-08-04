@@ -21,14 +21,15 @@ public class Controller {
     private static final Map<String, String[]> extendedCommands = new HashMap<>();
     private static final Set<String> baseCommands = new HashSet<>(Arrays.asList("getall", "delete", "create", "update"));
     private static final String[] productsCommands = new String[]{"getsortprice", "addcategories", "deletecategories", "findbyattributes"};
-    private static final String[] productsCommandsForOther = new String[]{"addproducts", "deleteproducts"};
+    private static final String[] orderCommands = new String[]{"addproducts", "deleteproducts"};
+    private static final String[] shopCommands = new String[]{"addproducts", "deleteproducts", "getshopproducts"};
 
     static {
         extendedCommands.put("client", null);
         extendedCommands.put("category", null);
-        extendedCommands.put("order", productsCommandsForOther);
+        extendedCommands.put("order", orderCommands);
         extendedCommands.put("product", productsCommands);
-        extendedCommands.put("shop", productsCommandsForOther);
+        extendedCommands.put("shop", shopCommands);
     }
 
     private Controller() {
@@ -78,6 +79,9 @@ public class Controller {
                 break;
             case ("delete"):
                 ProxyUtil.getInstance(clazzRepository, nameMethod, Integer.parseInt(parameters[2]));
+                break;
+            case ("getshopproducts"):
+                print(ProxyUtil.getInstance(clazzRepository, nameMethod, Integer.parseInt(parameters[2])));
                 break;
             case ("findbyattributes"):
                 print(ProxyUtil.getInstance(clazzRepository, nameMethod, (Object) getSplit(parameters[2], "; ")));

@@ -5,6 +5,9 @@ import by.deliveryservice.model.Shop;
 import by.deliveryservice.repository.ShopRepository;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class InFileShopRepository extends InFileRepository<Shop> implements ShopRepository {
     public InFileShopRepository() {
@@ -13,12 +16,12 @@ public class InFileShopRepository extends InFileRepository<Shop> implements Shop
 
     @Override
     public void addProducts(Integer id, Product... products) {
-        operationsProducts (id, "add", products);
+        operationsProducts(id, "add", products);
     }
 
     @Override
     public void deleteProducts(Integer id, Product... products) {
-        operationsProducts (id, "delete", products);
+        operationsProducts(id, "delete", products);
     }
 
     private void operationsProducts(Integer id, String operation, Product... products) {
@@ -37,5 +40,13 @@ public class InFileShopRepository extends InFileRepository<Shop> implements Shop
         });
         saveInFile();
         System.out.println(shop);
+    }
+
+    @Override
+    public Map<Product, Long> getShopProducts(Integer id) {
+        readInFile();
+        List<Product> products = repositoryInMemory.get(id).getProducts();
+        return products.stream()
+                .collect(Collectors.groupingBy(Product::get, Collectors.counting()));
     }
 }

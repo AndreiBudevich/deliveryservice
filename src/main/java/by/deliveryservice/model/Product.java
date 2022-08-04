@@ -39,6 +39,10 @@ public class Product extends NamedEntity {
         this.discount = discount;
     }
 
+    public Product get() {
+        return this;
+    }
+
     @Override
     public String toString() {
         return "Product " +
