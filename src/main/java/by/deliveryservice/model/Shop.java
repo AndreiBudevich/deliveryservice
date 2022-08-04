@@ -7,10 +7,11 @@ import lombok.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static by.deliveryservice.util.StringUtil.stringBuilderCollection;
+
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@ToString(callSuper = true, exclude = "products")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Shop extends NamedEntity {
 
@@ -24,9 +25,9 @@ public class Shop extends NamedEntity {
     private String contact;
 
     @JsonProperty
-    private List <Product> products = new ArrayList<>();
+    private List<Product> products = new ArrayList<>();
 
-    public Shop(String name,String address, String description, String contact) {
+    public Shop(String name, String address, String description, String contact) {
         super(null, name);
         this.address = address;
         this.description = description;
@@ -41,7 +42,6 @@ public class Shop extends NamedEntity {
                 ", address='" + address + '\'' +
                 ", description='" + description + '\'' +
                 ", contact='" + contact + '\'' +
-                ", products=" + products +
-                '}';
+                ", products:" + stringBuilderCollection(products);
     }
 }
