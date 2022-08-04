@@ -1,5 +1,6 @@
 Java Delivery service Project 
 ===============================
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/8c11d384cb914092b7037e31eeaafdd4)](https://www.codacy.com/gh/AndreiBudevich/deliveryservice/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=AndreiBudevich/deliveryservice&amp;utm_campaign=Badge_Grade)
 
 #### Pattern create
 - create client pattern -> client/create/surname; name; middleName; residentialAddress; dateOfBirth
@@ -24,11 +25,23 @@ Java Delivery service Project
 #### Pattern find By Attributes
 - product/findbyattributes/text in mame; text in mame description; id_shop; price; price; id_category_1, id_category_2 ...id_category_N
 
-#### Pattern add Products
+#### Pattern add Products in Shop
 shop/addProducts/id_shop/id_shop, id_product_1, id_product_2 ... id_product_N
 
-#### Pattern delete Products
+#### Pattern delete Products in Shop
 shop/addProducts/id_shop/id_shop, id_product_1, id_product_2 ... id_product_N
+
+#### Pattern add Products in Order
+order/addProducts/id_shop/id_shop, id_product_1, id_product_2 ... id_product_N
+
+#### Pattern delete Products in Order
+order/addProducts/id_shop/id_shop, id_product_1, id_product_2 ... id_product_N
+
+#### Pattern add Categories in Product
+product/addcategories/id_product/id_category_1, id_category_2 ... id_category_N
+
+#### Pattern delete Categories in Product
+product/deletecategories/id_product/id_category_1, id_category_2 ... id_category_N
 
 #### Example Create
 
@@ -69,7 +82,7 @@ shop/addProducts/id_shop/id_shop, id_product_1, id_product_2 ... id_product_N
 #### Example getSortPrice Products
 - product/getsortprice
 
-#### Example addCategories in Product
+#### Example add Categories in Product
 
 - product/addcategories/1/2
 - product/addcategories/2/2
@@ -79,15 +92,33 @@ shop/addProducts/id_shop/id_shop, id_product_1, id_product_2 ... id_product_N
 - product/addcategories/7/1, 3
 - product/addcategories/7/1, 3
 
-#### Example findByAttributes
-- product/findbyattributes/Телевизор LG; Smart; 1; 3000; 0; 1, 2, 3
-- product/findbyattributes/Теле; Sm; *; *; *; 1
-- product/findbyattributes/Теле; Sm; *; *; *; *
+#### Example delete Categories in Product
+- product/deletecategories/1/2
+- product/deletecategories/2/2
+- product/deletecategories/3/2, 3
+- product/deletecategories/4/2, 3
+- product/deletecategories/5/2, 3
+- product/deletecategories/7/1, 3
+- product/deletecategories/7/1, 3
 
-#### Example add Products
+#### Example add Products in Shop
 shop/addProducts/1/1, 2, 3
 shop/addProducts/2/2, 6, 8
 
-#### Example delete Products
+#### Example delete Products in Shop
 shop/deleteProducts/1/1, 2, 3
 shop/deleteProducts/2/2, 6, 8
+
+#### Example add Products in Order
+order/addProducts/1/1, 2, 3
+order/addProducts/2/2, 6, 8
+
+#### Example delete Products in Order
+order/deleteProducts/1/1, 2, 3
+order/deleteProducts/2/2, 6, 8
+
+#### Example findByAttributes
+- product/findbyattributes/Телевизор LG; Smart; 1; 3000; 0; *
+- product/findbyattributes/Теле; Sm; *; *; *; 1
+- product/findbyattributes/Теле; Sm; *; *; *; *
+
