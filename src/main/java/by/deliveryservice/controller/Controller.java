@@ -4,32 +4,34 @@ import by.deliveryservice.model.BaseEntity;
 import by.deliveryservice.model.Category;
 import by.deliveryservice.model.Product;
 import by.deliveryservice.util.ProxyUtil;
-import by.deliveryservice.util.StringUtil;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import static by.deliveryservice.util.EntityUtil.creatEntityFromString;
 import static by.deliveryservice.util.EntityUtil.getEntitiesByIdsArray;
 import static by.deliveryservice.util.RepositoryUtil.getRepositoryClass;
-import static by.deliveryservice.util.StringUtil.contains;
 import static by.deliveryservice.util.StringUtil.getSplit;
 import static by.deliveryservice.view.EntityPrint.print;
 
 public class Controller {
 
-    private static final Map<String, String[]> acceptableCommands = new HashMap<>();
+    private static final Map<String, String[]> extendedCommands = new HashMap<>();
+    private static final Set<String> baseCommands = new HashSet<>(Arrays.asList("getall", "delete", "create", "update"));
+    private static final String[] productsCommands = new String[]{"getsortprice", "addcategories", "deletecategories", "findbyattributes"};
+    private static final String[] productsCommandsForOther = new String[]{"addproducts", "deleteproducts"};
 
     static {
-        acceptableCommands.put("client", new String[]{"getall", "delete", "create", "update"});
-        acceptableCommands.put("category", new String[]{"getall", "delete", "create", "update"});
-        acceptableCommands.put("order", new String[]{"getall", "delete", "create", "update", "addproducts", "deleteproducts"});
-        acceptableCommands.put("product", new String[]{"getall", "delete", "create", "update", "getsortprice", "addcategories","deletecategories", "findbyattributes"});
-        acceptableCommands.put("shop", new String[]{"getall", "delete", "create", "update", "addproducts", "deleteproducts"});
+        extendedCommands.put("client", null);
+        extendedCommands.put("category", null);
+        extendedCommands.put("order", productsCommandsForOther);
+        extendedCommands.put("product", productsCommands);
+        extendedCommands.put("shop", productsCommandsForOther);
+    }
+
+    private Controller() {
     }
 
     public static void runApplication() {
@@ -61,48 +63,56 @@ public class Controller {
 
     private static void controller(String[] parameters) {
         Class<?> clazzRepository = getRepositoryClass(parameters[0]);
-        if (contains(parameters[1], "get")) {
-            print(ProxyUtil.getInstance(clazzRepository, parameters[1]));
-        }
-        if (StringUtil.equals(parameters[1], "create")) {
-            BaseEntity baseEntity = creatEntityFromString(parameters[0], getSplit(parameters[2], "; "));
-            if (baseEntity != null) {
-                ProxyUtil.getInstance(clazzRepository, "save", baseEntity);
-            }
-        }
-        if (StringUtil.equals(parameters[1], "update")) {
-            BaseEntity baseEntity = creatEntityFromString(parameters[0], getSplit(parameters[3], "; "));
-            if (baseEntity != null) {
-                baseEntity.setId(Integer.parseInt(parameters[2]));
-                ProxyUtil.getInstance(clazzRepository, "save", baseEntity);
-            }
-        }
-        if (StringUtil.equals(parameters[1], "delete")) {
-            ProxyUtil.getInstance(clazzRepository, "delete", Integer.parseInt(parameters[2]));
-        }
-        if (StringUtil.equals(parameters[1], "addCategories")) {
-            Category[] categories = getEntitiesByIdsArray(Category.class, getSplit(parameters[3], ", "));
-            ProxyUtil.getInstance(clazzRepository, "addCategories", Integer.parseInt(parameters[2]), categories);
-        }
-        if (StringUtil.equals(parameters[1], "deleteCategories")) {
-            Category[] categories = getEntitiesByIdsArray(Category.class, getSplit(parameters[3], ", "));
-            ProxyUtil.getInstance(clazzRepository, "deleteCategories", Integer.parseInt(parameters[2]), categories);
-        }
-        if (StringUtil.equals(parameters[1], "findByAttributes")) {
-            print(ProxyUtil.getInstance(clazzRepository, "findByAttributes", (Object) getSplit(parameters[2], "; ")));
-        }
-        if (StringUtil.equals(parameters[1], "addProducts")) {
-            Product[] products = getEntitiesByIdsArray(Product.class, getSplit(parameters[3], ", "));
-            ProxyUtil.getInstance(clazzRepository, "addProducts", Integer.parseInt(parameters[2]), products);
-        }
-        if (StringUtil.equals(parameters[1], "deleteProducts")) {
-            Product[] products = getEntitiesByIdsArray(Product.class, getSplit(parameters[3], ", "));
-            ProxyUtil.getInstance(clazzRepository, "deleteProducts", Integer.parseInt(parameters[2]), products);
+        String nameMethod = parameters[1].toLowerCase(Locale.ROOT);
+
+        switch (nameMethod) {
+            case ("getall"):
+            case ("getsortprice"):
+                print(ProxyUtil.getInstance(clazzRepository, nameMethod));
+                break;
+            case ("create"):
+                saveAndUpdate(clazzRepository, parameters[0], nameMethod, null, parameters[2]);
+                break;
+            case ("update"):
+                saveAndUpdate(clazzRepository, parameters[0], nameMethod, parameters[2], parameters[3]);
+                break;
+            case ("delete"):
+                ProxyUtil.getInstance(clazzRepository, nameMethod, Integer.parseInt(parameters[2]));
+                break;
+            case ("findbyattributes"):
+                print(ProxyUtil.getInstance(clazzRepository, nameMethod, (Object) getSplit(parameters[2], "; ")));
+                break;
+            case ("addcategories"):
+            case ("deletecategories"):
+                operationsEntities(Category.class, clazzRepository, nameMethod, parameters[2], parameters[3]);
+                break;
+
+            case ("addproducts"):
+            case ("deleteproducts"):
+                operationsEntities(Product.class, clazzRepository, nameMethod, parameters[2], parameters[3]);
+                break;
         }
     }
 
+    private static void saveAndUpdate(Class<?> clazzRepository, String stringNameEntity, String nameMethod, String id, String fields) {
+        BaseEntity baseEntity = creatEntityFromString(stringNameEntity, getSplit(fields, "; "));
+        if (baseEntity != null) {
+            if (nameMethod.equalsIgnoreCase("update")) {
+                baseEntity.setId(Integer.parseInt(id));
+            }
+            ProxyUtil.getInstance(clazzRepository, "save", baseEntity);
+        }
+    }
+
+    private static <T> void operationsEntities(Class<? extends BaseEntity> clazz, Class<?> clazzRepository,
+                                               String nameMethod, String stringId, String ids) {
+        T[] entities = getEntitiesByIdsArray(clazz, getSplit(ids, ", "));
+        ProxyUtil.getInstance(clazzRepository, nameMethod, Integer.parseInt(stringId), entities);
+    }
+
     private static boolean checkAcceptableCommand(String entityExpectedName, String commandExpectedName) {
-        return acceptableCommands.containsKey(entityExpectedName) && Arrays.stream(acceptableCommands.get(entityExpectedName))
-                .anyMatch(c -> StringUtil.equals(c, commandExpectedName));
+        return extendedCommands.containsKey(entityExpectedName)
+                && baseCommands.contains(commandExpectedName.toLowerCase(Locale.ROOT)) || Arrays.stream(extendedCommands.get(entityExpectedName))
+                .anyMatch(c -> c.equalsIgnoreCase(commandExpectedName));
     }
 }
