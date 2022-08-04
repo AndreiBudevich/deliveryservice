@@ -122,9 +122,9 @@ order/deleteProducts/1/1, 2, 3
 order/deleteProducts/2/2, 6, 8
 
 #### Example findByAttributes
-- product/findbyattributes/Телевизор LG; Smart; 1; 3000; 0; *
-- product/findbyattributes/Теле; Sm; *; *; *; 1
-- product/findbyattributes/Теле; Sm; *; *; *; *
+product/findbyattributes/Телевизор LG; Smart; 1; 3000; 0; *
+product/findbyattributes/Теле; Sm; *; *; *; 1
+product/findbyattributes/Теле; Sm; *; *; *; *
 
 #### Example get Shop Products in Shop
 

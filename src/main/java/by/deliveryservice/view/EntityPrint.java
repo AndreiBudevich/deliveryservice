@@ -14,5 +14,6 @@ public class EntityPrint {
             Map<Object, Object> objects = (Map<Object, Object>) object;
             objects.entrySet().forEach(System.out::println);
         }
+        System.out.println();
     }
 }

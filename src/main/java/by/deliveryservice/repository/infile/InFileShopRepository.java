@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static by.deliveryservice.view.EntityPrint.print;
+
 public class InFileShopRepository extends InFileRepository<Shop> implements ShopRepository {
     public InFileShopRepository() {
         super("json/shops.json", Shop.class);
@@ -39,7 +41,7 @@ public class InFileShopRepository extends InFileRepository<Shop> implements Shop
             }
         });
         saveInFile();
-        System.out.println(shop);
+        print (getShopProducts (id));
     }
 
     @Override
