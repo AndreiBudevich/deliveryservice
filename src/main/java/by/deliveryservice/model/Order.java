@@ -27,9 +27,6 @@ public class Order extends BaseEntity {
     private LocalDateTime dateTime;
 
     @JsonProperty
-    private Shop shop;
-
-    @JsonProperty
     private Long totalCost;
 
     @JsonProperty
@@ -38,10 +35,9 @@ public class Order extends BaseEntity {
     @JsonProperty
     private List<Product> products = new ArrayList<>();
 
-    public Order(Client client, Shop shop) {
+    public Order(Client client) {
         this.client = client;
         this.dateTime = getCurrentDateTime();
-        this.shop = shop;
         this.deliveryAddress = client.getResidentialAddress();
     }
 
@@ -51,7 +47,6 @@ public class Order extends BaseEntity {
                 "id=" + id +
                 ", client id=" + client.getId() + "[" + client.getName() + "]" +
                 ", dateTime=" + dateTime +
-                ", shop id=" + shop.getId() + "[" + shop.getName() + "]" +
                 ", totalCost=" + totalCost +
                 ", deliveryAddress='" + deliveryAddress + '\'' +
                 ", products:" + stringBuilderCollection(products);

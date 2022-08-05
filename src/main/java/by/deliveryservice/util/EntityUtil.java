@@ -24,7 +24,7 @@ public class EntityUtil {
     private static final String PATTERN_CATEGORY = "*name;*";
     private static final String PATTERN_SHOP = "*name; address; description; contact*";
     private static final String PATTERN_PRODUCT = "*name; description; id shop; price; discount*";
-    private static final String PATTERN_ORDER = "*id client; id shop*";
+    private static final String PATTERN_ORDER = "*id client*";
 
     Map<String, String> patterns = new HashMap<>();
 
@@ -44,7 +44,7 @@ public class EntityUtil {
                 case ("category"):
                     return new Category(fields[0]);
                 case ("order"):
-                    return new Order(getClient(fields[0]), getShop(fields[0]));
+                    return new Order(getClient(fields[0]));
                 case ("product"):
                     return new Product(fields[0], fields[1], getShop(fields[2]), Long.parseLong(fields[3]), Integer.parseInt(fields[4]));
                 case ("shop"):

@@ -14,7 +14,7 @@ Java Delivery service Project
 - update category pattern -> category/id_category/update/name;
 - update shop pattern -> shop/update/id_shop/name; address; description; contact
 - update product pattern -> product/id_product/update/name; description; id_shop; price; discount;
-- update order pattern -> order/update/id_order/id_client; id_shop;
+- update order pattern -> order/update/id_order/id_client
 
 #### Pattern getAll
 -getAll client(category, order, product, shop, pattern) -> entity/getAll
@@ -69,10 +69,10 @@ shop/getshopproducts/id_shop
 -client/create/Будевич; Татьяна; Александровна; г.Лида, ул. Машерова 21; 20.06.1990
 -client/create/Будевич; Татьяна; Александровна; г.Лида, ул. Докучаева 63; 20.06.1979
 
--order/create/1; 1
--order/create/1; 2
--order/create/2; 1
--order/create/3; 3
+-order/create/1
+-order/create/1
+-order/create/2
+-order/create/3
 
 #### Example Update
 - shop/update/3/5 Элемент; г.Лида, ул. Тавлая 10; Магазин бытовой техники; 80294544545
