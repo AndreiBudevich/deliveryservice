@@ -47,6 +47,10 @@ product/deletecategories/id_product/id_category_1, id_category_2 ... id_category
 
 shop/getshopproducts/id_shop
 
+#### Pattern set Address in Order
+order/setAddress/id_order/text in address
+
+
 #### Example Create
 
 - shop/create/Auchan; г.Лида, ул. Машерова 63; Продовольственный магазин; 80447324144
@@ -129,3 +133,6 @@ product/findbyattributes/Теле; Sm; *; *; *; *
 #### Example get Shop Products in Shop
 
 shop/getshopproducts/1
+
+#### Example  set Address in Order
+order/setAddress/1/Докучаева 63

@@ -22,7 +22,7 @@ public class Controller {
     private static final Map<String, String[]> extendedCommands = new HashMap<>();
     private static final Set<String> baseCommands = new HashSet<>(Arrays.asList("getall", "delete", "create", "update"));
     private static final String[] productsCommands = new String[]{"getsortprice", "addcategories", "deletecategories", "findbyattributes"};
-    private static final String[] orderCommands = new String[]{"addproducts", "deleteproducts"};
+    private static final String[] orderCommands = new String[]{"addproducts", "deleteproducts", "setaddress"};
     private static final String[] shopCommands = new String[]{"addproducts", "deleteproducts", "getshopproducts"};
 
     static {
@@ -100,6 +100,9 @@ public class Controller {
                     }
                     break;
                 }
+                case ("setaddress"):
+                    ProxyUtil.getInstance(clazzRepository, nameMethod, Integer.parseInt(parameters[2]), parameters[3]);
+                    break;
             }
         } catch (Exception e) {
             System.out.println("Неверно введена команда");

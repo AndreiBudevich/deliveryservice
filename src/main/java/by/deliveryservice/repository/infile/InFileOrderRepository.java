@@ -31,8 +31,7 @@ public class InFileOrderRepository extends InFileRepository<Order> implements Or
     }
 
     private void operationsProducts(Integer id, String operation, Product... products) {
-        readInFile();
-        Order order = repositoryInMemory.get(id);
+        Order order = get(id);
         Arrays.asList(products).forEach(product -> {
             if (operation.equals("add")) {
                 order.getProducts().add(product);
@@ -41,6 +40,22 @@ public class InFileOrderRepository extends InFileRepository<Order> implements Or
             }
         });
         order.setTotalCost(calculationTotalCost(order.getProducts()));
+        saveAndPrint(order);
+    }
+
+    @Override
+    public void setAddress(Integer id, String deliveryAddress) {
+        Order order = get(id);
+        order.setDeliveryAddress(deliveryAddress);
+        saveAndPrint(order);
+    }
+
+    private Order get(Integer id) {
+        readInFile();
+        return repositoryInMemory.get(id);
+    }
+
+    private void saveAndPrint(Order order) {
         saveInFile();
         System.out.println(order);
     }
