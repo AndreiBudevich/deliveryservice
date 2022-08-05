@@ -47,6 +47,7 @@ public class InFileProductRepository extends InFileRepository<Product> implement
     }
 
     @Override
+    //search by fields
     public List<Product> findByAttributes(String... attributes) {
         if (attributes.length < 5) {
             System.out.println("Не верно заданы атрибуты");
