@@ -66,41 +66,43 @@ public class Controller {
     private static void controller(String[] parameters) {
         Class<?> clazzRepository = getRepositoryClass(parameters[0]);
         String nameMethod = parameters[1].toLowerCase(Locale.ROOT);
-
-        switch (nameMethod) {
-            case ("getall"):
-            case ("getsortprice"):
-                print(ProxyUtil.getInstance(clazzRepository, nameMethod));
-                break;
-            case ("create"):
-                saveAndUpdate(clazzRepository, parameters[0], nameMethod, null, parameters[2]);
-                break;
-            case ("update"):
-                saveAndUpdate(clazzRepository, parameters[0], nameMethod, parameters[2], parameters[3]);
-                break;
-            case ("delete"):
-                ProxyUtil.getInstance(clazzRepository, nameMethod, Integer.parseInt(parameters[2]));
-                break;
-            case ("getshopproducts"):
-                print(ProxyUtil.getInstance(clazzRepository, nameMethod, Integer.parseInt(parameters[2])));
-                break;
-            case ("findbyattributes"):
-                print(ProxyUtil.getInstance(clazzRepository, nameMethod, (Object) getSplit(parameters[2], "; ")));
-                break;
-            case ("addcategories"):
-            case ("deletecategories"):
-                operationsEntities(Category.class, clazzRepository, nameMethod, parameters[2], parameters[3]);
-                break;
-
-            case ("addproducts"):
-            case ("deleteproducts"): {
-                if (parameters[0].equals("order")) {
-                    operationsEntities(Product.class, OrderServiceImpl.class, nameMethod, parameters[2], parameters[3]);
-                } else {
-                    operationsEntities(Product.class, clazzRepository, nameMethod, parameters[2], parameters[3]);
+        try {
+            switch (nameMethod) {
+                case ("getall"):
+                case ("getsortprice"):
+                    print(ProxyUtil.getInstance(clazzRepository, nameMethod));
+                    break;
+                case ("create"):
+                    saveAndUpdate(clazzRepository, parameters[0], nameMethod, null, parameters[2]);
+                    break;
+                case ("update"):
+                    saveAndUpdate(clazzRepository, parameters[0], nameMethod, parameters[2], parameters[3]);
+                    break;
+                case ("delete"):
+                    ProxyUtil.getInstance(clazzRepository, nameMethod, Integer.parseInt(parameters[2]));
+                    break;
+                case ("getshopproducts"):
+                    print(ProxyUtil.getInstance(clazzRepository, nameMethod, Integer.parseInt(parameters[2])));
+                    break;
+                case ("findbyattributes"):
+                    print(ProxyUtil.getInstance(clazzRepository, nameMethod, (Object) getSplit(parameters[2], "; ")));
+                    break;
+                case ("addcategories"):
+                case ("deletecategories"):
+                    operationsEntities(Category.class, clazzRepository, nameMethod, parameters[2], parameters[3]);
+                    break;
+                case ("addproducts"):
+                case ("deleteproducts"): {
+                    if (parameters[0].equals("order")) {
+                        operationsEntities(Product.class, OrderServiceImpl.class, nameMethod, parameters[2], parameters[3]);
+                    } else {
+                        operationsEntities(Product.class, clazzRepository, nameMethod, parameters[2], parameters[3]);
+                    }
+                    break;
                 }
-                break;
             }
+        } catch (Exception e) {
+            System.out.println("Неверно введена команда");
         }
     }
 
