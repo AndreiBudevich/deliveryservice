@@ -10,7 +10,6 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.LongStream;
 
 import static by.deliveryservice.util.DateTimeUtil.getCurrentDateTime;
 import static by.deliveryservice.util.StringUtil.stringBuilderCollection;
@@ -43,7 +42,6 @@ public class Order extends BaseEntity {
         this.client = client;
         this.dateTime = getCurrentDateTime();
         this.shop = shop;
-        this.totalCost = products.stream().flatMapToLong(product -> LongStream.of(product.getPrice())).sum();
         this.deliveryAddress = client.getResidentialAddress();
     }
 

@@ -6,6 +6,8 @@ import by.deliveryservice.repository.OrderRepository;
 
 import java.util.Arrays;
 
+import static by.deliveryservice.util.EntityUtil.calculationTotalCost;
+
 public class InFileOrderRepository extends InFileRepository<Order> implements OrderRepository {
 
     public InFileOrderRepository() {
@@ -38,6 +40,7 @@ public class InFileOrderRepository extends InFileRepository<Order> implements Or
                 order.getProducts().remove(product);
             }
         });
+        order.setTotalCost(calculationTotalCost(order.getProducts()));
         saveInFile();
         System.out.println(order);
     }

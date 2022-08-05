@@ -9,7 +9,11 @@ import by.deliveryservice.repository.infile.InFileShopRepository;
 import lombok.experimental.UtilityClass;
 
 import java.lang.reflect.Array;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.LongStream;
 
 import static by.deliveryservice.util.DateTimeUtil.getDateOfBirth;
 
@@ -77,6 +81,10 @@ public class EntityUtil {
         return Arrays.stream(ids)
                 .map(id -> repository.get(Integer.parseInt(id)).orElse(null))
                 .toArray(size -> (T[]) Array.newInstance(clazz, size));
+    }
+
+    public static Long calculationTotalCost(List<Product> products) {
+        return products.stream().flatMapToLong(product -> LongStream.of(product.getPrice())).sum();
     }
 }
 
