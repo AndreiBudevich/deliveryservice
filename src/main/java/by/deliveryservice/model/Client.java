@@ -50,11 +50,11 @@ public class Client extends NamedEntity {
         return "Client " +
                 "id=" + id +
                 ", surname='" + surname + '\'' +
+                ", name='" + name +
                 ", middleName='" + middleName + '\'' +
                 ", residentialAddress='" + residentialAddress + '\'' +
                 ", dateOfBirth=" + dateOfBirth +
                 ", registered=" + registered +
-                ", orders:" + stringBuilderCollection(orders) +
-                ", name='" + name;
+                ", orders:" + stringBuilderCollection(orders);
     }
 }
