@@ -88,4 +88,14 @@ public class InFileRepository<T extends BaseEntity> implements Repository<T> {
     protected void updateEntity(T t, T tOld) {
         repositoryInMemory.computeIfPresent(t.getId(), (id, oldUser) -> t);
     }
+
+    protected T get(Integer id) {
+        readInFile();
+        return repositoryInMemory.get(id);
+    }
+
+    protected void saveAndPrint(T t) {
+        saveInFile();
+        System.out.println(t);
+    }
 }

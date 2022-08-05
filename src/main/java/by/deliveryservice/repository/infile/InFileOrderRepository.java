@@ -22,15 +22,15 @@ public class InFileOrderRepository extends InFileRepository<Order> implements Or
 
     @Override
     public void addProducts(Integer id, Product... products) {
-        operationsProducts(id, "add", products);
+        addOrDeleteProducts(id, "add", products);
     }
 
     @Override
     public void deleteProducts(Integer id, Product... products) {
-        operationsProducts(id, "delete", products);
+        addOrDeleteProducts(id, "delete", products);
     }
 
-    private void operationsProducts(Integer id, String operation, Product... products) {
+    private void addOrDeleteProducts(Integer id, String operation, Product... products) {
         Order order = get(id);
         Arrays.asList(products).forEach(product -> {
             if (operation.equals("add")) {
@@ -48,15 +48,5 @@ public class InFileOrderRepository extends InFileRepository<Order> implements Or
         Order order = get(id);
         order.setDeliveryAddress(deliveryAddress);
         saveAndPrint(order);
-    }
-
-    private Order get(Integer id) {
-        readInFile();
-        return repositoryInMemory.get(id);
-    }
-
-    private void saveAndPrint(Order order) {
-        saveInFile();
-        System.out.println(order);
     }
 }

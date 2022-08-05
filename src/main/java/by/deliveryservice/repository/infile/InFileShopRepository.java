@@ -18,17 +18,16 @@ public class InFileShopRepository extends InFileRepository<Shop> implements Shop
 
     @Override
     public void addProducts(Integer id, Product... products) {
-        operationsProducts(id, "add", products);
+        addOrDeleteProducts(id, "add", products);
     }
 
     @Override
     public void deleteProducts(Integer id, Product... products) {
-        operationsProducts(id, "delete", products);
+        addOrDeleteProducts(id, "delete", products);
     }
 
-    private void operationsProducts(Integer id, String operation, Product... products) {
-        readInFile();
-        Shop shop = repositoryInMemory.get(id);
+    private void addOrDeleteProducts(Integer id, String operation, Product... products) {
+        Shop shop = get(id);
         Arrays.asList(products).forEach(product -> {
             if (product.getShop().getId().equals(shop.getId())) {
                 if (operation.equals("add")) {
@@ -41,7 +40,7 @@ public class InFileShopRepository extends InFileRepository<Shop> implements Shop
             }
         });
         saveInFile();
-        print (getShopProducts (id));
+        print(getShopProducts(id));
     }
 
     @Override

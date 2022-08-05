@@ -18,17 +18,16 @@ public class InFileProductRepository extends InFileRepository<Product> implement
 
     @Override
     public void addCategories(Integer id, Category... categories) {
-        operationsCategories(id, "add", categories);
+        addOrDeleteCategories(id, "add", categories);
     }
 
     @Override
     public void deleteCategories(Integer id, Category... categories) {
-        operationsCategories(id, "delete", categories);
+        addOrDeleteCategories(id, "delete", categories);
     }
 
-    private void operationsCategories(Integer id, String operation, Category... categories) {
-        readInFile();
-        Product product = repositoryInMemory.get(id);
+    private void addOrDeleteCategories(Integer id, String operation, Category... categories) {
+        Product product = get(id);
         Arrays.asList(categories).forEach(category -> {
             if (operation.equals("add")) {
                 product.getCategories().add(category);
@@ -36,8 +35,7 @@ public class InFileProductRepository extends InFileRepository<Product> implement
                 product.getCategories().remove(category);
             }
         });
-        saveInFile();
-        System.out.println(product);
+        saveAndPrint(product);
     }
 
     @Override
