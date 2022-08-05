@@ -3,19 +3,15 @@ package by.deliveryservice.util;
 import by.deliveryservice.model.*;
 import by.deliveryservice.repository.Repository;
 import by.deliveryservice.repository.infile.InFileCategoryRepository;
-import by.deliveryservice.repository.infile.InFileClientRepository;
 import by.deliveryservice.repository.infile.InFileProductRepository;
-import by.deliveryservice.repository.infile.InFileShopRepository;
 import lombok.experimental.UtilityClass;
 
 import java.lang.reflect.Array;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.LongStream;
 
 import static by.deliveryservice.util.DateTimeUtil.getDateOfBirth;
+import static by.deliveryservice.util.RepositoryUtil.getRepositoryClass;
 
 @UtilityClass
 public class EntityUtil {
@@ -44,9 +40,10 @@ public class EntityUtil {
                 case ("category"):
                     return new Category(fields[0]);
                 case ("order"):
-                    return new Order(getClient(fields[0]));
+                    return new Order(Objects.requireNonNull(getEntity(fields[0], "client")));
                 case ("product"):
-                    return new Product(fields[0], fields[1], getShop(fields[2]), Long.parseLong(fields[3]), Integer.parseInt(fields[4]));
+                    return new Product(fields[0], fields[1], Objects.requireNonNull(getEntity(fields[2], "shop")),
+                            Long.parseLong(fields[3]), Integer.parseInt(fields[4]));
                 case ("shop"):
                     return new Shop(fields[0], fields[1], fields[2], fields[3]);
             }
@@ -57,16 +54,22 @@ public class EntityUtil {
         return null;
     }
 
-    private static Shop getShop(String id) {
-        Repository<Shop> shopRepository = new InFileShopRepository();
-        return shopRepository.get(Integer.parseInt(id)).orElse(null);
+    private static <T> T getEntity(String id, String className) {
+        Repository<T> repository = null;
+        Class<?> clazzRepository = getRepositoryClass(className);
+        try {
+            Object o = clazzRepository.newInstance();
+            if (o instanceof Repository) {
+                repository = (Repository<T>) o;
+            }
+        } catch (InstantiationException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return repository != null ? repository.get(Integer.parseInt(id)).orElse(null) : null;
     }
 
-    private static Client getClient(String id) {
-        Repository<Client> clientRepository = new InFileClientRepository();
-        return clientRepository.get(Integer.parseInt(id)).orElse(null);
-    }
 
+    //The method gets fields from an array of strings and retrieves entities
     public static <T> T[] getEntitiesByIdsArray(Class<?> clazz, String... ids) {
         if (clazz == Category.class) {
             return (T[]) getEntitiesInRepositoryByIdsArray(clazz, new InFileCategoryRepository(), ids);
