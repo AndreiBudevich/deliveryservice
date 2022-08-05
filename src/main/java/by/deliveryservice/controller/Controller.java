@@ -63,6 +63,7 @@ public class Controller {
         return topic;
     }
 
+    //The method takes a string and calls the corresponding method repository or service
     private static void controller(String[] parameters) {
         Class<?> clazzRepository = getRepositoryClass(parameters[0]);
         String nameMethod = parameters[1].toLowerCase(Locale.ROOT);
@@ -109,6 +110,7 @@ public class Controller {
         }
     }
 
+    //The method gets fields from an array of strings and saves or updates the entities
     private static void saveAndUpdate(Class<?> clazzRepository, String stringNameEntity, String nameMethod, String id, String fields) {
         BaseEntity baseEntity = creatEntityFromString(stringNameEntity, getSplit(fields, "; "));
         if (baseEntity != null) {
@@ -125,6 +127,7 @@ public class Controller {
         ProxyUtil.getInstance(clazzRepository, nameMethod, Integer.parseInt(stringId), entities);
     }
 
+    //checking the command line for validity
     private static boolean checkAcceptableCommand(String entityExpectedName, String commandExpectedName) {
         return extendedCommands.containsKey(entityExpectedName)
                 && baseCommands.contains(commandExpectedName.toLowerCase(Locale.ROOT)) || Arrays.stream(extendedCommands.get(entityExpectedName))
