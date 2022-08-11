@@ -3,7 +3,7 @@ package by.deliveryservice.repository;
 import java.util.List;
 import java.util.Optional;
 
-public interface Repository<T> {
+public interface BaseRepository<T> {
 
     List<T> getAll();
 

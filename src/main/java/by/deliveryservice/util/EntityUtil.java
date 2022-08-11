@@ -1,7 +1,7 @@
 package by.deliveryservice.util;
 
 import by.deliveryservice.model.*;
-import by.deliveryservice.repository.Repository;
+import by.deliveryservice.repository.BaseRepository;
 import by.deliveryservice.repository.infile.InFileCategoryRepository;
 import by.deliveryservice.repository.infile.InFileProductRepository;
 import lombok.experimental.UtilityClass;
@@ -55,12 +55,12 @@ public class EntityUtil {
     }
 
     private static <T> T getEntity(String id, String className) {
-        Repository<T> repository = null;
+        BaseRepository<T> repository = null;
         Class<?> clazzRepository = getRepositoryClass(className);
         try {
             Object o = clazzRepository.newInstance();
-            if (o instanceof Repository) {
-                repository = (Repository<T>) o;
+            if (o instanceof BaseRepository) {
+                repository = (BaseRepository<T>) o;
             }
         } catch (InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
@@ -80,7 +80,7 @@ public class EntityUtil {
         return null;
     }
 
-    private <T> T[] getEntitiesInRepositoryByIdsArray(Class<?> clazz, Repository<T> repository, String[] ids) {
+    private <T> T[] getEntitiesInRepositoryByIdsArray(Class<?> clazz, BaseRepository<T> repository, String[] ids) {
         return Arrays.stream(ids)
                 .map(id -> repository.get(Integer.parseInt(id)).orElse(null))
                 .toArray(size -> (T[]) Array.newInstance(clazz, size));

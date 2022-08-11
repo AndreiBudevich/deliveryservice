@@ -3,7 +3,7 @@ package by.deliveryservice.repository;
 import by.deliveryservice.model.Order;
 import by.deliveryservice.model.Product;
 
-public interface OrderRepository extends Repository<Order> {
+public interface OrderRepository extends BaseRepository<Order> {
 
     void addProducts(Integer id, Product... products);
 

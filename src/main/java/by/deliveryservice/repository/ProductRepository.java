@@ -5,7 +5,7 @@ import by.deliveryservice.model.Product;
 
 import java.util.List;
 
-public interface ProductRepository extends Repository<Product> {
+public interface ProductRepository extends BaseRepository<Product> {
 
     void addCategories(Integer id, Category... categories);
 

@@ -1,7 +1,7 @@
 package by.deliveryservice.repository.infile;
 
 import by.deliveryservice.model.BaseEntity;
-import by.deliveryservice.repository.Repository;
+import by.deliveryservice.repository.BaseRepository;
 
 import java.util.*;
 
@@ -9,7 +9,7 @@ import static by.deliveryservice.util.FileUtil.isEmpty;
 import static by.deliveryservice.util.JsonUtil.readValues;
 import static by.deliveryservice.util.JsonUtil.writeEntity;
 
-public class InFileRepository<T extends BaseEntity> implements Repository<T> {
+public class InFileRepository<T extends BaseEntity> implements BaseRepository<T> {
 
     protected final String nameFile;
     private final Class<T> clazz;

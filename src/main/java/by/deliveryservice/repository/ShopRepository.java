@@ -5,7 +5,7 @@ import by.deliveryservice.model.Shop;
 
 import java.util.Map;
 
-public interface ShopRepository extends Repository<Shop> {
+public interface ShopRepository extends BaseRepository<Shop> {
     void addProducts(Integer id, Product... products);
 
     void deleteProducts(Integer id, Product... products);
