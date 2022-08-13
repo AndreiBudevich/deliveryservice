@@ -7,17 +7,18 @@
 <body>
 <jsp:include page="/WEB-INF/jsp/fragments/bodyHeader.jsp"/>
 
-<a href="clients">Client</a>
+<a href="clients"><spring:message code="client.title"/></a>
 <br>
-<a href="orders">Order</a>
+<a href="orders"><spring:message code="order.title"/></a>
 <br>
-<a href="products">Product</a>
+<a href="products"><spring:message code="product.title"/></a>
 <br>
-<a href="shops">Shop</a>
+<a href="shops"><spring:message code="shop.title"/></a>
 <br>
-<a href="categories">Category</a>
+<a href="categories"><spring:message code="category.title"/></a>
 
 <jsp:include page="/WEB-INF/jsp/fragments/footer.jsp"/>
 </body>
 </html>
+
 
