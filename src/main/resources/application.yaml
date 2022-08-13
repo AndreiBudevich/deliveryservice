@@ -1,0 +1,44 @@
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+
+  jpa:
+    database: postgresql
+    database-platform : org.hibernate.dialect.PostgreSQL10Dialect
+    show-sql: true
+    open-in-view: false
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
+        default_batch_fetch_size: 20
+        jdbc.batch_size: 20
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/deliveryservice
+    username: user
+    password: password
+    driverClassName: org.postgresql.Driver
+
+  jackson:
+    visibility:
+      field: any
+      getter: none
+      setter: none
+      is-getter: none
+
+logging:
+  level:
+    root: WARN
+    by.restaurantvoting: DEBUG
+    org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver: DEBUG
+
+server.servlet:
+  encoding:
+    charset: UTF-8
+    enabled: true
+    force: true
