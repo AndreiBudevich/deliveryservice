@@ -36,8 +36,8 @@ public class Client extends NamedEntity {
     @Column(name = "residential_address", nullable = false)
     private String residentialAddress;
 
-    @Column(name = "date_of_birth", nullable = false)
-    private LocalDate dateOfBirth;
+    @Column(name = "birthday", nullable = false)
+    private LocalDate birthday;
 
     @Column(name = "registered", nullable = false, columnDefinition = "timestamp default now()", updatable = false)
     @NotNull
@@ -47,12 +47,12 @@ public class Client extends NamedEntity {
     @JsonManagedReference
     private List<Order> orders = new ArrayList<>();
 
-    public Client(String name, String surname, String middleName, String residentialAddress, LocalDate dateOfBirth) {
+    public Client(String name, String surname, String middleName, String residentialAddress, LocalDate birthday) {
         super(null, name);
         this.surname = surname;
         this.middleName = middleName;
         this.residentialAddress = residentialAddress;
-        this.dateOfBirth = dateOfBirth;
+        this.birthday = birthday;
         this.registered = getCurrentDateTime();
     }
 
@@ -64,7 +64,7 @@ public class Client extends NamedEntity {
                 ", name='" + name +
                 ", middleName='" + middleName + '\'' +
                 ", residentialAddress='" + residentialAddress + '\'' +
-                ", dateOfBirth=" + dateOfBirth +
+                ", dateOfBirth=" + birthday +
                 ", registered=" + registered +
                 ", orders:" + stringBuilderCollection(orders);
     }
