@@ -64,7 +64,7 @@ public class Client extends NamedEntity {
                 ", name='" + name +
                 ", middleName='" + middleName + '\'' +
                 ", residentialAddress='" + residentialAddress + '\'' +
-                ", dateOfBirth=" + birthday +
+                ", birthday=" + birthday +
                 ", registered=" + registered +
                 ", orders:" + stringBuilderCollection(orders);
     }
