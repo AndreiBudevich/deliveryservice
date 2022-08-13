@@ -2,6 +2,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <header>
-    <a href="clients">Client</a> | <a href="orders">Order</a> | <a href="product">Shop</a> | <a href="shops">Category</a>
-    | <a href="categories">Category</a> |<a href="${pageContext.request.contextPath}">Home</a>
+    <a href="clients">Clients</a> | <a href="orders">Orders</a> | <a href="product">Products</a> | <a href="shops">Shops</a>
+    | <a href="categories">Categories</a> |<a href="${pageContext.request.contextPath}">Home</a>
 </header>
