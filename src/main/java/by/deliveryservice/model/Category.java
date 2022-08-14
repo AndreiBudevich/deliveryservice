@@ -15,13 +15,14 @@ import java.util.List;
                 name = "category_name_idx")})
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Category extends NamedEntity {
-    public Category(String name) {
-        super(null, name);
-    }
 
     @ManyToMany
     @JoinTable(name = "product_category",
             joinColumns = @JoinColumn(name = "category_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id"))
     private List<Product> products = new ArrayList<>();
+
+    public Category(String name) {
+        super(null, name);
+    }
 }
