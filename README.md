@@ -3,14 +3,14 @@ Java Delivery service Project
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/8c11d384cb914092b7037e31eeaafdd4)](https://www.codacy.com/gh/AndreiBudevich/deliveryservice/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=AndreiBudevich/deliveryservice&amp;utm_campaign=Badge_Grade)
 
 #### Pattern create
-- create client pattern -> client/create/surname; name; middleName; residentialAddress; dateOfBirth
+- create client pattern -> client/create/surname; name; middleName; residentialAddress; birthday
 - create category pattern -> category/create/name;
 - create shop pattern -> shop/create/name; address; description; contact
 - create product pattern -> product/create/name; description; id_shop; price; price;
 - create order pattern -> order/create/id_client; id_shop;
 
 #### Pattern update
-- update client pattern -> client/update/id_client/surname; name; middleName; residentialAddress; dateOfBirth
+- update client pattern -> client/update/id_client/surname; name; middleName; residentialAddress; birthday
 - update category pattern -> category/id_category/update/name;
 - update shop pattern -> shop/update/id_shop/name; address; description; contact
 - update product pattern -> product/id_product/update/name; description; id_shop; price; discount;
@@ -69,9 +69,9 @@ order/setAddress/id_order/text in address
 - category/create/бытовая техника
 - category/create/товары со скидкой
 
--client/create/Будевич; Андрей; Чеславович; г.Лида, ул. Радунская д.19; 02.04.1986
--client/create/Будевич; Татьяна; Александровна; г.Лида, ул. Машерова 21; 20.06.1990
--client/create/Будевич; Татьяна; Александровна; г.Лида, ул. Докучаева 63; 20.06.1979
+-client/create/Будевич; Андрей; Чеславович; г.Лида, ул. Радунская д.19; 1986-04-02
+-client/create/Будевич; Татьяна; Александровна; г.Лида, ул. Машерова 21; 1990-06-20
+-client/create/Будевич; Татьяна; Александровна; г.Лида, ул. Докучаева 63; 1979-09-21
 
 -order/create/1
 -order/create/1
