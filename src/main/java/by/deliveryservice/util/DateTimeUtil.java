@@ -12,7 +12,13 @@ import java.time.format.DateTimeParseException;
 @Slf4j
 public class DateTimeUtil {
 
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+    public static String toString(LocalDateTime ldt) {
+        return ldt == null ? "" : ldt.format(DATE_TIME_FORMATTER);
+    }
 
     public static LocalDateTime getCurrentDateTime() {
         return LocalDateTime.now();
@@ -20,7 +26,7 @@ public class DateTimeUtil {
 
     public static LocalDate getBirthday(String stringBirthday) {
         try {
-            return LocalDate.parse(stringBirthday, formatter);
+            return LocalDate.parse(stringBirthday, DATE_FORMATTER);
         } catch (DateTimeParseException e) {
             log.info("Unable to recognize date");
             return null;
