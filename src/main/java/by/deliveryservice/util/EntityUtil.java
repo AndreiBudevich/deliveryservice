@@ -10,7 +10,7 @@ import java.lang.reflect.Array;
 import java.util.*;
 import java.util.stream.LongStream;
 
-import static by.deliveryservice.util.DateTimeUtil.getDateOfBirth;
+import static by.deliveryservice.util.DateTimeUtil.getBirthday;
 import static by.deliveryservice.util.RepositoryUtil.getRepositoryClass;
 
 @UtilityClass
@@ -36,7 +36,7 @@ public class EntityUtil {
         try {
             switch (stringNameEntity) {
                 case ("client"):
-                    return new Client(fields[1], fields[0], fields[2], fields[3], getDateOfBirth(fields[4]));
+                    return new Client(fields[1], fields[0], fields[2], fields[3], getBirthday(fields[4]));
                 case ("category"):
                     return new Category(fields[0]);
                 case ("order"):
