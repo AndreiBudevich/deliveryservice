@@ -14,9 +14,8 @@
     <form method="post" action="categories">
         <input type="hidden" name="id" value="${category.id}">
         <dl>
-            <spring:message code="category.name"/>: <input type="text" value="${category.name}"
-                                                           size=25
-                                                           name="name" required>
+            <dt><spring:message code="category.name"/>:<dt>
+            <dd> <input type="text" value="${category.name}" size=25 name="name" required><dd>
         </dl>
         <button type="submit"><spring:message code="common.save"/></button>
         <button onclick="window.history.back()" type="button"><spring:message code="common.cancel"/></button>
