@@ -2,15 +2,17 @@ package by.deliveryservice.repository.datajpa;
 
 import by.deliveryservice.model.Category;
 import by.deliveryservice.repository.BaseRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public class DataJpaCategoryRepository implements BaseRepository<Category> {
 
-    private final CommonCrudRepository<Category> categoryCrudRepository;
+    private final CommonCrudRepository <Category> categoryCrudRepository;
 
-    public DataJpaCategoryRepository(CommonCrudRepository<Category> categoryCrudRepository) {
+    public DataJpaCategoryRepository(CategoryCrudRepository categoryCrudRepository) {
         this.categoryCrudRepository = categoryCrudRepository;
     }
 
