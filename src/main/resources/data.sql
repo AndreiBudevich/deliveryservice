@@ -36,7 +36,7 @@ VALUES (1, 2),
        (7, 1),
        (7, 3);
 
-INSERT INTO client_order (client_id, date_time, total_cost, delivery_address)
+INSERT INTO client_order (client_id, registered, total_cost, delivery_address)
 VALUES (1, '2022-04-02', 0, 'г.Лида, ул. Радунская д.19'),
        (2, '2022-06-10', 0, 'г.Лида, г.Лида, ул. Машерова 21'),
        (2, '2022-08-01', 0, 'г.Лида, ул. Машерова 27');

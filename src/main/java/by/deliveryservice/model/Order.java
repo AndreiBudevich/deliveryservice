@@ -31,8 +31,8 @@ public class Order extends BaseEntity {
     @JsonBackReference
     private Client client;
 
-    @Column(name = "date_time", nullable = false, columnDefinition = "timestamp default now()", updatable = false)
-    private LocalDateTime dateTime;
+    @Column(name = "registered", nullable = false, columnDefinition = "timestamp default now()", updatable = false)
+    private LocalDateTime registered;
 
     @Column(name = "total_cost", nullable = false)
     private Long totalCost;
@@ -48,7 +48,7 @@ public class Order extends BaseEntity {
 
     public Order(Client client) {
         this.client = client;
-        this.dateTime = getCurrentDateTime();
+        this.registered = getCurrentDateTime();
         this.deliveryAddress = client.getResidentialAddress();
     }
 
@@ -57,7 +57,7 @@ public class Order extends BaseEntity {
         return "Order " +
                 "id=" + id +
                 ", client id=" + client.getId() + "[" + client.getName() + "]" +
-                ", dateTime=" + dateTime +
+                ", registered=" + registered +
                 ", totalCost=" + totalCost +
                 ", deliveryAddress='" + deliveryAddress + '\'' +
                 ", products:" + stringBuilderCollection(products);

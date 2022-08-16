@@ -16,7 +16,7 @@ public class InFileOrderRepository extends InFileRepository<Order> implements Or
 
     @Override
     protected void updateEntity(Order order, Order orderOld) {
-        order.setDateTime(orderOld.getDateTime());
+        order.setRegistered(orderOld.getRegistered());
         repositoryInMemory.computeIfPresent(order.getId(), (id, oldClient) -> order);
     }
 
