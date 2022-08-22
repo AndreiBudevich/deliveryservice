@@ -47,8 +47,4 @@ window.addEventListener("load", function () {
     });
 });
 
-function enable(checkbox) {
-    let enabled = checkbox.is(":checked");
-    checkbox.closest("tr").attr("data-category-enabled", !!enabled);
-    successNoty(enabled ? "common.enabled" : "common.disabled");
-}
+

@@ -8,7 +8,6 @@ function makeEditable(datatableOpts) {
                     "url": ctx.ajaxUrl,
                     "dataSrc": ""
                 },
-                "bFilter": true,
                 "paging": false,
                 "info": true,
                 "language": {

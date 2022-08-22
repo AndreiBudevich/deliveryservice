@@ -12,37 +12,6 @@ const ctx = {
     }
 };
 
-function categoriesSerialize(categories) {
-    let res = "&categories=";
-    for (let key in categories) {
-        res = res + String(categories[key]) + "_";
-    }
-    return res;
-}
-
-function getCategories () {
-    let categories = [];
-    let datatable = document.getElementById('datatableCategory')
-    let rows = datatable.getElementsByTagName('tbody')[0].rows
-
-    $(rows).each(function (i, el) {
-        let tdNameCategory = $(el)[0].getElementsByTagName("td")[0];
-        let input = $(el)[0].getElementsByTagName("td")[1];
-        let checkbox = input.getElementsByTagName("input")[0];
-        let checked = checkbox.checked;
-        if (checked) {
-            let valueNameCategory = tdNameCategory.innerText;
-            categories.push(i + 1);
-        }
-    });
-    return categories;
-}
-
-function clearFilter() {
-    $("#filter")[0].reset();
-    $.get(productAjaxUrl, makeEditable);
-}
-
 $(function () {
     makeEditable({
         "columns": [
