@@ -1,6 +1,7 @@
 package by.deliveryservice.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectReader;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.databind.type.MapType;
 import com.fasterxml.jackson.databind.type.TypeFactory;
@@ -9,6 +10,7 @@ import lombok.experimental.UtilityClass;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static by.deliveryservice.util.FileUtil.getFileInResource;
@@ -26,13 +28,30 @@ public class JsonUtil {
         }
     }
 
-    public static <K, V> Map<K, V> readValues(String nameFile, Class<K> clazzKey, Class<V> clazzValue) {
+    public static <K, V> Map<K, V> mapReadValues(String nameFile, Class<K> clazzKey, Class<V> clazzValue) {
         try {
             TypeFactory typeFactory = mapper.getTypeFactory();
             MapType mapType = typeFactory.constructMapType(HashMap.class, clazzKey, clazzValue);
             return mapper.readValue(getFileInResource(nameFile), mapType);
         } catch (IOException e) {
             throw new IllegalArgumentException("Invalid read file " + nameFile + " from JSON:\n", e);
+        }
+    }
+
+    public static <T> T readValue(String json, Class<T> clazz) {
+        try {
+            return mapper.readValue(json, clazz);
+        } catch (IOException e) {
+            throw new IllegalArgumentException("Invalid read from JSON:\n'" + json + "'", e);
+        }
+    }
+
+    public static <T> List<T> readValues(String json, Class<T> clazz) {
+        ObjectReader reader = mapper.readerFor(clazz);
+        try {
+            return reader.<T>readValues(json).readAll();
+        } catch (IOException e) {
+            throw new IllegalArgumentException("Invalid read array from JSON:\n'" + json + "'", e);
         }
     }
 }

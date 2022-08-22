@@ -6,7 +6,7 @@ import by.deliveryservice.repository.BaseRepository;
 import java.util.*;
 
 import static by.deliveryservice.util.FileUtil.isEmpty;
-import static by.deliveryservice.util.JsonUtil.readValues;
+import static by.deliveryservice.util.JsonUtil.mapReadValues;
 import static by.deliveryservice.util.JsonUtil.writeEntity;
 
 public class InFileRepository<T extends BaseEntity> implements BaseRepository<T> {
@@ -78,7 +78,7 @@ public class InFileRepository<T extends BaseEntity> implements BaseRepository<T>
             System.out.println("Нет сохраненных данных");
             return;
         }
-        repositoryInMemory = readValues(nameFile, Integer.class, clazz);
+        repositoryInMemory = mapReadValues(nameFile, Integer.class, clazz);
     }
 
     protected int getMaxId() {
@@ -86,7 +86,7 @@ public class InFileRepository<T extends BaseEntity> implements BaseRepository<T>
     }
 
     protected void updateEntity(T t, T tOld) {
-        repositoryInMemory.computeIfPresent(t.getId(), (id, oldUser) -> t);
+        repositoryInMemory.computeIfPresent(t.getId(), (id, oldEntity) -> t);
     }
 
     protected T get(Integer id) {
