@@ -39,11 +39,13 @@ public class Product extends NamedEntity {
     private Integer discount;
 
     @ManyToMany(fetch = FetchType.LAZY)
+    @JsonBackReference
     @JoinTable(name = "product_category",
             joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Set<Category> categories = new HashSet<>();
 
+    @JsonBackReference
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "order_product",
             joinColumns = @JoinColumn(name = "product_id"),
