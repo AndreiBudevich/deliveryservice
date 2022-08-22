@@ -1,4 +1,4 @@
-package by.deliveryservice.web.jsp;
+package by.deliveryservice.web;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -12,5 +12,11 @@ public class RootController {
     public String root() {
         log.info("root");
         return "index";
+    }
+
+    @GetMapping("/products")
+    public String products() {
+        log.info("products");
+        return "products";
     }
 }
