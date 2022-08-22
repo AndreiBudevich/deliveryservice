@@ -47,4 +47,11 @@ public abstract class AbstractProductController {
         log.info("update {}", product);
         productRepository.save(product);
     }
+
+    List<Product> getAllWithFilter(String nameContains, String descriptionContains, Long priceFrom, Long priceUpTo, Integer discountFrom,
+                                   Integer discountUpTo, String [] idsCategories) {
+        log.info("get all with filter");
+        return productRepository.getAllWithFilter(nameContains, descriptionContains, priceFrom, priceUpTo,
+                discountFrom, discountUpTo, idsCategories);
+    }
 }
