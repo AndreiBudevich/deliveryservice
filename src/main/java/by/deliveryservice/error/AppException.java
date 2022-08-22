@@ -1,22 +1,20 @@
 package by.deliveryservice.error;
 
-import lombok.Getter;
-import org.springframework.boot.web.error.ErrorAttributeOptions;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.server.ResponseStatusException;
+public class AppException extends RuntimeException {
 
-@Getter
-public class AppException extends ResponseStatusException {
+    private final ErrorType type;
+    private final String msgCode;
 
-    private final ErrorAttributeOptions options;
-
-    public AppException(HttpStatus status, String message, ErrorAttributeOptions options) {
-        super(status, message);
-        this.options = options;
+    public AppException(String msgCode, ErrorType type) {
+        this.msgCode = msgCode;
+        this.type = type;
     }
 
-    @Override
-    public String getMessage() {
-        return getReason();
+    public String getMsgCode() {
+        return msgCode;
+    }
+
+    public ErrorType getType() {
+        return type;
     }
 }
