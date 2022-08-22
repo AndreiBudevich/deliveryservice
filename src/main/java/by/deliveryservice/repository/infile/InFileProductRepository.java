@@ -5,7 +5,6 @@ import by.deliveryservice.model.Product;
 import by.deliveryservice.repository.ProductRepository;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static by.deliveryservice.util.EntityUtil.getEntitiesByIdsArray;
 import static by.deliveryservice.util.StringUtil.contains;
@@ -43,14 +42,14 @@ public class InFileProductRepository extends InFileRepository<Product> implement
         readInFile();
         return repositoryInMemory.values().stream()
                 .sorted((p1, p2) -> (int) (p1.getPrice() - p2.getPrice()))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
     //search by fields
     public List<Product> findByAttributes(String... attributes) {
         if (attributes.length < 5) {
-            System.out.println("Не верно заданы атрибуты");
+            System.err.println("Не верно заданы атрибуты");
         }
         readInFile();
         return repositoryInMemory.values().stream()
@@ -60,7 +59,7 @@ public class InFileProductRepository extends InFileRepository<Product> implement
                 .filter(product -> containsName(product.getPrice().toString(), attributes[3]))
                 .filter(product -> containsName(product.getDiscount().toString(), attributes[4]))
                 .filter(product -> containsCategories(product.getCategories(), getSplit(attributes[5], ", ")))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     private boolean containsCategories(Set<Category> expectedCategories, String[] actualStringIdsCategories) {
