@@ -1,10 +1,9 @@
 package by.deliveryservice.web.category;
 
 import by.deliveryservice.model.Category;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -13,7 +12,31 @@ import java.util.List;
 public class CategoryUIController extends AbstractCategoryController {
 
     @GetMapping()
-    public List<Category> getAllCategory() {
+    @Override
+    public List<Category> getAll() {
         return super.getAll();
+    }
+
+    @Override
+    @GetMapping("/{id}")
+    public Category get(@PathVariable int id) {
+        return super.get(id);
+    }
+
+    @Override
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable int id) {
+        super.delete(id);
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void createOrUpdate(Category category) {
+        if (category.isNew()) {
+            super.create(category);
+        } else {
+            super.update(category, category.getId());
+        }
     }
 }
