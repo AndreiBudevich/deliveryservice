@@ -28,6 +28,9 @@ $(function () {
                 "data": "discount"
             },
             {
+                "data": "shop.name"
+            },
+            {
                 "render": renderAddShoppingBasket,
                 "defaultContent": "",
                 "orderable": false
