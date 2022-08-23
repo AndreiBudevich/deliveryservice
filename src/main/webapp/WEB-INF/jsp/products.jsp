@@ -1,7 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="fn" uri="http://by.deliveryservice.util/functions" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <html>
 <jsp:include page="fragments/headTag.jsp"/>
 <body>
@@ -22,7 +21,8 @@
                             <label for="nameContains"><spring:message code="product.nameContains"/></label>
                         </div>
                         <div class="col-2">
-                            <label for="descriptionContains"><spring:message code="product.descriptionContains"/></label>
+                            <label for="descriptionContains"><spring:message
+                                    code="product.descriptionContains"/></label>
                         </div>
                         <div class="col-3">
                             <label for="shopNameContains"><spring:message code="product.shopNameContains"/></label>
@@ -33,10 +33,12 @@
                             <input class="form-control" name="nameContains" id="nameContains" autocomplete="off">
                         </div>
                         <div class="col-2">
-                            <input class="form-control" name="descriptionContains" id="descriptionContains" autocomplete="off">
+                            <input class="form-control" name="descriptionContains" id="descriptionContains"
+                                   autocomplete="off">
                         </div>
                         <div class="col-2">
-                            <input class="form-control" name="shopNameContains" id="shopNameContains" autocomplete="off">
+                            <input class="form-control" name="shopNameContains" id="shopNameContains"
+                                   autocomplete="off">
                         </div>
                     </div>
                     <div class="row">
