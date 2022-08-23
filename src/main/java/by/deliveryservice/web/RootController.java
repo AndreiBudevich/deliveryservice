@@ -31,4 +31,10 @@ public class RootController {
         log.info("shops");
         return "shops";
     }
+
+    @GetMapping("/clients")
+    public String clients() {
+        log.info("clients");
+        return "clients";
+    }
 }
