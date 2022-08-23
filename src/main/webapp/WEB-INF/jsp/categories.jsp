@@ -12,7 +12,7 @@
 <div class="jumbotron pt-4">
     <div class="container">
         <h3 class="text-center"><spring:message code="category.title"/></h3>
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editRow">
+        <button type="button" class="btn btn-primary" onclick="add()" data-bs-toggle="modal" data-bs-target="#editRow">
             <spring:message code="common.add"/>
         </button>
         <table class="table table-striped" id="datatable">
