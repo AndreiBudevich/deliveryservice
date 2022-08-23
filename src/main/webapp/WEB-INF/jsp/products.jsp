@@ -11,8 +11,6 @@
 <script type="text/javascript" src="resources/js/filter.js" defer></script>
 <jsp:include page="fragments/bodyHeader.jsp"/>
 
-<div id="grid"></div>
-
 <div class="jumbotron pt-4">
     <div class="container">
         <h3 class="text-center"><spring:message code="product.title"/></h3>
