@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
+import static by.deliveryservice.util.ProductUtil.filteringByCategory;
+
 @Repository
 public class DataJpaProductRepository implements ProductRepository {
 
@@ -19,16 +21,19 @@ public class DataJpaProductRepository implements ProductRepository {
 
     @Override
     public List<Product> getAll() {
-        return productCrudRepository.findAll();
+        return productCrudRepository.getAll();
+    }
+
+    public List<Product> getAllWithFilter(String nameContains, String descriptionContains, String shopNameContains, Long priceFrom, Long priceUpTo,
+                                          Integer discountFrom, Integer discountUpTo, String[] actualStringIdsCategories) {
+        return filteringByCategory(productCrudRepository.getAllWithFilter("%" + nameContains + "%", "%" +
+                        descriptionContains + "%", "%" + shopNameContains + "%", priceFrom, priceUpTo,
+                discountFrom, discountUpTo), actualStringIdsCategories);
     }
 
     @Override
     public Optional<Product> get(int id) {
         return productCrudRepository.findById(id);
-    }
-
-    public Product getReferenceById(int id) {
-        return productCrudRepository.getReferenceById(id);
     }
 
     @Override
