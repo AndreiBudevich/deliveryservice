@@ -25,4 +25,10 @@ public class RootController {
         log.info("categories");
         return "categories";
     }
+
+    @GetMapping("/shops")
+    public String shops() {
+        log.info("shops");
+        return "shops";
+    }
 }
