@@ -29,7 +29,6 @@ public class Product extends NamedEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "shop_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonBackReference
     private Shop shop;
 
     @Column(name = "price", nullable = false)
