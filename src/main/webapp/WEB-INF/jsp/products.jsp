@@ -22,13 +22,23 @@
                     <div class="row">
                         <div class="col-2">
                             <label for="nameContains"><spring:message code="product.nameContains"/></label>
+                        </div>
+                        <div class="col-2">
+                            <label for="descriptionContains"><spring:message code="product.descriptionContains"/></label>
+                        </div>
+                        <div class="col-3">
+                            <label for="shopNameContains"><spring:message code="product.shopNameContains"/></label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
                             <input class="form-control" name="nameContains" id="nameContains" autocomplete="off">
                         </div>
                         <div class="col-2">
-                            <label for="descriptionContains"><spring:message
-                                    code="product.descriptionContains"/></label>
-                            <input class="form-control" name="descriptionContains" id="descriptionContains"
-                                   autocomplete="off">
+                            <input class="form-control" name="descriptionContains" id="descriptionContains" autocomplete="off">
+                        </div>
+                        <div class="col-2">
+                            <input class="form-control" name="shopNameContains" id="shopNameContains" autocomplete="off">
                         </div>
                     </div>
                     <div class="row">
@@ -87,6 +97,7 @@
                 <th><spring:message code="product.description"/></th>
                 <th><spring:message code="product.price"/></th>
                 <th><spring:message code="product.discount"/></th>
+                <th><spring:message code="product.shop"/></th>
                 <th></th>
             </tr>
             </thead>
