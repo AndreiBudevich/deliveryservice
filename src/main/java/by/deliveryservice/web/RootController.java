@@ -19,4 +19,10 @@ public class RootController {
         log.info("products");
         return "products";
     }
+
+    @GetMapping("/categories")
+    public String categories() {
+        log.info("categories");
+        return "categories";
+    }
 }
