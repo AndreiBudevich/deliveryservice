@@ -1,12 +1,13 @@
 package by.deliveryservice.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sun.istack.NotNull;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -37,14 +38,16 @@ public class Client extends NamedEntity {
     private String residentialAddress;
 
     @Column(name = "birthday", nullable = false)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate birthday;
 
     @Column(name = "registered", nullable = false, columnDefinition = "timestamp default now()", updatable = false)
     @NotNull
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime registered;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "client")
-    @JsonManagedReference
+    @JsonBackReference
     private List<Order> orders = new ArrayList<>();
 
     public Client(String name, String surname, String middleName, String residentialAddress, LocalDate birthday) {
