@@ -1,7 +1,7 @@
 package by.deliveryservice.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,8 +32,8 @@ public class Shop extends NamedEntity {
     @Column(name = "contact", nullable = false)
     private String contact;
 
+    @JsonBackReference
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "shop")
-    @JsonManagedReference
     private List<Product> products = new ArrayList<>();
 
     public Shop(String name, String address, String description, String contact) {
