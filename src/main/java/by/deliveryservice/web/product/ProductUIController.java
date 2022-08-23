@@ -25,12 +25,13 @@ public class ProductUIController extends AbstractProductController {
     @GetMapping("/filter")
     public List<Product> getAllWithFilter(@RequestParam @Nullable String nameContains,
                                           @RequestParam @Nullable String descriptionContains,
+                                          @RequestParam @Nullable String shopNameContains,
                                           @RequestParam @NotNull Long priceFrom,
                                           @RequestParam @NotNull Long priceUpTo,
                                           @RequestParam @NotNull Integer discountFrom,
                                           @RequestParam @NotNull Integer discountUpTo,
                                           @RequestParam @NotNull String categories) {
-        return super.getAllWithFilter(nameContains, descriptionContains, priceFrom, priceUpTo,
+        return super.getAllWithFilter(nameContains, descriptionContains, shopNameContains, priceFrom, priceUpTo,
                 discountFrom, discountUpTo, categories.split("_"));
     }
 }
