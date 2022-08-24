@@ -12,22 +12,27 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="clients"><spring:message code="client.title"/></a>
+                    <a class="nav-link active" aria-current="page" href="clients"><spring:message
+                            code="client.title"/></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="orders"><spring:message code="order.title"/></a>
+                    <a class="nav-link active" aria-current="page" href="orders"><spring:message
+                            code="order.title"/></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="products"><spring:message code="product.title"/></a>
+                    <a class="nav-link active" aria-current="page" href="products"><spring:message
+                            code="product.title"/></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="shops"><spring:message code="shop.title"/></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="categories"><spring:message code="category.title"/></a>
+                    <a class="nav-link active" aria-current="page" href="categories"><spring:message
+                            code="category.title"/></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}"><spring:message code="app.home"/></a>
+                    <a class="nav-link active" aria-current="page"
+                       href="${pageContext.request.contextPath}"><spring:message code="app.home"/></a>
                 </li>
             </ul>
         </div>

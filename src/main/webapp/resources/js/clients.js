@@ -11,11 +11,12 @@ $(function () {
     makeEditable({
         "columns": [
             {
-                "data": "name"
-            },
-            {
                 "data": "surname"
             },
+            {
+                "data": "name"
+            },
+
             {
                 "data": "middleName"
             },

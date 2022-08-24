@@ -26,7 +26,8 @@
     </div>
 </div>
 
-<div class="modal fade" id="editRow" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="editRow" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -44,8 +45,10 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><spring:message code="common.cancel"/></button>
-                <button type="button" class="btn btn-primary" onclick="save()"><spring:message code="common.save"/></button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><spring:message
+                        code="common.cancel"/></button>
+                <button type="button" class="btn btn-primary" onclick="save()"><spring:message
+                        code="common.save"/></button>
             </div>
         </div>
     </div>

@@ -26,10 +26,10 @@ window.addEventListener("load", function () {
     });
 });
 
-function runFilter () {
+function runFilter() {
     ctx.updateTable();
     parameter_update_status = false
-    event_status=false
+    event_status = false
     setTimeout(filterGetParameters, 200);
 }
 

@@ -32,7 +32,8 @@
     </div>
 </div>
 
-<div class="modal fade" id="editRow" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="editRow" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -43,22 +44,24 @@
                 <form id="detailsForm">
                     <input type="hidden" id="id" name="id">
                     <div class="form-group">
-                        <label for="name" class="col-form-label"><spring:message code="client.name"/></label>
-                        <input type="text" class="form-control" id="name" name="name"
-                               placeholder="<spring:message code="client.name"/>">
-                    </div>
-                    <div class="form-group">
                         <label for="surname" class="col-form-label"><spring:message code="client.surname"/></label>
                         <input type="text" class="form-control" id="surname" name="surname"
                                placeholder="<spring:message code="client.surname"/>">
                     </div>
                     <div class="form-group">
-                        <label for="middleName" class="col-form-label"><spring:message code="client.middleName"/></label>
+                        <label for="name" class="col-form-label"><spring:message code="client.name"/></label>
+                        <input type="text" class="form-control" id="name" name="name"
+                               placeholder="<spring:message code="client.name"/>">
+                    </div>
+                    <div class="form-group">
+                        <label for="middleName" class="col-form-label"><spring:message
+                                code="client.middleName"/></label>
                         <input type="text" class="form-control" id="middleName" name="middleName"
                                placeholder="<spring:message code="client.middleName"/>">
                     </div>
                     <div class="form-group">
-                        <label for="residentialAddress" class="col-form-label"><spring:message code="client.residentialAddress"/></label>
+                        <label for="residentialAddress" class="col-form-label"><spring:message
+                                code="client.residentialAddress"/></label>
                         <input type="text" class="form-control" id="residentialAddress" name="residentialAddress"
                                placeholder="<spring:message code="client.residentialAddress"/>">
                     </div>
@@ -70,8 +73,10 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><spring:message code="common.cancel"/></button>
-                <button type="button" class="btn btn-primary" onclick="save()"><spring:message code="common.save"/></button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><spring:message
+                        code="common.cancel"/></button>
+                <button type="button" class="btn btn-primary" onclick="save()"><spring:message
+                        code="common.save"/></button>
             </div>
         </div>
     </div>

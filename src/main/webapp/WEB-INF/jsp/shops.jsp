@@ -30,7 +30,8 @@
     </div>
 </div>
 
-<div class="modal fade" id="editRow" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="editRow" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -46,7 +47,8 @@
                                placeholder="<spring:message code="shop.name"/>">
                     </div>
                     <div class="form-group">
-                        <label for="description" class="col-form-label"><spring:message code="shop.description"/></label>
+                        <label for="description" class="col-form-label"><spring:message
+                                code="shop.description"/></label>
                         <input type="text" class="form-control" id="description" name="description"
                                placeholder="<spring:message code="shop.description"/>">
                     </div>
@@ -63,8 +65,10 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><spring:message code="common.cancel"/></button>
-                <button type="button" class="btn btn-primary" onclick="save()"><spring:message code="common.save"/></button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><spring:message
+                        code="common.cancel"/></button>
+                <button type="button" class="btn btn-primary" onclick="save()"><spring:message
+                        code="common.save"/></button>
             </div>
         </div>
     </div>

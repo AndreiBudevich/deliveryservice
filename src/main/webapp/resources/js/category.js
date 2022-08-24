@@ -13,7 +13,7 @@ function makeEditableCategory(datatableOpts) {
             }
         ));
     form = $('#detailsForm');
-    ajaxError ();
+    ajaxError();
     ajaxSetup()
 }
 

@@ -3,11 +3,11 @@ const productAjaxUrl = "api/products";
 const ctx = {
     ajaxUrl: productAjaxUrl,
     updateTable: function () {
-        let categories = getCategories ();
+        let categories = getCategories();
         $.ajax({
             type: "GET",
             url: productAjaxUrl + "/filter",
-            data: $("#filter").serialize() + categoriesSerialize (categories)
+            data: $("#filter").serialize() + categoriesSerialize(categories)
         }).done(updateTableByData);
     }
 };
