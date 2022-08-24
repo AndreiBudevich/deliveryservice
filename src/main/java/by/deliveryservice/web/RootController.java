@@ -37,4 +37,16 @@ public class RootController {
         log.info("clients");
         return "clients";
     }
+
+    @GetMapping("/orders")
+    public String orders() {
+        log.info("orders");
+        return "orders";
+    }
+
+    @GetMapping("/client_orders")
+    public String clientOrders() {
+        log.info("client orders");
+        return "clientOrders";
+    }
 }
