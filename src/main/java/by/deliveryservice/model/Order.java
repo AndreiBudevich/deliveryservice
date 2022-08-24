@@ -28,7 +28,6 @@ public class Order extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonBackReference
     private Client client;
 
     @Column(name = "registered", nullable = false, columnDefinition = "timestamp default now()", updatable = false)
@@ -44,7 +43,11 @@ public class Order extends BaseEntity {
     @JoinTable(name = "order_product",
             joinColumns = @JoinColumn(name = "order_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id"))
+    @JsonBackReference
     private List<Product> products = new ArrayList<>();
+
+    @Column(name = "shipped", nullable = false, columnDefinition = "bool default false")
+    private boolean shipped;
 
     public Order(Client client) {
         this.client = client;
