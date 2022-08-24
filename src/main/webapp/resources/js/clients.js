@@ -59,22 +59,6 @@ $(function () {
     });
 });
 
-/*$.ajaxSetup({
-    converters: {
-        "text json": function (stringData) {
-            let json = JSON.parse(stringData);
-            if (typeof json === 'object') {
-                $(json).each(function () {
-                    if (this.hasOwnProperty('registered')) {
-                        this.dateTime = this.dateTime.substr(0, 16).replace('T', ' ');
-                    }
-                });
-            }
-            return json;
-        }
-    }
-});*/
-
 function seeOrderBtn(data, type, row) {
     if (type === "display") {
         return "<a onclick='getClientOrders();'><span class='fa fa-shopping-bag'></span></a>";
