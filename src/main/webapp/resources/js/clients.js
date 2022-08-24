@@ -37,7 +37,7 @@ $(function () {
             {
                 "orderable": false,
                 "defaultContent": "",
-                "render": seeOrderBtn
+                "render": getClientOrdersBtn
             },
             {
                 "orderable": false,
@@ -59,11 +59,8 @@ $(function () {
     });
 });
 
-function seeOrderBtn(data, type, row) {
+function getClientOrdersBtn(data, type, row) {
     if (type === "display") {
-        return "<a onclick='getClientOrders();'><span class='fa fa-shopping-bag'></span></a>";
+        return "<a href='client_orders?clientId=" + row.id +"'>"+"<span class='fa fa-shopping-bag'></span></a>";
     }
-}
-
-function getClientOrders () {
 }
