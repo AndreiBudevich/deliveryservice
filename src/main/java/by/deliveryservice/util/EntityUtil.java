@@ -40,7 +40,7 @@ public class EntityUtil {
                 case ("category"):
                     return new Category(fields[0]);
                 case ("order"):
-                    return new Order(Objects.requireNonNull(getEntity(fields[0], "client")));
+                    return new Order(Objects.requireNonNull(getEntity(fields[0], "client")), null);
                 case ("product"):
                     return new Product(fields[0], fields[1], Objects.requireNonNull(getEntity(fields[2], "shop")),
                             Long.parseLong(fields[3]), Integer.parseInt(fields[4]));
