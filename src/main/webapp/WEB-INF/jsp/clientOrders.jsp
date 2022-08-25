@@ -13,7 +13,31 @@
 <div class="jumbotron pt-4">
     <div class="container">
         <h3 class="text-center"><spring:message code="order.title"/></h3>
-        <button type="button" class="btn btn-primary" onclick="add()" data-bs-toggle="modal" data-bs-target="#editRow">
+        <div class="card border-dark">
+            <div class="card-body pb-0">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-2">
+                            <h6 class="text-lg-start"><spring:message code="order.clientName"/>:</h6>
+                        </div>
+                        <div class="col-5">
+                            <h6 class="text-lg-start"><p class="clientName">${param.clientName}</p></h6>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                            <h6 class="text-lg-start"><spring:message code="client.residentialAddress"/>:</h6>
+                        </div>
+                        <div class="col-5">
+                            <h6 class="text-lg-start"><p class="clientName">${param.residentialAddress}</p></h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <button type="button" class="btn btn-primary" onclick="addWithSetAddress()" data-bs-toggle="modal"
+                data-bs-target="#editRow">
             <spring:message code="common.add"/>
         </button>
         <table class="table table-striped" id="datatable">
@@ -43,9 +67,10 @@
                 <form id="detailsForm">
                     <input type="hidden" id="id" name="id">
                     <div class="form-group">
-                        <label for="name" class="col-form-label"><spring:message code="category.name"/></label>
-                        <input type="text" class="form-control" id="name" name="name"
-                               placeholder="<spring:message code="category.name"/>">
+                        <label for="deliveryAddress" class="col-form-label"><spring:message
+                                code="order.deliveryAddress"/></label>
+                        <input type="text" class="form-control" id="deliveryAddress" name="deliveryAddress"
+                               placeholder="<spring:message code="order.deliveryAddress"/>">
                     </div>
                 </form>
             </div>
