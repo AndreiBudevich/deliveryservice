@@ -34,7 +34,7 @@ public class Order extends BaseEntity {
     private LocalDateTime registered;
 
     @Column(name = "total_cost", nullable = false)
-    private Long totalCost;
+    private Long totalCost = 0L;
 
     @Column(name = "delivery_address", nullable = false)
     private String deliveryAddress;
@@ -49,17 +49,17 @@ public class Order extends BaseEntity {
     @Column(name = "shipped", nullable = false, columnDefinition = "bool default false")
     private boolean shipped;
 
-    public Order(Client client) {
+    public Order(Client client, String deliveryAddress) {
         this.client = client;
         this.registered = getCurrentDateTime();
-        this.deliveryAddress = client.getResidentialAddress();
+        this.deliveryAddress=deliveryAddress;
     }
 
     @Override
     public String toString() {
         return "Order " +
                 "id=" + id +
-                ", client id=" + client.getId() + "[" + client.getName() + "]" +
+                ", client=" + client +
                 ", registered=" + registered +
                 ", totalCost=" + totalCost +
                 ", deliveryAddress='" + deliveryAddress + '\'' +
