@@ -36,15 +36,15 @@ public abstract class AbstractOrderController {
         return orderRepository.getAllByClientId(clientId);
     }
 
-    public Order create(Order order) {
+    public Order create(Order order, int clientId) {
         checkNew(order);
-        log.info("create {}", order);
-        return orderRepository.save(order);
+        log.info("create {}  for client {}", order, clientId);
+        return orderRepository.save(order, clientId);
     }
 
-    public void update(Order order, int id) {
+    public void update(Order order, int id, int clientId) {
         assureIdConsistent(order, id);
         log.info("update {}", order);
-        orderRepository.save(order);
+        orderRepository.save(order, clientId);
     }
 }
