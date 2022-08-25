@@ -1,14 +1,14 @@
 package by.deliveryservice.repository.datajpa;
 
 import by.deliveryservice.model.Client;
-import by.deliveryservice.repository.BaseRepository;
+import by.deliveryservice.repository.ClientRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class DataJpaClientRepository implements BaseRepository<Client> {
+public class DataJpaClientRepository implements ClientRepository {
 
     CommonCrudRepository<Client> clientCrudRepository;
 
