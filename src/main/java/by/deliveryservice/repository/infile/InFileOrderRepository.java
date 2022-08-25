@@ -1,14 +1,18 @@
 package by.deliveryservice.repository.infile;
 
+import by.deliveryservice.model.Client;
 import by.deliveryservice.model.Order;
 import by.deliveryservice.model.Product;
 import by.deliveryservice.repository.OrderRepository;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 import static by.deliveryservice.util.EntityUtil.calculationTotalCost;
 
 public class InFileOrderRepository extends InFileRepository<Order> implements OrderRepository {
+
+    InFileClientRepository inFileClientRepository = new InFileClientRepository();
 
     public InFileOrderRepository() {
         super("json/orders.json", Order.class);
@@ -22,6 +26,10 @@ public class InFileOrderRepository extends InFileRepository<Order> implements Or
 
     @Override
     public Order save(Order order, int clientId) {
+        Optional<Client> client = inFileClientRepository.get(clientId);
+        if (client.isPresent()) {
+            order.setDeliveryAddress(client.orElse(null).getResidentialAddress());
+        }
         return super.save(order);
     }
 
