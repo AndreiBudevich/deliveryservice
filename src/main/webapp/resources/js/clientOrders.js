@@ -1,4 +1,5 @@
-const orderOrderAjaxUrl = "api/orders/clients/" + getUrlParameters()[1];
+const parameters = getUrlParameters();
+const orderOrderAjaxUrl = "api/clients/" + parameters[1] + "/orders/";
 
 const ctx = {
     ajaxUrl: orderOrderAjaxUrl,
@@ -8,6 +9,7 @@ const ctx = {
 }
 
 $(function () {
+    $('#clientName').val(parameters[2]);
     makeEditable({
         "columns": [
             {
@@ -54,3 +56,8 @@ $(function () {
     });
 });
 
+function addWithSetAddress() {
+    form.find(":input").val("");
+    $("#modalTitle").html(i18n["addTitle"]);
+    $("#deliveryAddress").val(decodeURIComponent(parameters[2]));
+}
