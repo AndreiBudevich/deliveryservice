@@ -8,40 +8,41 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "api/orders", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "api/clients", produces = MediaType.APPLICATION_JSON_VALUE)
 public class OrderUIController extends AbstractOrderController {
-    @GetMapping()
+
+    @GetMapping("/orders")
     @Override
     public List<Order> getAll() {
         return super.getAll();
     }
 
-    @GetMapping("/clients/{clientId}")
+    @GetMapping("/{clientId}/orders")
     @Override
     public List<Order> getAllByClientId(@PathVariable int clientId) {
         return super.getAllByClientId(clientId);
     }
 
     @Override
-    @GetMapping("/{id}")
-    public Order get(@PathVariable int id) {
-        return super.get(id);
+    @GetMapping("/{clientId}/orders/{id}")
+    public Order get(@PathVariable int id, @PathVariable int clientId) {
+        return super.get(id, clientId);
     }
 
     @Override
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{clientId}/orders/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable int id) {
-        super.delete(id);
+    public void delete(@PathVariable int id, @PathVariable int clientId) {
+        super.delete(id, clientId);
     }
 
-    @PostMapping
+    @PostMapping("/{clientId}/orders")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void createOrUpdate(Order order) {
+    public void createOrUpdate(Order order, @PathVariable int clientId) {
         if (order.isNew()) {
-            super.create(order);
+            super.create(order, clientId);
         } else {
-            super.update(order, order.getId());
+            super.update(order, order.getId(), clientId);
         }
     }
 }
