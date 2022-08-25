@@ -21,6 +21,11 @@ public class InFileOrderRepository extends InFileRepository<Order> implements Or
     }
 
     @Override
+    public Order save(Order order, int clientId) {
+        return super.save(order);
+    }
+
+    @Override
     public void addProducts(Integer id, Product... products) {
         addOrDeleteProducts(id, "add", products);
     }
