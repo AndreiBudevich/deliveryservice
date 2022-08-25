@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface ProductRepository extends BaseRepository<Product> {
 
+    Product save(Product product);
+
     void addCategories(Integer id, Category... categories);
 
     void deleteCategories(Integer id, Category... categories);

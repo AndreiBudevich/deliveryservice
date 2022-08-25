@@ -5,6 +5,8 @@ import by.deliveryservice.model.Product;
 
 public interface OrderRepository extends BaseRepository<Order> {
 
+    Order save(Order order, int clientId);
+
     void addProducts(Integer id, Product... products);
 
     void deleteProducts(Integer id, Product... products);
