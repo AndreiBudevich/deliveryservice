@@ -10,6 +10,4 @@ public interface BaseRepository<T> {
     Optional<T> get(int id);
 
     void delete(int id);
-
-    T save(T t);
 }
