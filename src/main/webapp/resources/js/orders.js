@@ -1,4 +1,4 @@
-const orderAjaxUrl = "api/orders/";
+const orderAjaxUrl = "api/clients/orders/";
 
 const ctx = {
     ajaxUrl: orderAjaxUrl,
