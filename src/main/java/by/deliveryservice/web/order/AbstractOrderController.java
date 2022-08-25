@@ -16,13 +16,13 @@ public abstract class AbstractOrderController {
     @Autowired
     private DataJpaOrderRepository orderRepository;
 
-    public Order get(int id) {
-        log.info("get order {}", id);
+    public Order get(int id, int clientId) {
+        log.info("get order {} by client id {}", id, clientId);
         return orderRepository.get(id).orElse(null);
     }
 
-    public void delete(int id) {
-        log.info("delete order {}", id);
+    public void delete(int id, int clientId) {
+        log.info("delete order {} by client id {}", id, clientId);
         orderRepository.delete(id);
     }
 
