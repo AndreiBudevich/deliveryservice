@@ -49,4 +49,10 @@ public class RootController {
         log.info("client orders");
         return "clientOrders";
     }
+
+    @GetMapping("/order_details")
+    public String orderDetails() {
+        log.info("order details");
+        return "orderDetails";
+    }
 }
