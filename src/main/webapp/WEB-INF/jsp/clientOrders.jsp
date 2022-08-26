@@ -47,6 +47,7 @@
                 <th><spring:message code="order.deliveryAddress"/></th>
                 <th><spring:message code="order.totalCost"/></th>
                 <th><spring:message code="order.shipped"/></th>
+                <th><spring:message code="product.title"/></th>
                 <th></th>
                 <th></th>
             </tr>
