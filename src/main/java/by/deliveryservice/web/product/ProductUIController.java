@@ -4,10 +4,7 @@ import by.deliveryservice.model.Product;
 import com.sun.istack.NotNull;
 import org.springframework.http.MediaType;
 import org.springframework.lang.Nullable;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,6 +18,11 @@ public class ProductUIController extends AbstractProductController {
         return super.getAll();
     }
 
+    @Override
+    @GetMapping("/{id}")
+    public Product get(@PathVariable int id) {
+        return super.get(id);
+    }
 
     @GetMapping("/filter")
     public List<Product> getAllWithFilter(@RequestParam @Nullable String nameContains,
