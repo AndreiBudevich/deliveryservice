@@ -9,7 +9,6 @@ const ctx = {
 }
 
 $(function () {
-    $('#clientName').val(parameters[2]);
     makeEditable({
         "columns": [
             {
@@ -39,6 +38,11 @@ $(function () {
             {
                 "orderable": false,
                 "defaultContent": "",
+                "render": getOrderProductsBtn
+            },
+            {
+                "orderable": false,
+                "defaultContent": "",
                 "render": renderEditBtn
             },
             {
@@ -60,4 +64,13 @@ function addWithSetAddress() {
     form.find(":input").val("");
     $("#modalTitle").html(i18n["addTitle"]);
     $("#deliveryAddress").val(decodeURIComponent(parameters[2]));
+}
+
+function getOrderProductsBtn(data, type, row) {
+    if (type === "display") {
+        return "<a href='order_details?" + $.param({
+            clientId: parameters[1],
+            orderId: row.id,
+        }) + "'>" + "<span class='fa fa-shopping-basket'></span></a>";
+    }
 }
