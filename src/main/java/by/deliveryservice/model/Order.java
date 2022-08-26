@@ -1,6 +1,5 @@
 package by.deliveryservice.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -11,11 +10,8 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 import static by.deliveryservice.util.DateTimeUtil.getCurrentDateTime;
-import static by.deliveryservice.util.StringUtil.stringBuilderCollection;
 
 @Entity
 @Getter
@@ -39,20 +35,13 @@ public class Order extends BaseEntity {
     @Column(name = "delivery_address", nullable = false)
     private String deliveryAddress;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "order_product",
-            joinColumns = @JoinColumn(name = "order_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id"))
-    @JsonBackReference
-    private List<Product> products = new ArrayList<>();
-
     @Column(name = "shipped", nullable = false, columnDefinition = "bool default false")
     private boolean shipped;
 
     public Order(Client client, String deliveryAddress) {
         this.client = client;
         this.registered = getCurrentDateTime();
-        this.deliveryAddress=deliveryAddress;
+        this.deliveryAddress = deliveryAddress;
     }
 
     @Override
@@ -62,8 +51,7 @@ public class Order extends BaseEntity {
                 ", client=" + client +
                 ", registered=" + registered +
                 ", totalCost=" + totalCost +
-                ", deliveryAddress='" + deliveryAddress + '\'' +
-                ", products:" + stringBuilderCollection(products);
+                ", deliveryAddress='" + deliveryAddress;
     }
 }
 
