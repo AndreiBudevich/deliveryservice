@@ -35,15 +35,15 @@ public class InFileOrderRepository extends InFileRepository<Order> implements Or
 
     @Override
     public void addProducts(Integer id, Product... products) {
-        addOrDeleteProducts(id, "add", products);
+       /* addOrDeleteProducts(id, "add", products);*/
     }
 
     @Override
     public void deleteProducts(Integer id, Product... products) {
-        addOrDeleteProducts(id, "delete", products);
+     /*   addOrDeleteProducts(id, "delete", products);*/
     }
 
-    private void addOrDeleteProducts(Integer id, String operation, Product... products) {
+   /* private void addOrDeleteProducts(Integer id, String operation, Product... products) {
         Order order = get(id);
         Arrays.asList(products).forEach(product -> {
             if (operation.equals("add")) {
@@ -54,7 +54,7 @@ public class InFileOrderRepository extends InFileRepository<Order> implements Or
         });
         order.setTotalCost(calculationTotalCost(order.getProducts()));
         saveAndPrint(order);
-    }
+    }*/
 
     @Override
     public void setAddress(Integer id, String deliveryAddress) {
