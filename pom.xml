@@ -21,7 +21,6 @@
     <webjars-jquery.version>3.6.0</webjars-jquery.version>
     <webjars-noty.version>3.1.4</webjars-noty.version>
     <webjars-datatables.version>1.12.1</webjars-datatables.version>
-    <webjars-datatables.version>1.11.4</webjars-datatables.version>
     <jstl.version>1.2</jstl.version>
 </properties>
 
@@ -64,6 +63,12 @@
     <dependency>
         <groupId>org.apache.tomcat.embed</groupId>
         <artifactId>tomcat-embed-jasper</artifactId>
+    </dependency>
+
+    <dependency>
+        <groupId>org.modelmapper</groupId>
+        <artifactId>modelmapper</artifactId>
+        <version>2.4.5</version>
     </dependency>
 
     <dependency>
