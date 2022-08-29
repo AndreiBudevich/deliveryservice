@@ -13,7 +13,9 @@
 <div class="jumbotron pt-4">
     <div class="container">
         <h3 class="text-center"><spring:message code="order.details.title"/></h3>
-
+        <button type="button" class="btn btn-primary" onclick="add()" data-bs-toggle="modal" data-bs-target="#editRow">
+            <spring:message code="common.add"/>
+        </button>
         <table class="table table-striped" id="datatable">
             <thead>
             <tr>
@@ -26,6 +28,35 @@
             </tr>
             </thead>
         </table>
+    </div>
+</div>
+
+<div class="modal fade" id="editRow" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="detailsForm">
+                    <input type="hidden" id="id" name="id">
+                    <input type="hidden" id="price" name="price">
+                    <div class="form-group">
+                        <label for="quanity" class="col-form-label"><spring:message code="order.details.quanity"/></label>
+                        <input type="text" class="form-control" id="quanity" name="quanity"
+                               placeholder="<spring:message code="order.details.quanity"/>">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><spring:message
+                        code="common.cancel"/></button>
+                <button type="button" class="btn btn-primary" onclick="saveOrderDetails()"><spring:message
+                        code="common.save"/></button>
+            </div>
+        </div>
     </div>
 </div>
 
