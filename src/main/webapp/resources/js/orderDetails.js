@@ -1,6 +1,5 @@
 const parameters = getUrlParameters();
-const clientAjaxUrl = "api/clients/" + parameters[1] + "/orders/" + parameters[2] + "/details";
-const productAjaxUrl = "api/products/";
+const clientAjaxUrl = "api/clients/" + parameters[1] + "/orders/" + parameters[2] + "/details/";
 
 const ctx = {
     ajaxUrl: clientAjaxUrl,
@@ -28,7 +27,7 @@ $(function () {
             {
                 "orderable": false,
                 "defaultContent": "",
-                "render": renderEditBtn
+                "render": renderEditRowOrderBtn
             },
             {
                 "orderable": false,
@@ -44,3 +43,33 @@ $(function () {
         ],
     });
 });
+
+function renderEditRowOrderBtn(data, type, row) {
+    if (type === "display") {
+        return "<a onclick='updateRow(" + row.id + ");'><span class='fa fa-pencil'></span></a>";
+    }
+}
+
+function saveOrderDetails() {
+    let idProduct;
+
+    let datatable = $('#datatable').DataTable();
+    let data = datatable.rows().data();
+    let idRow = $('#detailsForm')[0][0].value;
+    data.each(function (value, index) {
+        let idRowActual = value['id'];
+        if (idRowActual.toString()===idRow.toString()) {
+            idProduct = value['product']['id'];
+        }
+    });
+
+    $.ajax({
+        type: "POST",
+        url: ctx.ajaxUrl + idProduct,
+        data: form.serialize()
+    }).done(function () {
+        $("#editRow").modal("hide");
+        ctx.updateTable();
+        successNoty("common.saved");
+    });
+}
