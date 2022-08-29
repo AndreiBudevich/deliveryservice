@@ -28,12 +28,7 @@ $(function () {
                 "data": "discount"
             },
             {
-                "data": "shop.name"
-            },
-            {
-                "render": renderAddShoppingBasket,
-                "defaultContent": "",
-                "orderable": false
+                "data": "nameShop"
             }
         ],
         "order": [
@@ -44,9 +39,3 @@ $(function () {
         ],
     });
 });
-
-function renderAddShoppingBasket(data, type, row) {
-    if (type === "display") {
-        return "<a onclick='updateRow(" + row.id + ");'><span class='fa fa-shopping-basket'></span></a>";
-    }
-}
