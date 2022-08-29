@@ -1,5 +1,6 @@
 package by.deliveryservice.web.product;
 
+import by.deliveryservice.dto.ProductDto;
 import by.deliveryservice.model.Product;
 import com.sun.istack.NotNull;
 import org.springframework.http.MediaType;
@@ -14,7 +15,7 @@ public class ProductUIController extends AbstractProductController {
 
     @Override
     @GetMapping
-    public List<Product> getAll() {
+    public List<ProductDto> getAll() {
         return super.getAll();
     }
 
@@ -25,7 +26,7 @@ public class ProductUIController extends AbstractProductController {
     }
 
     @GetMapping("/filter")
-    public List<Product> getAllWithFilter(@RequestParam @Nullable String nameContains,
+    public List<ProductDto> getAllWithFilter(@RequestParam @Nullable String nameContains,
                                           @RequestParam @Nullable String descriptionContains,
                                           @RequestParam @Nullable String shopNameContains,
                                           @RequestParam @NotNull Long priceFrom,

@@ -1,5 +1,6 @@
 package by.deliveryservice.web.product;
 
+import by.deliveryservice.dto.ProductDto;
 import by.deliveryservice.model.Product;
 import by.deliveryservice.repository.datajpa.DataJpaProductRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
+import static by.deliveryservice.util.ProductUtil.getDtos;
 import static by.deliveryservice.util.validation.ValidationUtil.assureIdConsistent;
 import static by.deliveryservice.util.validation.ValidationUtil.checkNew;
 
@@ -26,9 +28,9 @@ public abstract class AbstractProductController {
         productRepository.delete(id);
     }
 
-    public List<Product> getAll() {
+    public List<ProductDto> getAll() {
         log.info("getAll for product");
-        return productRepository.getAll();
+        return getDtos(productRepository.getAll());
     }
 
     public List<Product> getAllProductsByShopId(int shopId) {
@@ -48,10 +50,10 @@ public abstract class AbstractProductController {
         productRepository.save(product);
     }
 
-    List<Product> getAllWithFilter(String nameContains, String descriptionContains, String shopNameContains, Long priceFrom, Long priceUpTo, Integer discountFrom,
+    List<ProductDto> getAllWithFilter(String nameContains, String descriptionContains, String shopNameContains, Long priceFrom, Long priceUpTo, Integer discountFrom,
                                    Integer discountUpTo, String[] idsCategories) {
         log.info("get all with filter");
-        return productRepository.getAllWithFilter(nameContains, descriptionContains, shopNameContains, priceFrom, priceUpTo,
-                discountFrom, discountUpTo, idsCategories);
+        return getDtos(productRepository.getAllWithFilter(nameContains, descriptionContains, shopNameContains, priceFrom, priceUpTo,
+                discountFrom, discountUpTo, idsCategories));
     }
 }
