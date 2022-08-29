@@ -86,10 +86,6 @@
             </div>
         </div>
         <br/>
-        <button class="btn btn-primary" onclick="">
-            <span class="fa fa-plus"></span>
-            <spring:message code="common.add"/>
-        </button>
         <table class="table table-striped" id="datatable">
             <thead>
             <tr>
@@ -98,7 +94,6 @@
                 <th><spring:message code="product.price"/></th>
                 <th><spring:message code="product.discount"/></th>
                 <th><spring:message code="product.shop"/></th>
-                <th></th>
             </tr>
             </thead>
         </table>
