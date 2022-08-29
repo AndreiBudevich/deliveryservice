@@ -1,5 +1,6 @@
 package by.deliveryservice.util;
 
+import by.deliveryservice.dto.ProductDto;
 import by.deliveryservice.model.BaseEntity;
 import by.deliveryservice.model.Category;
 import by.deliveryservice.model.Product;
@@ -21,5 +22,15 @@ public class ProductUtil {
         List<Integer> actualIdsCategories = Arrays.stream(actualStringIdsCategories).map(Integer::parseInt).toList();
         return !Collections.disjoint(expectedIdsCategories, actualIdsCategories);
     }
-}
 
+    public static List<ProductDto> getDtos(Collection<Product> products) {
+        return products.stream()
+                .map(ProductUtil::createDto)
+                .toList();
+    }
+
+    private ProductDto createDto(Product product) {
+        return new ProductDto(product.getId(), product.getName(), product.getDescription(), product.getShop().getName(),
+                product.getPrice(), product.getDiscount());
+    }
+}
