@@ -55,4 +55,10 @@ public class RootController {
         log.info("order details");
         return "orderDetails";
     }
+
+    @GetMapping("/order_products")
+    public String orderProducts() {
+        log.info("order orderProducts");
+        return "orderProducts";
+    }
 }
