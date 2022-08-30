@@ -29,10 +29,10 @@ public class OrderDetail extends BaseEntity {
     @Column(name = "price", nullable = false)
     private Long price;
 
-    @Column(name = "quanity", nullable = false)
-    private int quanity;
+    @Column(name = "quantity", nullable = false)
+    private Integer quantity;
 
     @Column(name = "amount", nullable = false)
-    private double amount;
+    private Long amount;
 }
 
