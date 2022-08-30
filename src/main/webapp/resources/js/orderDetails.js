@@ -1,10 +1,10 @@
 const parameters = getUrlParameters();
-const clientAjaxUrl = "api/clients/" + parameters[1] + "/orders/" + parameters[2] + "/details/";
+const orderDetailsAjaxUrl = "api/clients/" + parameters[1] + "/orders/" + parameters[2] + "/details/";
 
 const ctx = {
-    ajaxUrl: clientAjaxUrl,
+    ajaxUrl: orderDetailsAjaxUrl,
     updateTable: function () {
-        $.get(clientAjaxUrl, updateTableByData);
+        $.get(orderDetailsAjaxUrl, updateTableByData);
     }
 }
 
@@ -19,7 +19,7 @@ $(function () {
             },
 
             {
-                "data": "quanity"
+                "data": "quantity"
             },
             {
                 "data": "amount"
