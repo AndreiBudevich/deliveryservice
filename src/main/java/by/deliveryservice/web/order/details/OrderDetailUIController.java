@@ -13,8 +13,8 @@ public class OrderDetailUIController extends AbstractOrderDetailController {
 
     @Override
     @GetMapping
-    List<OrderDetail> getAllByOrderId(@PathVariable int clientId, @PathVariable int orderId) {
-        return super.getAllByOrderId(clientId, orderId);
+    List<OrderDetail> getAllByOrderIdWithProduct(@PathVariable int clientId, @PathVariable int orderId) {
+        return super.getAllByOrderIdWithProduct(clientId, orderId);
     }
 
     @Override
@@ -32,6 +32,11 @@ public class OrderDetailUIController extends AbstractOrderDetailController {
     @PostMapping("/{productId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void createOrUpdate(OrderDetail orderDetail, @PathVariable int clientId, @PathVariable int orderId, @PathVariable int productId) {
-        super.update(orderDetail, orderDetail.getId(), clientId, orderId, productId);
+        if (orderDetail.isNew()) {
+            super.create(orderDetail, clientId, orderId, productId);
+        } else {
+            super.update(orderDetail, orderDetail.getId(), clientId, orderId, productId);
+        }
     }
 }
+
