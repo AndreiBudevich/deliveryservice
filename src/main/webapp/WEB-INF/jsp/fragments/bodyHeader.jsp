@@ -36,6 +36,19 @@
                 </li>
             </ul>
         </div>
+        <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        ${pageContext.response.locale}
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                        <a class="dropdown-item" href="${requestScope['javax.servlet.forward.request_uri']}?lang=en">English</a>
+                        <a class="dropdown-item" href="${requestScope['javax.servlet.forward.request_uri']}?lang=ru">Русский</a>
+                    </ul>
+                </li>
+            </ul>
+        </div>
     </div>
     <div class="container">
         <a href="${pageContext.request.contextPath}" class="navbar-brand"><img src="resources/images/icon.png"></a>
@@ -45,4 +58,7 @@
         </button>
     </div>
 </nav>
-
+</nav>
+<script type="text/javascript">
+    var localeCode = "${pageContext.response.locale}";
+</script>
