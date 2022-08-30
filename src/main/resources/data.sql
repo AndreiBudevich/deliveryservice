@@ -42,7 +42,7 @@ VALUES (1, '2022-04-02', 0, 'г.Лида, ул. Радунская д.19'),
        (2, '2022-08-01', 0, 'г.Лида, ул. Машерова 21'),
        (3, '2022-10-01', 0, 'г.Лида, ул. Машерова 27');;
 
-INSERT INTO order_details (order_id, product_id, price, quanity, amount)
+INSERT INTO order_details (order_id, product_id, price, quantity, amount)
 VALUES (1, 2, 3000, 2, 600),
        (1, 7, 3500, 1, 3500),
        (2, 6, 150, 1, 150),
