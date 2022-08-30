@@ -13,15 +13,17 @@
 <div class="jumbotron pt-4">
     <div class="container">
         <h3 class="text-center"><spring:message code="order.details.title"/></h3>
-        <button type="button" class="btn btn-primary" onclick="add()" data-bs-toggle="modal" data-bs-target="#editRow">
-            <spring:message code="common.add"/>
+        <button type="button"
+                class="btn btn-primary"
+                onclick="document.location='${pageContext.request.contextPath}/order_products?clientId=${param.clientId}&orderId=${param.orderId}'">
+            <spring:message code="product.order.add"/>
         </button>
         <table class="table table-striped" id="datatable">
             <thead>
             <tr>
                 <th><spring:message code="product.name"/></th>
                 <th><spring:message code="product.price"/></th>
-                <th><spring:message code="order.details.quanity"/></th>
+                <th><spring:message code="order.details.quantity"/></th>
                 <th><spring:message code="order.details.amount"/></th>
                 <th></th>
                 <th></th>
@@ -44,9 +46,10 @@
                     <input type="hidden" id="id" name="id">
                     <input type="hidden" id="price" name="price">
                     <div class="form-group">
-                        <label for="quanity" class="col-form-label"><spring:message code="order.details.quanity"/></label>
+                        <label for="quanity" class="col-form-label"><spring:message
+                                code="order.details.quantity"/></label>
                         <input type="text" class="form-control" id="quanity" name="quanity"
-                               placeholder="<spring:message code="order.details.quanity"/>">
+                               placeholder="<spring:message code="order.details.quantity"/>">
                     </div>
                 </form>
             </div>
