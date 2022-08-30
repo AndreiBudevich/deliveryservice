@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface OrderDetailRepository {
 
-    List<OrderDetail> getAllByOrderId(int id);
+    List<OrderDetail> getAllByOrderIdWithProduct(int orderId);
 
     Optional<OrderDetail> get(int id);
 
