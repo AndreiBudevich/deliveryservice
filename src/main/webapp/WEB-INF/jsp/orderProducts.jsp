@@ -7,13 +7,15 @@
 <script type="text/javascript" src="resources/js/commonBefore.js"></script>
 <script type="text/javascript" src="resources/js/common.js" defer></script>
 <script type="text/javascript" src="resources/js/orderProducts.js" defer></script>
-<script type="text/javascript" src="resources/js/category.js" defer></script>
+<script type="text/javascript" src="resources/js/filterCategories.js" defer></script>
 <script type="text/javascript" src="resources/js/filter.js" defer></script>
 <jsp:include page="fragments/bodyHeader.jsp"/>
 
 <div class="jumbotron pt-4">
     <div class="container">
-        <h3 class="text-center"><spring:message code="product.title"/></h3>
+        <h3 class="text-center" id="orderProducts">
+            <div id="orderTotalCost"></div>
+        </h3>
         <div class="card border-dark">
             <div class="card-body pb-0">
                 <form id="filter">
