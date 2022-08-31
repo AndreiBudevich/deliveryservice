@@ -1,18 +1,11 @@
 const parameters = getUrlParameters();
-const productAjaxUrl = "api/products";
-const orderProductAjaxUrl = "api/clients/" + parameters[1] + "/orders/" + parameters[2] + "/details/";
+const orderAjaxUrl = "api/clients/" + parameters[1] + "/orders/" + parameters[2];
+const orderAddProduct = orderAjaxUrl + "/add-product/";
+const linkOrderDetails = "order_details?clientId=" + parameters[1] + "&orderId=" + parameters[2];
+const linkOrderDetailsText = "Заказ общая стоимость: ";
 
-const ctx = {
-    ajaxUrl: productAjaxUrl,
-    updateTable: function () {
-        let categories = getCategories();
-        $.ajax({
-            type: "GET",
-            url: productAjaxUrl + "/filter",
-            data: $("#filter").serialize() + categoriesSerialize(categories)
-        }).done(updateTableByData);
-    }
-};
+$("#orderTotalCost").html('<a href="' + linkOrderDetails + '"><h4 class="text-center"><p class="totalCost" id = "totalCost" ></p></h4></a>')
+updateOrderTotalCost();
 
 $(function () {
     makeEditable({
@@ -55,11 +48,20 @@ function renderAddBtn(data, type, row) {
 
 function addProductInOrder(id) {
     $.ajax({
-        url: orderProductAjaxUrl + id,
+        url: orderAddProduct + id,
         type: "POST",
     }).done(function () {
         successNoty("product.order.added");
+        updateOrderTotalCost();
     }).fail(function () {
         successNoty("product.order.notAdded");
     });
 }
+
+function updateOrderTotalCost() {
+    $.get(orderAjaxUrl, function (data) {
+        let totalCost = document.getElementById("totalCost");
+        totalCost.innerHTML = linkOrderDetailsText + data.totalCost;
+    });
+}
+
