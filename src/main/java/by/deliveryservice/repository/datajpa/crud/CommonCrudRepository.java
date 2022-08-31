@@ -1,4 +1,4 @@
-package by.deliveryservice.repository.datajpa;
+package by.deliveryservice.repository.datajpa.crud;
 
 import by.deliveryservice.model.BaseEntity;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -2,6 +2,8 @@ package by.deliveryservice.repository.datajpa;
 
 import by.deliveryservice.model.Client;
 import by.deliveryservice.repository.ClientRepository;
+import by.deliveryservice.repository.datajpa.crud.ClientCrudRepository;
+import by.deliveryservice.repository.datajpa.crud.CommonCrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
