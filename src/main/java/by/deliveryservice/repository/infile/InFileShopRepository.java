@@ -16,12 +16,10 @@ public class InFileShopRepository extends InFileRepository<Shop> implements Shop
         super("json/shops.json", Shop.class);
     }
 
-    @Override
     public void addProducts(Integer id, Product... products) {
         addOrDeleteProducts(id, "add", products);
     }
 
-    @Override
     public void deleteProducts(Integer id, Product... products) {
         addOrDeleteProducts(id, "delete", products);
     }
@@ -43,7 +41,6 @@ public class InFileShopRepository extends InFileRepository<Shop> implements Shop
         print(getShopProducts(id));
     }
 
-    @Override
     public Map<Product, Long> getShopProducts(Integer id) {
         readInFile();
         List<Product> products = repositoryInMemory.get(id).getProducts();
