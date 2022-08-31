@@ -8,8 +8,6 @@ import by.deliveryservice.repository.OrderRepository;
 import java.util.Arrays;
 import java.util.Optional;
 
-import static by.deliveryservice.util.EntityUtil.calculationTotalCost;
-
 public class InFileOrderRepository extends InFileRepository<Order> implements OrderRepository {
 
     InFileClientRepository inFileClientRepository = new InFileClientRepository();
@@ -33,18 +31,16 @@ public class InFileOrderRepository extends InFileRepository<Order> implements Or
         return super.save(order);
     }
 
-    @Override
     public void addProducts(Integer id, Product... products) {
-       /* addOrDeleteProducts(id, "add", products);*/
+        addOrDeleteProducts(id, "add", products);
     }
 
-    @Override
     public void deleteProducts(Integer id, Product... products) {
-     /*   addOrDeleteProducts(id, "delete", products);*/
+        addOrDeleteProducts(id, "delete", products);
     }
 
-   /* private void addOrDeleteProducts(Integer id, String operation, Product... products) {
-        Order order = get(id);
+    private void addOrDeleteProducts(Integer id, String operation, Product... products) {
+       /* Order order = get(id);
         Arrays.asList(products).forEach(product -> {
             if (operation.equals("add")) {
                 order.getProducts().add(product);
@@ -53,10 +49,9 @@ public class InFileOrderRepository extends InFileRepository<Order> implements Or
             }
         });
         order.setTotalCost(calculationTotalCost(order.getProducts()));
-        saveAndPrint(order);
-    }*/
+        saveAndPrint(order);*/
+    }
 
-    @Override
     public void setAddress(Integer id, String deliveryAddress) {
         Order order = get(id);
         order.setDeliveryAddress(deliveryAddress);
