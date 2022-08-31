@@ -1,5 +1,6 @@
 package by.deliveryservice.web.order;
 
+import by.deliveryservice.dto.OrderDto;
 import by.deliveryservice.model.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -19,13 +20,13 @@ public class OrderUIController extends AbstractOrderController {
 
     @GetMapping("/{clientId}/orders")
     @Override
-    public List<Order> getAllByClientId(@PathVariable int clientId) {
+    public List<OrderDto> getAllByClientId(@PathVariable int clientId) {
         return super.getAllByClientId(clientId);
     }
 
     @Override
     @GetMapping("/{clientId}/orders/{id}")
-    public Order get(@PathVariable int id, @PathVariable int clientId) {
+    public OrderDto get(@PathVariable int id, @PathVariable int clientId) {
         return super.get(id, clientId);
     }
 
