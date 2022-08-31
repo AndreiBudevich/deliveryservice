@@ -1,17 +1,3 @@
-const productAjaxUrl = "api/products";
-
-const ctx = {
-    ajaxUrl: productAjaxUrl,
-    updateTable: function () {
-        let categories = getCategories();
-        $.ajax({
-            type: "GET",
-            url: productAjaxUrl + "/filter",
-            data: $("#filter").serialize() + categoriesSerialize(categories)
-        }).done(updateTableByData);
-    }
-};
-
 $(function () {
     makeEditable({
         "columns": [
