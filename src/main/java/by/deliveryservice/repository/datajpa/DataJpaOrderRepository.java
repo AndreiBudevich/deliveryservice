@@ -2,8 +2,9 @@ package by.deliveryservice.repository.datajpa;
 
 import by.deliveryservice.model.Client;
 import by.deliveryservice.model.Order;
-import by.deliveryservice.model.Product;
 import by.deliveryservice.repository.OrderRepository;
+import by.deliveryservice.repository.datajpa.crud.CommonCrudRepository;
+import by.deliveryservice.repository.datajpa.crud.OrderCrudRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,12 +24,7 @@ public class DataJpaOrderRepository implements OrderRepository {
 
     @Override
     public List<Order> getAll() {
-        return orderCrudRepository.getWithClient();
-    }
-
-    @Override
-    public Optional<Order> get(int id) {
-        return orderCrudRepository.findByIdWithClient(id);
+        return orderCrudRepository.getAllWithClient();
     }
 
     public List<Order> getAllByClientId(int clientId) {
@@ -36,28 +32,19 @@ public class DataJpaOrderRepository implements OrderRepository {
     }
 
     @Override
+    public Optional<Order> get(int id) {
+        return orderCrudRepository.get(id);
+    }
+
+    @Override
     public void delete(int id) {
+        orderCrudRepository.deleteById(id);
     }
 
     @Override
     @Transactional
     public Order save(Order order, int clientId) {
-        if (!order.isNew() && get(order.getId()).isEmpty()) {
-            return null;
-        }
         order.setClient(clientCrudRepository.getReferenceById(clientId));
         return orderCrudRepository.save(order);
-    }
-
-    @Override
-    public void addProducts(Integer id, Product... products) {
-    }
-
-    @Override
-    public void deleteProducts(Integer id, Product... products) {
-    }
-
-    @Override
-    public void setAddress(Integer id, String deliveryAddress) {
     }
 }
