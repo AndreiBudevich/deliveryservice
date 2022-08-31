@@ -34,5 +34,13 @@ public class OrderDetail extends BaseEntity {
 
     @Column(name = "amount", nullable = false)
     private Long amount;
+
+    public OrderDetail(Order order, Product product, Long price, Integer quantity, Long amount) {
+        this.order = order;
+        this.product = product;
+        this.price = price;
+        this.quantity = quantity;
+        this.amount = amount;
+    }
 }
 
