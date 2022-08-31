@@ -5,8 +5,8 @@
 <jsp:include page="fragments/headTag.jsp"/>
 <body>
 <script type="text/javascript" src="resources/js/commonBefore.js"></script>
-<script type="text/javascript" src="resources/js/orderDetails.js" defer></script>
 <script type="text/javascript" src="resources/js/common.js" defer></script>
+<script type="text/javascript" src="resources/js/orderDetails.js" defer></script>
 
 <jsp:include page="fragments/bodyHeader.jsp"/>
 
@@ -46,9 +46,9 @@
                     <input type="hidden" id="id" name="id">
                     <input type="hidden" id="price" name="price">
                     <div class="form-group">
-                        <label for="quanity" class="col-form-label"><spring:message
+                        <label for="quantity" class="col-form-label"><spring:message
                                 code="order.details.quantity"/></label>
-                        <input type="text" class="form-control" id="quanity" name="quanity"
+                        <input type="text" class="form-control" id="quantity" name="quantity"
                                placeholder="<spring:message code="order.details.quantity"/>">
                     </div>
                 </form>
