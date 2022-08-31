@@ -8,35 +8,38 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "api/clients/{clientId}/orders/{orderId}/details", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "api/clients/{clientId}/orders/{orderId}", produces = MediaType.APPLICATION_JSON_VALUE)
 public class OrderDetailUIController extends AbstractOrderDetailController {
 
     @Override
-    @GetMapping
-    List<OrderDetail> getAllByOrderIdWithProduct(@PathVariable int clientId, @PathVariable int orderId) {
+    @GetMapping("/details")
+    public List<OrderDetail> getAllByOrderIdWithProduct(@PathVariable int clientId, @PathVariable int orderId) {
         return super.getAllByOrderIdWithProduct(clientId, orderId);
     }
 
     @Override
-    @GetMapping("/{id}")
+    @GetMapping("/details/{id}")
     public OrderDetail get(@PathVariable int clientId, @PathVariable int orderId, @PathVariable int id) {
         return super.get(clientId, orderId, id);
     }
 
     @Override
-    @DeleteMapping("/{id}")
+    @PostMapping("/add-product/{productId}")
+    public void addProduct(@PathVariable int clientId, @PathVariable int orderId, @PathVariable int productId) {
+        super.addProduct(clientId, orderId, productId);
+    }
+
+    @Override
+    @DeleteMapping("/details/{id}")
     public void delete(@PathVariable int clientId, @PathVariable int orderId, @PathVariable int id) {
         super.delete(clientId, orderId, id);
     }
 
-    @PostMapping("/{productId}")
+    @PostMapping("/details/{productId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void createOrUpdate(OrderDetail orderDetail, @PathVariable int clientId, @PathVariable int orderId, @PathVariable int productId) {
-        if (orderDetail.isNew()) {
-            super.create(orderDetail, clientId, orderId, productId);
-        } else {
-            super.update(orderDetail, orderDetail.getId(), clientId, orderId, productId);
-        }
+    public void update(OrderDetail orderDetail, @PathVariable int clientId, @PathVariable int orderId, @PathVariable int productId) {
+        super.update(orderDetail, orderDetail.getId(), clientId, orderId, productId);
     }
 }
+
 
