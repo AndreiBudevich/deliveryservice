@@ -29,7 +29,7 @@ public class ProductUtil {
                 .toList();
     }
 
-    private ProductDto createDto(Product product) {
+    private static ProductDto createDto(Product product) {
         return new ProductDto(product.getId(), product.getName(), product.getDescription(), product.getShop().getName(),
                 product.getPrice(), product.getDiscount());
     }
