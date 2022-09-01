@@ -1,4 +1,4 @@
-const productAjaxUrl = "api/products";
+const productAjaxUrl = "api/shops/products";
 
 const ctx = {
     ajaxUrl: productAjaxUrl,
