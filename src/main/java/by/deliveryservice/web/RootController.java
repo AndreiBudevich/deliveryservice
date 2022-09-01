@@ -61,4 +61,10 @@ public class RootController {
         log.info("order orderProducts");
         return "orderProducts";
     }
+
+    @GetMapping("/storage")
+    public String storage() {
+        log.info("storage");
+        return "storage";
+    }
 }
