@@ -14,7 +14,7 @@ public interface OrderDetailCrudRepository extends CommonCrudRepository<OrderDet
     @Query("SELECT od FROM OrderDetail od WHERE od.order.id =?1")
     List<OrderDetail> getAllByOrderId(int orderId);
 
-    @Query("SELECT od FROM OrderDetail od WHERE od.id =?1")
+    @Query("SELECT od FROM OrderDetail od JOIN FETCH od.product WHERE od.id =?1")
     Optional<OrderDetail> get(int id);
 
     @Query("SELECT od FROM OrderDetail od WHERE od.order.id =?1 AND od.product.id =?2")
