@@ -25,7 +25,7 @@ public class InFileShopRepository extends InFileRepository<Shop> implements Shop
     }
 
     private void addOrDeleteProducts(Integer id, String operation, Product... products) {
-        Shop shop = get(id);
+        /*Shop shop = get(id);
         Arrays.asList(products).forEach(product -> {
             if (product.getShop().getId().equals(shop.getId())) {
                 if (operation.equals("add")) {
@@ -38,13 +38,14 @@ public class InFileShopRepository extends InFileRepository<Shop> implements Shop
             }
         });
         saveInFile();
-        print(getShopProducts(id));
+        print(getShopProducts(id));*/
     }
 
     public Map<Product, Long> getShopProducts(Integer id) {
-        readInFile();
+       /* readInFile();
         List<Product> products = repositoryInMemory.get(id).getProducts();
         return products.stream()
-                .collect(Collectors.groupingBy(Product::get, Collectors.counting()));
+                .collect(Collectors.groupingBy(Product::get, Collectors.counting()));*/
+        return null;
     }
 }
