@@ -44,3 +44,9 @@ body {
     background-color: #f5f5f5;
 }
 .text-start { margin-left: 20px; }
+
+.productName {
+    font-size: 18px;
+    text-decoration: underline #32557f;
+    color: dodgerblue;
+}
