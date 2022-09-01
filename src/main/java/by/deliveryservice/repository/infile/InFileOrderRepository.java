@@ -4,8 +4,11 @@ import by.deliveryservice.model.Client;
 import by.deliveryservice.model.Order;
 import by.deliveryservice.model.Product;
 import by.deliveryservice.repository.OrderRepository;
+import jdk.jshell.spi.ExecutionControl;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 public class InFileOrderRepository extends InFileRepository<Order> implements OrderRepository {
@@ -20,6 +23,11 @@ public class InFileOrderRepository extends InFileRepository<Order> implements Or
     protected void updateEntity(Order order, Order orderOld) {
         order.setRegistered(orderOld.getRegistered());
         repositoryInMemory.computeIfPresent(order.getId(), (id, oldClient) -> order);
+    }
+
+    @Override
+    public List<Order> getAllByClientId(int clientId) {
+        return Collections.emptyList();
     }
 
     @Override
