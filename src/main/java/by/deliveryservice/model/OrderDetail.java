@@ -13,7 +13,9 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "order_details")
+@Table(name = "order_details", uniqueConstraints =
+        {@UniqueConstraint(columnNames = {"order_id", "product_id"},
+                name = "order_id_product_id_idx")})
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class OrderDetail extends BaseEntity {
 
