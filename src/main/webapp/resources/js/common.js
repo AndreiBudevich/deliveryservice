@@ -76,17 +76,7 @@ function save() {
     });
 }
 
-let failedNote;
-
-function closeNoty() {
-    if (failedNote) {
-        failedNote.close();
-        failedNote = undefined;
-    }
-}
-
 function successNoty(key) {
-    closeNoty();
     new Noty({
         text: "<span class='fa fa-lg fa-check'></span> &nbsp;" + i18n[key],
         type: 'success',
