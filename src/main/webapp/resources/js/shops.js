@@ -23,6 +23,15 @@ $(function () {
                 "data": "contact"
             },
             {
+                "data": "id",
+                "render": function (data, type) {
+                    if (type === "display") {
+                        return "<a href='storage?shopId=" + data+ "'>" + "Товары" + "</a>";
+                    }
+                    return data;
+                }
+            },
+            {
                 "orderable": false,
                 "defaultContent": "",
                 "render": renderEditBtn
@@ -31,7 +40,8 @@ $(function () {
                 "orderable": false,
                 "defaultContent": "",
                 "render": renderDeleteBtn
-            }
+            },
+
         ],
         "order": [
             [
