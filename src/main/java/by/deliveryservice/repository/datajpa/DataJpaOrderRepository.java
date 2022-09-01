@@ -27,6 +27,7 @@ public class DataJpaOrderRepository implements OrderRepository {
         return orderCrudRepository.getAllWithClient();
     }
 
+    @Override
     public List<Order> getAllByClientId(int clientId) {
         return orderCrudRepository.getAllByClientId(clientId);
     }
