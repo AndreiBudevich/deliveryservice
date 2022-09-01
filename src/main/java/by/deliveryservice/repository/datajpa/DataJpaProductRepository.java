@@ -1,9 +1,9 @@
 package by.deliveryservice.repository.datajpa;
 
-import by.deliveryservice.model.Category;
 import by.deliveryservice.model.Product;
 import by.deliveryservice.repository.ProductRepository;
 import by.deliveryservice.repository.datajpa.crud.ProductCrudRepository;
+import by.deliveryservice.repository.datajpa.crud.ShopCrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -15,9 +15,11 @@ import static by.deliveryservice.util.ProductUtil.filteringByCategory;
 public class DataJpaProductRepository implements ProductRepository {
 
     ProductCrudRepository productCrudRepository;
+    ShopCrudRepository shopCrudRepository;
 
-    public DataJpaProductRepository(ProductCrudRepository productCrudRepository) {
+    public DataJpaProductRepository(ProductCrudRepository productCrudRepository, ShopCrudRepository shopCrudRepository) {
         this.productCrudRepository = productCrudRepository;
+        this.shopCrudRepository = shopCrudRepository;
     }
 
     @Override
@@ -34,7 +36,7 @@ public class DataJpaProductRepository implements ProductRepository {
 
     @Override
     public Optional<Product> get(int id) {
-        return productCrudRepository.findById(id);
+        return productCrudRepository.get(id);
     }
 
     @Override
@@ -43,31 +45,12 @@ public class DataJpaProductRepository implements ProductRepository {
     }
 
     @Override
-    public Product save(Product product) {
+    public Product save(Product product, int shopId) {
+        product.setShop(shopCrudRepository.getReferenceById(shopId));
         return productCrudRepository.save(product);
     }
 
     public List<Product> getAllProductsByShopId(int shopId) {
         return productCrudRepository.getAllProductsByShopId(shopId);
-    }
-
-    @Override
-    public void addCategories(Integer id, Category... categories) {
-
-    }
-
-    @Override
-    public void deleteCategories(Integer id, Category... categories) {
-
-    }
-
-    @Override
-    public List<Product> findByAttributes(String... attributes) {
-        return null;
-    }
-
-    @Override
-    public List<Product> getSortPrice() {
-        return null;
     }
 }
