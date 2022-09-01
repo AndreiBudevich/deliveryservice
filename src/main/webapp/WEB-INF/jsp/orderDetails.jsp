@@ -7,6 +7,7 @@
 <script type="text/javascript" src="resources/js/commonBefore.js"></script>
 <script type="text/javascript" src="resources/js/common.js" defer></script>
 <script type="text/javascript" src="resources/js/orderDetails.js" defer></script>
+<script type="text/javascript" src="resources/js/saveWithIdProduct.js" defer></script>
 
 <jsp:include page="fragments/bodyHeader.jsp"/>
 
@@ -56,7 +57,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><spring:message
                         code="common.cancel"/></button>
-                <button type="button" class="btn btn-primary" onclick="saveOrderDetails()"><spring:message
+                <button type="button" class="btn btn-primary" onclick="saveWithIdProduct()"><spring:message
                         code="common.save"/></button>
             </div>
         </div>
