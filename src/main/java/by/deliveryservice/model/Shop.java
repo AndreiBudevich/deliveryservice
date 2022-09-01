@@ -1,17 +1,15 @@
 package by.deliveryservice.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-
-import static by.deliveryservice.util.StringUtil.stringBuilderCollection;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
 @Getter
@@ -32,10 +30,6 @@ public class Shop extends NamedEntity {
     @Column(name = "contact", nullable = false)
     private String contact;
 
-    @JsonBackReference
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "shop")
-    private List<Product> products = new ArrayList<>();
-
     public Shop(String name, String address, String description, String contact) {
         super(null, name);
         this.address = address;
@@ -50,7 +44,6 @@ public class Shop extends NamedEntity {
                 ", name='" + name + '\'' +
                 ", address='" + address + '\'' +
                 ", description='" + description + '\'' +
-                ", contact='" + contact + '\'' +
-                ", products:" + stringBuilderCollection(products);
+                ", contact='" + contact;
     }
 }
