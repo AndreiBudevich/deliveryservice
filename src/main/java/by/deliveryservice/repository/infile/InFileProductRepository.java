@@ -11,16 +11,16 @@ import static by.deliveryservice.util.StringUtil.contains;
 import static by.deliveryservice.util.StringUtil.getSplit;
 
 public class InFileProductRepository extends InFileRepository<Product> implements ProductRepository {
+
     public InFileProductRepository() {
         super("json/products.json", Product.class);
     }
 
-    @Override
     public void addCategories(Integer id, Category... categories) {
         addOrDeleteCategories(id, "add", categories);
     }
 
-    @Override
+
     public void deleteCategories(Integer id, Category... categories) {
         addOrDeleteCategories(id, "delete", categories);
     }
@@ -37,7 +37,7 @@ public class InFileProductRepository extends InFileRepository<Product> implement
         saveAndPrint(product);
     }
 
-    @Override
+
     public List<Product> getSortPrice() {
         readInFile();
         return repositoryInMemory.values().stream()
@@ -45,7 +45,7 @@ public class InFileProductRepository extends InFileRepository<Product> implement
                 .toList();
     }
 
-    @Override
+
     //search by fields
     public List<Product> findByAttributes(String... attributes) {
         if (attributes.length < 5) {
@@ -69,5 +69,10 @@ public class InFileProductRepository extends InFileRepository<Product> implement
 
     private boolean containsName(String actualString, String expectedString) {
         return expectedString.equals("*") || contains(actualString, expectedString);
+    }
+
+    @Override
+    public Product save(Product product, int shopId) {
+        return null;
     }
 }
