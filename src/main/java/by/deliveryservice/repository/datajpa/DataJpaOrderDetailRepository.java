@@ -40,6 +40,7 @@ public class DataJpaOrderDetailRepository implements OrderDetailRepository {
         return orderDetailCrudRepository.get(id);
     }
 
+    @Override
     public Optional<OrderDetail> getByOrderIdByProductId(int orderId, int productId) {
         return orderDetailCrudRepository.getByOrderIdByProductId(orderId, productId);
     }
