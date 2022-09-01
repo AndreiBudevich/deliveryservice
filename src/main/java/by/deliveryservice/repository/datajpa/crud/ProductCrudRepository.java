@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ProductCrudRepository extends CommonCrudRepository<Product> {
 
@@ -14,6 +15,9 @@ public interface ProductCrudRepository extends CommonCrudRepository<Product> {
 
     @Query("SELECT p FROM Product p JOIN FETCH p.shop ORDER BY p.name ASC")
     List<Product> getAll();
+
+    @Query("SELECT p FROM Product p JOIN FETCH p.shop WHERE p.id = ?1")
+    Optional<Product> get(int id);
 
     @EntityGraph(attributePaths = {"categories"}, type = EntityGraph.EntityGraphType.LOAD)
     @Query("SELECT p FROM Product p JOIN FETCH p.shop WHERE LOWER (p.shop.name) LIKE LOWER (:shopNameContains) " +
