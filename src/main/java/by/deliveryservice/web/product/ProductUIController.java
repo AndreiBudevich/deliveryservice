@@ -26,6 +26,11 @@ public class ProductUIController extends AbstractProductController {
         return super.get(shopId, id);
     }
 
+    @PostMapping("/products/{id}/add-category/{categoryId}")
+    void addCategory(@PathVariable int id, @PathVariable int categoryId) {
+        super.addCategory(id, categoryId);
+    }
+
     @GetMapping("/products/filter")
     public List<ProductDto> getAllWithFilter(@RequestParam @Nullable String nameContains,
                                              @RequestParam @Nullable String descriptionContains,
