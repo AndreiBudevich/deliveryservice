@@ -1,7 +1,7 @@
 package by.deliveryservice.web.category;
 
 import by.deliveryservice.model.Category;
-import by.deliveryservice.repository.datajpa.DataJpaCategoryRepository;
+import by.deliveryservice.repository.CategoryRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -14,7 +14,7 @@ import static by.deliveryservice.util.validation.ValidationUtil.checkNew;
 public abstract class AbstractCategoryController {
 
     @Autowired
-    private DataJpaCategoryRepository categoryRepository;
+    private CategoryRepository categoryRepository;
 
     public Category get(int id) {
         log.info("get category {}", id);

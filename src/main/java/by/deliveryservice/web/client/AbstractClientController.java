@@ -1,7 +1,7 @@
 package by.deliveryservice.web.client;
 
 import by.deliveryservice.model.Client;
-import by.deliveryservice.repository.datajpa.DataJpaClientRepository;
+import by.deliveryservice.repository.ClientRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -14,7 +14,7 @@ import static by.deliveryservice.util.validation.ValidationUtil.checkNew;
 public abstract class AbstractClientController {
 
     @Autowired
-    private DataJpaClientRepository clientRepository;
+    private ClientRepository clientRepository;
 
     public Client get(int id) {
         log.info("get client {}", id);

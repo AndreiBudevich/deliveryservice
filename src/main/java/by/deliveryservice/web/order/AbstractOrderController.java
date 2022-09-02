@@ -2,7 +2,7 @@ package by.deliveryservice.web.order;
 
 import by.deliveryservice.dto.OrderDto;
 import by.deliveryservice.model.Order;
-import by.deliveryservice.repository.datajpa.DataJpaOrderRepository;
+import by.deliveryservice.repository.OrderRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -18,7 +18,7 @@ import static by.deliveryservice.util.validation.ValidationUtil.checkNew;
 public abstract class AbstractOrderController {
 
     @Autowired
-    private DataJpaOrderRepository orderRepository;
+    private OrderRepository orderRepository;
 
     public List<Order> getAll() {
         log.info("getAll for order");

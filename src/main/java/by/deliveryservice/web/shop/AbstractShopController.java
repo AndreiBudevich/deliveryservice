@@ -1,7 +1,7 @@
 package by.deliveryservice.web.shop;
 
 import by.deliveryservice.model.Shop;
-import by.deliveryservice.repository.datajpa.DataJpaShopRepository;
+import by.deliveryservice.repository.ShopRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -14,7 +14,7 @@ import static by.deliveryservice.util.validation.ValidationUtil.checkNew;
 public abstract class AbstractShopController {
 
     @Autowired
-    private DataJpaShopRepository shopRepository;
+    private ShopRepository shopRepository;
 
     public Shop get(int id) {
         log.info("get shop {}", id);
