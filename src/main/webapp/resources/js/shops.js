@@ -26,7 +26,7 @@ $(function () {
                 "data": "id",
                 "render": function (data, type) {
                     if (type === "display") {
-                        return "<a href='storage?shopId=" + data+ "'>" + "Товары" + "</a>";
+                        return "<a href='storage?shopId=" + data+ "'>" + "<span class='fa fa-product-hunt'></span>" + "</a>";
                     }
                     return data;
                 }
