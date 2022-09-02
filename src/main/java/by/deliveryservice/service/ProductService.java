@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Service
 public class ProductService {
@@ -39,10 +40,22 @@ public class ProductService {
 
     @Transactional
     public void addCategory(int id, int categoryId) {
+        getCategoriesByProduct(id).add(getCategory(categoryId));
+    }
+
+    @Transactional
+    public void deleteCategory(int id, int categoryId) {
+        getCategoriesByProduct(id).remove(getCategory(categoryId));
+    }
+
+    private Set<Category> getCategoriesByProduct(int id) {
         Product productWithCategories = productRepository.getWithCategories(id).orElse(null);
-        Category category = categoryRepository.get(categoryId).orElse(null);
         assert productWithCategories != null;
-        productWithCategories.getCategories().add(category);
+        return productWithCategories.getCategories();
+    }
+
+    private Category getCategory(int categoryId) {
+        return categoryRepository.get(categoryId).orElse(null);
     }
 
     @Transactional
