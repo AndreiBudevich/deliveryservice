@@ -1,6 +1,7 @@
 const parameters = getUrlParameters();
 const orderAjaxUrl = "api/clients/" + parameters[1] + "/orders/" + parameters[2];
 const orderAddProduct = orderAjaxUrl + "/add-product/";
+const orderDeleteProduct = orderAjaxUrl + "/delete-product/";
 const linkOrderDetails = "order_details?clientId=" + parameters[1] + "&orderId=" + parameters[2];
 const linkOrderDetailsText = "Заказ общая стоимость: ";
 
@@ -19,10 +20,21 @@ function plus(id) {
     });
 }
 
+function minus(id) {
+    $.ajax({
+        url: orderDeleteProduct + id,
+        type: "POST",
+    }).done(function () {
+        successNoty("product.order.deleted");
+        updateOrderTotalCost();
+    }).fail(function () {
+        successNoty("product.order.notDeleted");
+    });
+}
+
 function updateOrderTotalCost() {
     $.get(orderAjaxUrl, function (data) {
         let totalCost = document.getElementById("totalCost");
         totalCost.innerHTML = linkOrderDetailsText + data.totalCost;
     });
 }
-
