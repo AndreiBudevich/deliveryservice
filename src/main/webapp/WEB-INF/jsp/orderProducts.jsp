@@ -6,6 +6,7 @@
 <body>
 <script type="text/javascript" src="resources/js/commonBefore.js"></script>
 <script type="text/javascript" src="resources/js/common.js" defer></script>
+<script type="text/javascript" src="resources/js/productTablePlus.js" defer></script>
 <script type="text/javascript" src="resources/js/orderProducts.js" defer></script>
 <script type="text/javascript" src="resources/js/filterCategories.js" defer></script>
 <script type="text/javascript" src="resources/js/filter.js" defer></script>
@@ -47,19 +48,21 @@
                     <div class="row">
                         <div class="col-2">
                             <label for="priceFrom"><spring:message code="product.priceFrom"/></label>
-                            <input class="form-control" name="priceFrom" id="priceFrom" autocomplete="off">
+                            <input class="form-control" name="priceFrom" id="priceFrom" autocomplete="off" value="0">
                         </div>
                         <div class="col-2">
                             <label for="priceUpTo"><spring:message code="product.priceUpTo"/></label>
-                            <input class="form-control" name="priceUpTo" id="priceUpTo" autocomplete="off">
+                            <input class="form-control" name="priceUpTo" id="priceUpTo" autocomplete="off" value="0">
                         </div>
                         <div class="col-2">
                             <label for="discountFrom"><spring:message code="product.discountFrom"/></label>
-                            <input class="form-control" name="discountFrom" id="discountFrom" autocomplete="off">
+                            <input class="form-control" name="discountFrom" id="discountFrom" autocomplete="off"
+                                   value="0">
                         </div>
                         <div class="col-2">
                             <label for="discountUpTo"><spring:message code="product.discountUpTo"/></label>
-                            <input class="form-control" name="discountUpTo" id="discountUpTo" autocomplete="off">
+                            <input class="form-control" name="discountUpTo" id="discountUpTo" autocomplete="off"
+                                   value="0">
                         </div>
                     </div>
                     <br>
