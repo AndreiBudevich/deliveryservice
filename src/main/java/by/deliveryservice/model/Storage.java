@@ -30,4 +30,10 @@ public class Storage extends BaseEntity{
 
     @Column(name = "quantity", nullable = false)
     private Integer quantity;
+
+    public Storage(Shop shop, Product product, Integer quantity) {
+        this.shop = shop;
+        this.product = product;
+        this.quantity = quantity;
+    }
 }
