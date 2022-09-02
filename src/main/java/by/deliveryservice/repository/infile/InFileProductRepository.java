@@ -47,7 +47,7 @@ public class InFileProductRepository extends InFileRepository<Product> implement
 
 
     //search by fields
-    public List<Product> findByAttributes(String... attributes) {
+    public List<Product> getAllWithFilter(String... attributes) {
         if (attributes.length < 5) {
             System.err.println("Не верно заданы атрибуты");
         }
@@ -69,6 +69,16 @@ public class InFileProductRepository extends InFileRepository<Product> implement
 
     private boolean containsName(String actualString, String expectedString) {
         return expectedString.equals("*") || contains(actualString, expectedString);
+    }
+
+    @Override
+    public List<Product> getAllWithFilter(String nameContains, String descriptionContains, String shopNameContains, Long priceFrom, Long priceUpTo, Integer discountFrom, Integer discountUpTo, String[] actualStringIdsCategories) {
+        return null;
+    }
+
+    @Override
+    public Optional<Product> getWithCategories(int id) {
+        return Optional.empty();
     }
 
     @Override
