@@ -1,5 +1,6 @@
 package by.deliveryservice.service;
 
+import by.deliveryservice.error.IllegalRequestDataException;
 import by.deliveryservice.model.Order;
 import by.deliveryservice.model.OrderDetail;
 import by.deliveryservice.model.Product;
@@ -38,11 +39,11 @@ public class OrderDetailService {
 
     @Transactional
     public void update(OrderDetail orderDetail, int orderId, int productId, int clientId) {
-        saveOrderDetailAndOrderTotalCostRecalculation (orderDetail, orderId, productId, clientId);
+        saveOrderDetailAndOrderTotalCostRecalculation(orderDetail, orderId, productId, clientId);
     }
 
     @Transactional
-    public void addProduct(int orderId, int productId, int clientId) {
+    public void addProduct(int clientId, int orderId, int productId) {
         OrderDetail orderDetail = orderDetailRepository.getByOrderIdByProductId(orderId, productId).orElse(null);
         if (orderDetail == null) {
             Product product = productRepository.get(productId).orElse(null);
@@ -55,8 +56,25 @@ public class OrderDetailService {
         int quantity = orderDetail.getQuantity();
         quantity++;
         orderDetail.setQuantity(quantity);
+        saveOrderDetailAndOrderTotalCostRecalculation(orderDetail, orderId, productId, clientId);
+    }
 
-        saveOrderDetailAndOrderTotalCostRecalculation (orderDetail, orderId, productId, clientId);
+    @Transactional
+    public void deleteProduct(int clientId, int orderId, int productId) {
+        OrderDetail orderDetail = orderDetailRepository.getByOrderIdByProductId(orderId, productId).orElse(null);
+        if (orderDetail == null) {
+            throw new IllegalRequestDataException("product not found by order " + orderId);
+        }
+
+        int quantity = orderDetail.getQuantity();
+        quantity--;
+        if (quantity < 1) {
+            orderDetailRepository.delete(orderDetail.getId());
+        } else {
+            orderDetail.setQuantity(quantity);
+            orderDetailRepository.save(orderDetail, orderId, productId);
+        }
+        orderTotalCostRecalculation(orderDetailRepository.getAllByOrderId(orderId), orderId, clientId);
     }
 
     private Long getActualTotalCostOrder(List<OrderDetail> orderDetails) {
@@ -73,7 +91,7 @@ public class OrderDetailService {
         }
     }
 
-    private void saveOrderDetailAndOrderTotalCostRecalculation (OrderDetail orderDetail, int orderId, int productId, int clientId) {
+    private void saveOrderDetailAndOrderTotalCostRecalculation(OrderDetail orderDetail, int orderId, int productId, int clientId) {
         orderDetailRepository.save(orderDetail, orderId, productId);
         orderTotalCostRecalculation(orderDetailRepository.getAllByOrderId(orderId), orderId, clientId);
     }
