@@ -14,8 +14,8 @@ import java.util.Optional;
 @Repository
 public class DataJpaOrderRepository implements OrderRepository {
 
-    OrderCrudRepository orderCrudRepository;
-    CommonCrudRepository<Client> clientCrudRepository;
+    private final OrderCrudRepository orderCrudRepository;
+    private final CommonCrudRepository<Client> clientCrudRepository;
 
     public DataJpaOrderRepository(OrderCrudRepository orderCrudRepository, CommonCrudRepository<Client> clientCrudRepository) {
         this.orderCrudRepository = orderCrudRepository;

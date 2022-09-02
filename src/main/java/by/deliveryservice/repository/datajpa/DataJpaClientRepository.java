@@ -12,7 +12,7 @@ import java.util.Optional;
 @Repository
 public class DataJpaClientRepository implements ClientRepository {
 
-    CommonCrudRepository<Client> clientCrudRepository;
+    private final CommonCrudRepository<Client> clientCrudRepository;
 
     public DataJpaClientRepository(ClientCrudRepository clientCrudRepository) {
         this.clientCrudRepository = clientCrudRepository;
