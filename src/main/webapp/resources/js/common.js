@@ -97,6 +97,15 @@ function renderDeleteBtn(data, type, row) {
     }
 }
 
+let failedNote;
+
+function closeNoty() {
+    if (failedNote) {
+        failedNote.close();
+        failedNote = undefined;
+    }
+}
+
 function failNoty(jqXHR) {
     closeNoty();
     var errorInfo = jqXHR.responseJSON;
