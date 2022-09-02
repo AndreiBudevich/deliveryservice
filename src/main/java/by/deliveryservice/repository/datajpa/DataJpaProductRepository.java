@@ -14,8 +14,8 @@ import static by.deliveryservice.util.ProductUtil.filteringByCategory;
 @Repository
 public class DataJpaProductRepository implements ProductRepository {
 
-    ProductCrudRepository productCrudRepository;
-    ShopCrudRepository shopCrudRepository;
+    private final ProductCrudRepository productCrudRepository;
+    private final ShopCrudRepository shopCrudRepository;
 
     public DataJpaProductRepository(ProductCrudRepository productCrudRepository, ShopCrudRepository shopCrudRepository) {
         this.productCrudRepository = productCrudRepository;
@@ -27,6 +27,7 @@ public class DataJpaProductRepository implements ProductRepository {
         return productCrudRepository.getAll();
     }
 
+    @Override
     public List<Product> getAllWithFilter(String nameContains, String descriptionContains, String shopNameContains, Long priceFrom, Long priceUpTo,
                                           Integer discountFrom, Integer discountUpTo, String[] actualStringIdsCategories) {
         return filteringByCategory(productCrudRepository.getAllWithFilter("%" + nameContains + "%", "%" +
@@ -40,6 +41,11 @@ public class DataJpaProductRepository implements ProductRepository {
     }
 
     @Override
+    public Optional<Product> getWithCategories(int id) {
+        return productCrudRepository.getWithCategories(id);
+    }
+
+    @Override
     public void delete(int id) {
         productCrudRepository.deleteById(id);
     }
@@ -48,9 +54,5 @@ public class DataJpaProductRepository implements ProductRepository {
     public Product save(Product product, int shopId) {
         product.setShop(shopCrudRepository.getReferenceById(shopId));
         return productCrudRepository.save(product);
-    }
-
-    public List<Product> getAllProductsByShopId(int shopId) {
-        return productCrudRepository.getAllProductsByShopId(shopId);
     }
 }
