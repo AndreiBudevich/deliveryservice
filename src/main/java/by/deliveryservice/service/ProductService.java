@@ -1,9 +1,11 @@
 package by.deliveryservice.service;
 
+import by.deliveryservice.model.Category;
 import by.deliveryservice.model.Product;
 import by.deliveryservice.model.Storage;
-import by.deliveryservice.repository.datajpa.DataJpaProductRepository;
-import by.deliveryservice.repository.datajpa.DataJpaStorageRepository;
+import by.deliveryservice.repository.CategoryRepository;
+import by.deliveryservice.repository.ProductRepository;
+import by.deliveryservice.repository.StorageRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,12 +15,14 @@ import java.util.Objects;
 @Service
 public class ProductService {
 
-    private DataJpaProductRepository productRepository;
-    private DataJpaStorageRepository storageRepository;
+    private final ProductRepository productRepository;
+    private final StorageRepository storageRepository;
+    private final CategoryRepository categoryRepository;
 
-    public ProductService(DataJpaProductRepository productRepository, DataJpaStorageRepository storageRepository) {
+    public ProductService(ProductRepository productRepository, StorageRepository storageRepository, CategoryRepository categoryRepository) {
         this.productRepository = productRepository;
         this.storageRepository = storageRepository;
+        this.categoryRepository = categoryRepository;
     }
 
     public Product get(int id) {
@@ -31,6 +35,14 @@ public class ProductService {
 
     public List<Product> getAll() {
         return productRepository.getAll();
+    }
+
+    @Transactional
+    public void addCategory(int id, int categoryId) {
+        Product productWithCategories = productRepository.getWithCategories(id).orElse(null);
+        Category category = categoryRepository.get(categoryId).orElse(null);
+        assert productWithCategories != null;
+        productWithCategories.getCategories().add(category);
     }
 
     @Transactional
