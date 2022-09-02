@@ -101,6 +101,7 @@
                 <th><spring:message code="product.discount"/></th>
                 <th><spring:message code="product.shop"/></th>
                 <th></th>
+                <th></th>
             </tr>
             </thead>
         </table>
