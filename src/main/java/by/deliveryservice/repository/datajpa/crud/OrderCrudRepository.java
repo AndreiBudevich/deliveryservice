@@ -2,10 +2,12 @@ package by.deliveryservice.repository.datajpa.crud;
 
 import by.deliveryservice.model.Order;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
+@Transactional(readOnly = true)
 public interface OrderCrudRepository extends CommonCrudRepository<Order> {
 
     @Query("SELECT o FROM Order o JOIN FETCH o.client ORDER BY o.registered DESC")
