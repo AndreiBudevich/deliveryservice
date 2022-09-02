@@ -11,7 +11,13 @@ $(function () {
     makeEditable({
         "columns": [
             {
-                "data": "name"
+                "data": "name",
+                "render": function (data, type, row) {
+                    if (type === "display") {
+                        return "<a href='categoryProducts?categoryId=" + row.id + "&categoryName=" + data +"'>" + data + "</a>";
+                    }
+                    return data;
+                }
             },
             {
                 "orderable": false,
