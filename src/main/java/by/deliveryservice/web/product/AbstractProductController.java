@@ -46,6 +46,11 @@ public abstract class AbstractProductController {
         productService.save(product, shopId);
     }
 
+    void addCategory(int id, int categoryId) {
+        productService.addCategory(id, categoryId);
+        log.info("add category {} in product {}", categoryId, id);
+    }
+
     List<ProductDto> getAllWithFilter(String nameContains, String descriptionContains, String shopNameContains, Long priceFrom, Long priceUpTo, Integer discountFrom,
                                       Integer discountUpTo, String[] idsCategories) {
         log.info("get all with filter");
