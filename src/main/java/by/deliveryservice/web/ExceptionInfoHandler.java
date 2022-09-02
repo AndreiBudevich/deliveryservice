@@ -1,13 +1,8 @@
 package by.deliveryservice.web;
 
-import by.deliveryservice.error.IllegalRequestDataException;
-import by.deliveryservice.error.AppException;
-import by.deliveryservice.error.ErrorInfo;
-import by.deliveryservice.error.ErrorType;
-import by.deliveryservice.error.NotFoundException;
+import by.deliveryservice.error.*;
 import by.deliveryservice.util.validation.ValidationUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -26,16 +21,17 @@ import java.util.Map;
 
 import static by.deliveryservice.error.ErrorType.*;
 
-
+@Slf4j
 @RestControllerAdvice(annotations = RestController.class)
 @Order(Ordered.HIGHEST_PRECEDENCE + 5)
 public class ExceptionInfoHandler {
-    private static final Logger log = LoggerFactory.getLogger(ExceptionInfoHandler.class);
 
     public static final String EXCEPTION_DUPLICATE_NAME_CATEGORY = "exception.category.duplicateName";
+    public static final String PRODUCT_NOT_FOUND_BY_ORDER = "exception.product.notFoundByOrder";
 
     private static final Map<String, String> CONSTRAINS_I18N_MAP = Map.of(
-            "category_name_idx", EXCEPTION_DUPLICATE_NAME_CATEGORY);
+            "category_name_idx", EXCEPTION_DUPLICATE_NAME_CATEGORY,
+            "product not found by order", PRODUCT_NOT_FOUND_BY_ORDER);
 
     private final MessageSourceAccessor messageSourceAccessor;
 
