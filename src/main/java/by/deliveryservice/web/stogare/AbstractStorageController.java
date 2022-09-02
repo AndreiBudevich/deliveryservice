@@ -1,7 +1,7 @@
 package by.deliveryservice.web.stogare;
 
 import by.deliveryservice.model.Storage;
-import by.deliveryservice.repository.datajpa.DataJpaStorageRepository;
+import by.deliveryservice.repository.StorageRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -14,7 +14,7 @@ import static by.deliveryservice.util.validation.ValidationUtil.checkNew;
 public abstract class AbstractStorageController {
 
     @Autowired
-    private DataJpaStorageRepository storageRepository;
+    private StorageRepository storageRepository;
 
     public Storage get(int shopId, int id) {
         log.info("get storage {} by shop {}", id, shopId);
