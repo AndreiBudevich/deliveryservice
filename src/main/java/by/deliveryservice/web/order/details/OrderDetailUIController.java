@@ -30,6 +30,12 @@ public class OrderDetailUIController extends AbstractOrderDetailController {
     }
 
     @Override
+    @PostMapping("/delete-product/{productId}")
+    public void deleteProduct(@PathVariable int clientId, @PathVariable int orderId, @PathVariable int productId) {
+        super.deleteProduct(clientId, orderId, productId);
+    }
+
+    @Override
     @DeleteMapping("/details/{id}")
     public void delete(@PathVariable int clientId, @PathVariable int orderId, @PathVariable int id) {
         super.delete(clientId, orderId, id);

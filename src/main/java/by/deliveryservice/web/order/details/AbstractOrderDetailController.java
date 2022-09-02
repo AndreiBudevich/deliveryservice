@@ -37,7 +37,12 @@ public class AbstractOrderDetailController {
     }
 
     public void addProduct(int clientId, int orderId, int productId) {
+        orderDetailService.addProduct(clientId, orderId, productId);
         log.info("add product {} by order {} by client id {}", productId, orderId, clientId);
-        orderDetailService.addProduct(orderId, productId, clientId);
+    }
+
+    public void deleteProduct(int clientId, int orderId, int productId) {
+        orderDetailService.deleteProduct(clientId, orderId, productId);
+        log.info("delete product {} by order {} by client id {}", productId, orderId, clientId);
     }
 }
