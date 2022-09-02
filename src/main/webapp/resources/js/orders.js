@@ -14,8 +14,8 @@ $(function () {
                 "data": "client",
                 "render": function (data, type) {
                     if (type === "display") {
-                        return "<a href='client_orders?clientId=" + data.id + "'>" + data.surname + " "
-                            + data.name.substr(0, 1) + ". " +
+                        return "<a href='client_orders?" + getParamClient (data) +
+                            "'>" + data.surname + " " + data.name.substr(0, 1) + ". " +
                             data.middleName.substr(0, 1) + "." + "</a>";
                     }
                     return data;

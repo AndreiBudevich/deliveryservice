@@ -6,6 +6,7 @@
 <body>
 <script type="text/javascript" src="resources/js/common.js" defer></script>
 <script type="text/javascript" src="resources/js/orders.js" defer></script>
+<script type="text/javascript" src="resources/js/getParamClient.js" defer></script>
 
 <jsp:include page="fragments/bodyHeader.jsp"/>
 

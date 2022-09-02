@@ -62,10 +62,6 @@ $(function () {
 
 function getClientOrdersBtn(data, type, row) {
     if (type === "display") {
-        return "<a href='client_orders?" + $.param({
-            clientId: row.id,
-            residentialAddress: row.residentialAddress,
-            clientName: row.surname + " " + row.name + " " + row.middleName,
-        }) + "'>" + "<span class='fa fa-shopping-bag'></span></a>";
+        return "<a href='client_orders?" + getParamClient (row) + "'>" + "<span class='fa fa-shopping-bag'></span></a>";
     }
 }
