@@ -31,6 +31,11 @@ public class ProductUIController extends AbstractProductController {
         super.addCategory(id, categoryId);
     }
 
+    @PostMapping("/products/{id}/delete-category/{categoryId}")
+    void deleteCategory(@PathVariable int id, @PathVariable int categoryId) {
+        super.deleteCategory(id, categoryId);
+    }
+
     @GetMapping("/products/filter")
     public List<ProductDto> getAllWithFilter(@RequestParam @Nullable String nameContains,
                                              @RequestParam @Nullable String descriptionContains,

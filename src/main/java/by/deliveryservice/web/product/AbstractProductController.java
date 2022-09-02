@@ -5,6 +5,8 @@ import by.deliveryservice.model.Product;
 import by.deliveryservice.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -49,6 +51,11 @@ public abstract class AbstractProductController {
     void addCategory(int id, int categoryId) {
         productService.addCategory(id, categoryId);
         log.info("add category {} in product {}", categoryId, id);
+    }
+
+    void deleteCategory(@PathVariable int id, @PathVariable int categoryId) {
+        productService.deleteCategory(id, categoryId);
+        log.info("delete category {} in product {}", categoryId, id);
     }
 
     List<ProductDto> getAllWithFilter(String nameContains, String descriptionContains, String shopNameContains, Long priceFrom, Long priceUpTo, Integer discountFrom,
