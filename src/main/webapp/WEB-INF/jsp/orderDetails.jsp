@@ -28,6 +28,8 @@
                 <th><spring:message code="order.details.amount"/></th>
                 <th></th>
                 <th></th>
+                <th></th>
+                <th></th>
             </tr>
             </thead>
         </table>
