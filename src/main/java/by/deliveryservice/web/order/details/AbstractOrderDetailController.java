@@ -27,7 +27,7 @@ public class AbstractOrderDetailController {
 
     public void delete(int clientId, int orderId, int id) {
         log.info("delete order details {} by order {} by client id {}", id, orderId, clientId);
-        orderDetailService.delete(id);
+        orderDetailService.delete(clientId, orderId, id);
     }
 
     public void update(OrderDetail orderDetail, int id, int clientId, int orderId, int productId) {
