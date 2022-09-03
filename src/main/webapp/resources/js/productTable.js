@@ -38,12 +38,12 @@ $(function () {
 
 function renderPlusBtn(data, type, row) {
     if (type === "display") {
-        return "<a onclick='plus(" + row.id + ");'><span class='fa fa-plus'></span></a>";
+        return "<a onclick='plusProduct(" + row.id + ");'><span class='fa fa-plus'></span></a>";
     }
 }
 
 function  renderMinusBtn(data, type, row) {
     if (type === "display") {
-        return "<a onclick='minus(" + row.id + ");'><span class='fa fa-minus'></span></a>";
+        return "<a onclick='minusProduct(" + row.id + ");'><span class='fa fa-minus'></span></a>";
     }
 }
