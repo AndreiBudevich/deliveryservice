@@ -1,12 +1,12 @@
 package by.deliveryservice.service;
 
-import by.deliveryservice.error.IllegalRequestDataException;
 import by.deliveryservice.model.Order;
 import by.deliveryservice.model.OrderDetail;
 import by.deliveryservice.model.Product;
 import by.deliveryservice.repository.OrderDetailRepository;
 import by.deliveryservice.repository.OrderRepository;
 import by.deliveryservice.repository.ProductRepository;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -63,7 +63,7 @@ public class OrderDetailService {
     public void deleteProduct(int clientId, int orderId, int productId) {
         OrderDetail orderDetail = orderDetailRepository.getByOrderIdByProductId(orderId, productId).orElse(null);
         if (orderDetail == null) {
-            throw new IllegalRequestDataException("product not found by order " + orderId);
+            throw new DataIntegrityViolationException("product not found by order " + orderId);
         }
 
         int quantity = orderDetail.getQuantity();
@@ -78,9 +78,7 @@ public class OrderDetailService {
     }
 
     private Long getActualTotalCostOrder(List<OrderDetail> orderDetails) {
-        return orderDetails.stream()
-                .mapToLong(OrderDetail::getAmount)
-                .sum();
+        return orderDetails.stream().mapToLong(OrderDetail::getAmount).sum();
     }
 
     private void orderTotalCostRecalculation(List<OrderDetail> orderDetails, int orderId, int clientId) {
