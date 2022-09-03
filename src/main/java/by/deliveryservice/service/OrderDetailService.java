@@ -33,8 +33,9 @@ public class OrderDetailService {
         return orderDetailRepository.get(id).orElse(null);
     }
 
-    public void delete(int id) {
+    public void delete(int clientId, int orderId, int id) {
         orderDetailRepository.delete(id);
+        orderTotalCostRecalculation(orderDetailRepository.getAllByOrderId(orderId), orderId, clientId);
     }
 
     @Transactional
