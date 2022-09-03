@@ -17,7 +17,7 @@
         <button type="button"
                 class="btn btn-primary"
                 onclick="document.location='${pageContext.request.contextPath}/order_products?clientId=${param.clientId}&orderId=${param.orderId}'">
-            <spring:message code="product.order.add"/>
+            <spring:message code="product.order.edit"/>
         </button>
         <table class="table table-striped" id="datatable">
             <thead>
