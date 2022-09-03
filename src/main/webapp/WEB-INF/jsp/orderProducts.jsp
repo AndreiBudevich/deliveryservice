@@ -5,11 +5,14 @@
 <jsp:include page="fragments/headTag.jsp"/>
 <body>
 <script type="text/javascript" src="resources/js/commonBefore.js"></script>
+<script type="text/javascript" src="resources/js/parametersConstantsOrderProduct.js"></script>
 <script type="text/javascript" src="resources/js/common.js" defer></script>
+<script type="text/javascript" src="resources/js/orderTotalCost.js" defer></script>
 <script type="text/javascript" src="resources/js/productTable.js" defer></script>
-<script type="text/javascript" src="resources/js/orderProducts.js" defer></script>
+<script type="text/javascript" src="resources/js/orderProductsPlusMinus.js" defer></script>
 <script type="text/javascript" src="resources/js/filterCategories.js" defer></script>
 <script type="text/javascript" src="resources/js/filter.js" defer></script>
+
 <jsp:include page="fragments/bodyHeader.jsp"/>
 
 <div class="jumbotron pt-4">

@@ -5,14 +5,16 @@
 <jsp:include page="fragments/headTag.jsp"/>
 <body>
 <script type="text/javascript" src="resources/js/commonBefore.js"></script>
+<script type="text/javascript" src="resources/js/parametersConstantsOrderProduct.js"></script>
 <script type="text/javascript" src="resources/js/common.js" defer></script>
 <script type="text/javascript" src="resources/js/orderDetails.js" defer></script>
-<script type="text/javascript" src="resources/js/saveWithIdProduct.js" defer></script>
+<script type="text/javascript" src="resources/js/orderTotalCost.js" defer></script>
 
 <jsp:include page="fragments/bodyHeader.jsp"/>
 
 <div class="jumbotron pt-4">
     <div class="container">
+        <div id="orderTotalCost"></div>
         <h3 class="text-center"><spring:message code="order.details.title"/></h3>
         <button type="button"
                 class="btn btn-primary"
