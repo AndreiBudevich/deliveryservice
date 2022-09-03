@@ -19,12 +19,12 @@ $(function () {
             {
                 "orderable": false,
                 "defaultContent": "",
-                "render": renderAddBtn
+                "render": renderMinusBtn
             },
             {
                 "orderable": false,
                 "defaultContent": "",
-                "render": renderDeleteBtn
+                "render": renderPlusBtn
             }
         ],
         "order": [
@@ -36,13 +36,13 @@ $(function () {
     });
 });
 
-function renderAddBtn(data, type, row) {
+function renderPlusBtn(data, type, row) {
     if (type === "display") {
         return "<a onclick='plus(" + row.id + ");'><span class='fa fa-plus'></span></a>";
     }
 }
 
-function renderDeleteBtn(data, type, row) {
+function  renderMinusBtn(data, type, row) {
     if (type === "display") {
         return "<a onclick='minus(" + row.id + ");'><span class='fa fa-minus'></span></a>";
     }
