@@ -20,7 +20,7 @@
                 <th><spring:message code="order.registered"/></th>
                 <th><spring:message code="order.deliveryAddress"/></th>
                 <th><spring:message code="order.totalCost"/></th>
-                <th><spring:message code="order.shipped"/></th>
+                <th><spring:message code="order.shipmentStatus"/></th>
                 <th></th>
                 <th></th>
             </tr>
