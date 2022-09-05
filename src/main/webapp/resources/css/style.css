@@ -6,6 +6,10 @@ tr[data-category-enabled="false"] {
     opacity: 0.3;
 }
 
+tr[data-order-shipped="true"] {
+    opacity: 0.3;
+}
+
 .error, .message {
     padding: 10px;
     border-radius: 4px;
