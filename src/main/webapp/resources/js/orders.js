@@ -7,6 +7,21 @@ const ctx = {
     }
 }
 
+function ship(checkb, id) {
+    if (confirm(i18n['common.confirm'])) {
+        let shipped = checkb.is(":checked");
+        $.ajax({
+            url: "api/clients/" + getIdClient(id) + "/orders/" + id,
+            type: "POST",
+        }).done(function () {
+            checkb.closest("tr").attr("data-order-shipped", shipped);
+            successNoty(shipped ? "order.shipped" : "order.notShipped");
+        }).fail(function () {
+            $(checkb).prop("checked", !shipped);
+        });
+    }
+}
+
 $(function () {
     makeEditable({
         "columns": [
@@ -23,7 +38,7 @@ $(function () {
             },
             {
                 "data": "registered",
-                "render": function (date, type, row) {
+                "render": function (date, type) {
                     if (type === "display") {
                         return date.substr(0, 16).replace('T', ' ');
                     }
@@ -40,7 +55,7 @@ $(function () {
                 "data": "shipped",
                 "render": function (data, type, row) {
                     if (type === "display") {
-                        return "<input type='checkbox' " + (data ? "checked" : "") + " onclick='enable($(this)," + row.id + ");'/>";
+                        return "<input type='checkbox' " + (data ? "checked" : "") + " onclick='ship($(this)," + row.id + ");'/>";
                     }
                     return data;
                 }
@@ -62,5 +77,24 @@ $(function () {
                 "desc"
             ]
         ],
+        "createdRow": function (row, data) {
+            if (data.shipped) {
+                $(row).attr("data-order-shipped", true);
+            }
+        }
     });
 });
+
+function getIdClient (idRow) {
+    let IdClient;
+    let datatable = $('#datatable').DataTable();
+    let data = datatable.rows().data();
+    data.each(function (value) {
+        let idRowActual = value['id'];
+        if (idRowActual.toString() === idRow.toString()) {
+            IdClient = value['client']['id'];
+        }
+    });
+    return IdClient;
+}
+
