@@ -6,8 +6,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 
-import java.util.Locale;
-
 @Configuration
 public class AppConfig {
 
@@ -22,6 +20,6 @@ public class AppConfig {
 
     @Bean
     public MessageSourceAccessor getMessageSourceAccessor(final MessageSource messageSource) {
-        return new MessageSourceAccessor(messageSource, Locale.ENGLISH);
+        return new MessageSourceAccessor(messageSource);
     }
 }
