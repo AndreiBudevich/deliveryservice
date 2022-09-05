@@ -7,23 +7,6 @@ const ctx = {
     }
 }
 
-function ship(checkb, id) {
-    if (confirm(i18n['common.confirm'])) {
-        let shipped = checkb.is(":checked");
-        $.ajax({
-            url: "api/clients/" + getIdClient(id) + "/orders/" + id,
-            type: "POST",
-        }).done(function () {
-            checkb.closest("tr").attr("data-order-shipped", shipped);
-            successNoty(shipped ? "order.shipped" : "order.notShipped");
-            let dataTable = $('#datatable').DataTable();
-            dataTable.ajax.reload();
-        }).fail(function () {
-            $(checkb).prop("checked", !shipped);
-        });
-    }
-}
-
 $(function () {
     makeEditable({
         "columns": [
@@ -87,15 +70,17 @@ $(function () {
     });
 });
 
-function renderEditBtnWithCheckShipped(data, type, row) {
-    if (type === "display") {
-        return "<a onclick='updateRowWithCheckShipped(" + row.id + ");'><span class='fa fa-pencil'></span></a>";
-    }
-}
-
-function renderDeleteBtnWithCheckShipped(data, type, row) {
-    if (type === "display") {
-        return "<a onclick='deleteRowWithCheckShipped(" + row.id + ");'><span class='fa fa-remove'></span></a>";
+function ship(checkb, id) {
+    if (confirm(i18n['common.confirm'])) {
+        let shipped = checkb.is(":checked");
+        $.ajax({
+            url: "api/clients/" + getIdClient(id) + "/orders/" + id,
+            type: "POST",
+        }).done(function () {
+            updateDataTableForShipped(shipped);
+        }).fail(function () {
+            $(checkb).prop("checked", !shipped);
+        });
     }
 }
 
@@ -110,41 +95,6 @@ function getIdClient(idRow) {
         }
     });
     return IdClient;
-}
-
-function getShipped(idRow) {
-    let shipped;
-    let datatable = $('#datatable').DataTable();
-    let data = datatable.rows().data();
-    data.each(function (value) {
-        let idRowActual = value['id'];
-        if (idRowActual.toString() === idRow.toString()) {
-            shipped = value['shipped'];
-        }
-    });
-    return shipped;
-}
-
-function updateRowWithCheckShipped(id) {
-    if (checkShipped(id)) {
-        return;
-    }
-    updateRow(id);
-}
-
-function deleteRowWithCheckShipped(id) {
-    if (checkShipped(id)) {
-        return;
-    }
-    deleteRow(id);
-}
-
-function checkShipped(id) {
-    let shipped = getShipped(id)
-    if (shipped === true) {
-        expectedFailNoty("exception.order.shipmentStatus");
-    }
-    return shipped;
 }
 
 function updateRow(id) {
