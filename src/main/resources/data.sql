@@ -36,11 +36,11 @@ VALUES (1, 2),
        (7, 1),
        (7, 3);
 
-INSERT INTO client_order (client_id, registered, total_cost, delivery_address)
-VALUES (1, '2022-04-02', 7007, 'г.Лида, ул. Радунская д.19'),
-       (2, '2022-06-10', 750, 'г.Лида, г.Лида, ул. Машерова 21'),
-       (2, '2022-08-01', 3000, 'г.Лида, ул. Машерова 21'),
-       (3, '2022-10-01', 1000, 'г.Лида, ул. Машерова 27');;
+INSERT INTO client_order (client_id, registered, total_cost, delivery_address, shipped)
+VALUES (1, '2022-04-02', 7007, 'г.Лида, ул. Радунская д.19', false),
+       (2, '2022-06-10', 750, 'г.Лида, г.Лида, ул. Машерова 21', true),
+       (2, '2022-08-01', 3000, 'г.Лида, ул. Машерова 21', false),
+       (3, '2022-10-01', 1000, 'г.Лида, ул. Машерова 27', true);
 
 INSERT INTO order_details (order_id, product_id, price, quantity, amount)
 VALUES (1, 2, 3500, 2, 7000),
