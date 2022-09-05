@@ -1,7 +1,7 @@
-const orderAjaxUrl = "api/clients/orders/";
+const orderAjaxUrl = "api/clients/";
 
 const ctx = {
-    ajaxUrl: orderAjaxUrl,
+    ajaxUrl: orderAjaxUrl + "orders/",
     updateTable: function () {
         $.get(orderAjaxUrl, updateTableByData);
     }
@@ -16,6 +16,8 @@ function ship(checkb, id) {
         }).done(function () {
             checkb.closest("tr").attr("data-order-shipped", shipped);
             successNoty(shipped ? "order.shipped" : "order.notShipped");
+            let dataTable = $('#datatable').DataTable();
+            dataTable.ajax.reload();
         }).fail(function () {
             $(checkb).prop("checked", !shipped);
         });
@@ -29,7 +31,7 @@ $(function () {
                 "data": "client",
                 "render": function (data, type) {
                     if (type === "display") {
-                        return "<a href='client_orders?" + getParamClient (data) +
+                        return "<a href='client_orders?" + getParamClient(data) +
                             "'>" + data.surname + " " + data.name.substr(0, 1) + ". " +
                             data.middleName.substr(0, 1) + "." + "</a>";
                     }
@@ -63,12 +65,12 @@ $(function () {
             {
                 "orderable": false,
                 "defaultContent": "",
-                "render": renderEditBtn
+                "render": renderEditBtnWithCheckShipped
             },
             {
                 "orderable": false,
                 "defaultContent": "",
-                "render": renderDeleteBtn
+                "render": renderDeleteBtnWithCheckShipped
             }
         ],
         "order": [
@@ -85,7 +87,19 @@ $(function () {
     });
 });
 
-function getIdClient (idRow) {
+function renderEditBtnWithCheckShipped(data, type, row) {
+    if (type === "display") {
+        return "<a onclick='updateRowWithCheckShipped(" + row.id + ");'><span class='fa fa-pencil'></span></a>";
+    }
+}
+
+function renderDeleteBtnWithCheckShipped(data, type, row) {
+    if (type === "display") {
+        return "<a onclick='deleteRowWithCheckShipped(" + row.id + ");'><span class='fa fa-remove'></span></a>";
+    }
+}
+
+function getIdClient(idRow) {
     let IdClient;
     let datatable = $('#datatable').DataTable();
     let data = datatable.rows().data();
@@ -98,3 +112,77 @@ function getIdClient (idRow) {
     return IdClient;
 }
 
+function getShipped(idRow) {
+    let shipped;
+    let datatable = $('#datatable').DataTable();
+    let data = datatable.rows().data();
+    data.each(function (value) {
+        let idRowActual = value['id'];
+        if (idRowActual.toString() === idRow.toString()) {
+            shipped = value['shipped'];
+        }
+    });
+    return shipped;
+}
+
+function updateRowWithCheckShipped(id) {
+    if (checkShipped(id)) {
+        return;
+    }
+    updateRow(id);
+}
+
+function deleteRowWithCheckShipped(id) {
+    if (checkShipped(id)) {
+        return;
+    }
+    deleteRow(id);
+}
+
+function checkShipped(id) {
+    let shipped = getShipped(id)
+    if (shipped === true) {
+        expectedFailNoty("exception.order.shipmentStatus");
+    }
+    return shipped;
+}
+
+function updateRow(id) {
+    let editRow = new bootstrap.Modal(document.getElementById('editRow'));
+    editRow.show();
+    form.find(":input").val("");
+    $("#modalTitle").html(i18n["editTitle"]);
+    $.get(orderAjaxUrl + getIdClient(id) + "/orders/" + id, function (data) {
+        $.each(data, function (key, value) {
+            form.find("input[name='" + key + "']").val(value);
+        });
+        $('#editRow').modal();
+    });
+}
+
+function deleteRow(id) {
+    if (confirm(i18n['common.confirm'])) {
+        $.ajax({
+            url: orderAjaxUrl + getIdClient(id) + "/orders/" + id,
+            type: "DELETE"
+        }).done(function () {
+            let dataTable = $('#datatable').DataTable();
+            dataTable.ajax.reload();
+            successNoty("common.deleted");
+        });
+    }
+}
+
+function save() {
+    let idRow = $('#editRow').find("input[name='id']").val();
+    $.ajax({
+        type: "POST",
+        url: orderAjaxUrl + getIdClient(idRow) + "/orders/",
+        data: form.serialize()
+    }).done(function () {
+        $("#editRow").modal("hide");
+        let dataTable = $('#datatable').DataTable();
+        dataTable.ajax.reload();
+        successNoty("common.saved");
+    });
+}
