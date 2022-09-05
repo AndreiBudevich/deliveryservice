@@ -18,6 +18,6 @@ function minusProduct(id) {
         successNoty("product.order.deleted");
         updateOrderTotalCost();
     }).fail(function () {
-        successNoty("product.order.notDeleted");
+        expectedFailNoty("product.order.notDeleted");
     });
 }
