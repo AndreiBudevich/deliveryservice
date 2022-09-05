@@ -85,6 +85,15 @@ function successNoty(key) {
     }).show();
 }
 
+function expectedFailNoty(key) {
+    new Noty({
+        text: "<span class='fa fa-lg fa-check'></span> &nbsp;" + i18n[key],
+        type: 'error',
+        layout: "bottomRight",
+        timeout: 1000
+    }).show();
+}
+
 function renderEditBtn(data, type, row) {
     if (type === "display") {
         return "<a onclick='updateRow(" + row.id + ");'><span class='fa fa-pencil'></span></a>";
@@ -108,7 +117,7 @@ function closeNoty() {
 
 function failNoty(jqXHR) {
     closeNoty();
-    var errorInfo = jqXHR.responseJSON;
+    let errorInfo = jqXHR.responseJSON;
     failedNote = new Noty({
         text: "<span class='fa fa-lg fa-exclamation-circle'></span> &nbsp;" + errorInfo.typeMessage + "<br>" + errorInfo.details.join("<br>"),
         type: "error",
