@@ -43,7 +43,6 @@ public class DataJpaOrderRepository implements OrderRepository {
     }
 
     @Override
-    @Transactional
     public Order save(Order order, int clientId) {
         order.setClient(clientCrudRepository.getReferenceById(clientId));
         return orderCrudRepository.save(order);
