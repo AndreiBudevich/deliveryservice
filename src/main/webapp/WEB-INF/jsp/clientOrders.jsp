@@ -5,8 +5,9 @@
 <jsp:include page="fragments/headTag.jsp"/>
 <body>
 <script type="text/javascript" src="resources/js/commonBefore.js"></script>
-<script type="text/javascript" src="resources/js/clientOrders.js" defer></script>
 <script type="text/javascript" src="resources/js/common.js" defer></script>
+<script type="text/javascript" src="resources/js/clientOrders.js" defer></script>
+<script type="text/javascript" src="resources/js/ship.js" defer></script>
 
 <jsp:include page="fragments/bodyHeader.jsp"/>
 
@@ -67,6 +68,7 @@
             <div class="modal-body">
                 <form id="detailsForm">
                     <input type="hidden" id="id" name="id">
+                    <input type="hidden" id="totalCost" name="totalCost">
                     <div class="form-group">
                         <label for="deliveryAddress" class="col-form-label"><spring:message
                                 code="order.deliveryAddress"/></label>

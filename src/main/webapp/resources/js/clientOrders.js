@@ -30,7 +30,7 @@ $(function () {
                 "data": "shipped",
                 "render": function (data, type, row) {
                     if (type === "display") {
-                        return "<input type='checkbox' " + (data ? "checked" : "") + " onclick='enable($(this)," + row.id + ");'/>";
+                        return "<input type='checkbox' " + (data ? "checked" : "") + " onclick='ship($(this)," + row.id + ");'/>";
                     }
                     return data;
                 }
@@ -43,12 +43,12 @@ $(function () {
             {
                 "orderable": false,
                 "defaultContent": "",
-                "render": renderEditBtn
+                "render": renderEditBtnWithCheckShipped
             },
             {
                 "orderable": false,
                 "defaultContent": "",
-                "render": renderDeleteBtn
+                "render": renderDeleteBtnWithCheckShipped
             }
         ],
         "order": [
@@ -57,8 +57,27 @@ $(function () {
                 "desc"
             ]
         ],
+        "createdRow": function (row, data) {
+            if (data.shipped) {
+                $(row).attr("data-order-shipped", true);
+            }
+        }
     });
 });
+
+function ship(checkb, id) {
+    if (confirm(i18n['common.confirm'])) {
+        let shipped = checkb.is(":checked");
+        $.ajax({
+            url: orderAjaxUrl + id,
+            type: "POST",
+        }).done(function () {
+            updateDataTableForShipped(shipped);
+        }).fail(function () {
+            $(checkb).prop("checked", !shipped);
+        });
+    }
+}
 
 function addWithSetAddress() {
     form.find(":input").val("");
