@@ -29,6 +29,36 @@
     </div>
 </div>
 
+<div class="modal fade" id="editRow" data-bs-backdrop="static" data-bs-keyboard="true" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="detailsForm">
+                    <input type="hidden" id="id" name="id">
+                    <input type="hidden" id="totalCost" name="totalCost">
+                    <div class="form-group">
+                        <label for="deliveryAddress" class="col-form-label"><spring:message
+                                code="order.deliveryAddress"/></label>
+                        <input type="text" class="form-control" id="deliveryAddress" name="deliveryAddress"
+                               placeholder="<spring:message code="order.deliveryAddress"/>">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><spring:message
+                        code="common.cancel"/></button>
+                <button type="button" class="btn btn-primary" onclick="save()"><spring:message
+                        code="common.save"/></button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <jsp:include page="fragments/footer.jsp"/>
 </body>
 <jsp:include page="fragments/i18n.jsp">
