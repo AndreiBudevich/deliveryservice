@@ -46,4 +46,11 @@ public class OrderUIController extends AbstractOrderController {
             super.update(order, order.getId(), clientId);
         }
     }
+
+    @Override
+    @PostMapping("/{clientId}/orders/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void ship(@PathVariable int id, @PathVariable int clientId) {
+        super.ship(id, clientId);
+    }
 }
