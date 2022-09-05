@@ -2,12 +2,13 @@ package by.deliveryservice.service;
 
 import by.deliveryservice.model.Order;
 import by.deliveryservice.repository.OrderRepository;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
+
+import static by.deliveryservice.util.validation.ValidationUtil.isShipped;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -35,11 +36,14 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void delete(int id) {
+        isShipped(getById(id));
         orderRepository.delete(id);
     }
 
     @Override
+    @Transactional
     public Order save(Order order, int clientId) {
+        isShipped(order);
         return orderRepository.save(order, clientId);
     }
 
@@ -47,12 +51,8 @@ public class OrderServiceImpl implements OrderService {
     @Transactional
     public void ship(int id) {
         Order order = getById(id);
-        if (order != null) {
-            if (order.isShipped()) {
-                throw new DataIntegrityViolationException("order shipped");
-            }
-            order.setShipped(true);
-        }
+        isShipped(order);
+        Objects.requireNonNull(order).setShipped(true);
     }
 
     private Order getById(int id) {
