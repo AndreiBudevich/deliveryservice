@@ -1,28 +1,61 @@
 package by.deliveryservice.service;
 
-import by.deliveryservice.model.Product;
-import by.deliveryservice.repository.infile.InFileOrderRepository;
-import by.deliveryservice.repository.infile.InFileShopRepository;
+import by.deliveryservice.model.Order;
+import by.deliveryservice.repository.OrderRepository;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.Objects;
+
+@Service
 public class OrderServiceImpl implements OrderService {
 
-    InFileShopRepository shopRepository;
-    InFileOrderRepository orderRepository;
+    private final OrderRepository orderRepository;
 
-    public OrderServiceImpl() {
-        this.shopRepository = new InFileShopRepository();
-        this.orderRepository = new InFileOrderRepository();
+    public OrderServiceImpl(OrderRepository orderRepository) {
+        this.orderRepository = orderRepository;
     }
 
     @Override
-    public void addProducts(Integer id, Product... products) {
-        shopRepository.deleteProducts(id, products);
-        orderRepository.addProducts(id, products);
+    public List<Order> getAll() {
+        return orderRepository.getAll();
     }
 
     @Override
-    public void deleteProducts(Integer id, Product... products) {
-        shopRepository.addProducts(id, products);
-        orderRepository.deleteProducts(id, products);
+    public List<Order> getAllByClientId(int clientId) {
+        return orderRepository.getAllByClientId(clientId);
+    }
+
+    @Override
+    public Order get(int id) {
+        return Objects.requireNonNull(getById(id));
+    }
+
+    @Override
+    public void delete(int id) {
+        orderRepository.delete(id);
+    }
+
+    @Override
+    public Order save(Order order, int clientId) {
+        return orderRepository.save(order, clientId);
+    }
+
+    @Override
+    @Transactional
+    public void ship(int id) {
+        Order order = getById(id);
+        if (order != null) {
+            if (order.isShipped()) {
+                throw new DataIntegrityViolationException("order shipped");
+            }
+            order.setShipped(true);
+        }
+    }
+
+    private Order getById(int id) {
+        return orderRepository.get(id).orElse(null);
     }
 }
