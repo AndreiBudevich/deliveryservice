@@ -3,7 +3,7 @@ package by.deliveryservice.controller;
 import by.deliveryservice.model.BaseEntity;
 import by.deliveryservice.model.Category;
 import by.deliveryservice.model.Product;
-import by.deliveryservice.service.OrderServiceImpl;
+import by.deliveryservice.service.infile.OrderServiceImplInFile;
 import by.deliveryservice.util.ProxyUtil;
 
 import java.io.BufferedReader;
@@ -95,7 +95,7 @@ public class Controller {
                 case ("addproducts"):
                 case ("deleteproducts"): {
                     if (parameters[0].equals("order")) {
-                        operationsEntities(Product.class, OrderServiceImpl.class, nameMethod, parameters[2], parameters[3]);
+                        operationsEntities(Product.class, OrderServiceImplInFile.class, nameMethod, parameters[2], parameters[3]);
                     } else {
                         operationsEntities(Product.class, clazzRepository, nameMethod, parameters[2], parameters[3]);
                     }
