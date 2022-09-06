@@ -50,4 +50,9 @@ public class DataJpaStorageRepository implements StorageRepository {
         storage.setProduct(productCrudRepository.getReferenceById(productId));
         return storageCrudRepository.save(storage);
     }
+
+    @Override
+    public Optional<Storage> getByProductId(int productId) {
+        return storageCrudRepository.getByProductId(productId);
+    }
 }
