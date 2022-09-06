@@ -1,5 +1,5 @@
-function updateDataTableForShipped(shipped) {
-    echeckb.closest("tr").attr("data-order-shipped", shipped);
+function updateDataTableForShipped(shipped, checkb) {
+    checkb.closest("tr").attr("data-order-shipped", shipped);
     successNoty(shipped ? "order.shipped" : "order.notShipped");
     let dataTable = $('#datatable').DataTable();
     dataTable.ajax.reload();

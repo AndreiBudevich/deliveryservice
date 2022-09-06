@@ -77,7 +77,7 @@ function ship(checkb, id) {
             url: "api/clients/" + getIdClient(id) + "/orders/" + id,
             type: "POST",
         }).done(function () {
-            updateDataTableForShipped(shipped);
+            updateDataTableForShipped(shipped, checkb);
         }).fail(function () {
             $(checkb).prop("checked", !shipped);
         });
