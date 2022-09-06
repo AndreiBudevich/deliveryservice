@@ -36,12 +36,6 @@ $(function () {
                 "defaultContent": "",
                 "render": renderEditBtn
             },
-            {
-                "orderable": false,
-                "defaultContent": "",
-                "render": renderDeleteBtn
-            },
-
         ],
         "order": [
             [

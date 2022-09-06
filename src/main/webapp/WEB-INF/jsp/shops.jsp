@@ -23,7 +23,6 @@
                 <th><spring:message code="shop.contact"/></th>
                 <th></th>
                 <th></th>
-                <th></th>
             </tr>
             </thead>
         </table>
