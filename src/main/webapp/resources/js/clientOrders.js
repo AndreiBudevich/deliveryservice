@@ -72,7 +72,7 @@ function ship(checkb, id) {
             url: orderAjaxUrl + id,
             type: "POST",
         }).done(function () {
-            updateDataTableForShipped(shipped);
+            updateDataTableForShipped(shipped, checkb);
         }).fail(function () {
             $(checkb).prop("checked", !shipped);
         });
@@ -90,6 +90,7 @@ function getOrderProductsBtn(data, type, row) {
         return "<a href='order_details?" + $.param({
             clientId: parameters[1],
             orderId: row.id,
+            shipped: row.shipped,
         }) + "'>" + "<span class='fa fa-shopping-basket'></span></a>";
     }
 }
