@@ -1,5 +1,6 @@
 package by.deliveryservice.util;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
 import com.fasterxml.jackson.databind.json.JsonMapper;
@@ -52,6 +53,14 @@ public class JsonUtil {
             return reader.<T>readValues(json).readAll();
         } catch (IOException e) {
             throw new IllegalArgumentException("Invalid read array from JSON:\n'" + json + "'", e);
+        }
+    }
+
+    public static <T> String writeValue(T obj) {
+        try {
+            return mapper.writeValueAsString(obj);
+        } catch (JsonProcessingException e) {
+            throw new IllegalStateException("Invalid write to JSON:\n'" + obj + "'", e);
         }
     }
 }
