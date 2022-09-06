@@ -30,7 +30,7 @@ public class DataJpaCategoryRepository implements CategoryRepository {
 
     @Override
     public void delete(int id) {
-        categoryCrudRepository.deleteById(id);
+        categoryCrudRepository.deleteExisted(id);
     }
 
     @Override

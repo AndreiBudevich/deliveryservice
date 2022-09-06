@@ -30,7 +30,7 @@ public class DataJpaClientRepository implements ClientRepository {
 
     @Override
     public void delete(int id) {
-        clientCrudRepository.deleteById(id);
+        clientCrudRepository.deleteExisted(id);
     }
 
     @Override

@@ -47,7 +47,7 @@ public class DataJpaProductRepository implements ProductRepository {
 
     @Override
     public void delete(int id) {
-        productCrudRepository.deleteById(id);
+        productCrudRepository.deleteExisted(id);
     }
 
     @Override

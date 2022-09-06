@@ -30,7 +30,7 @@ public class DataJpaShopRepository implements ShopRepository {
 
     @Override
     public void delete(int id) {
-        shopCrudRepository.deleteById(id);
+        shopCrudRepository.deleteExisted(id);
     }
 
     @Override

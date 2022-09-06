@@ -41,7 +41,7 @@ public class DataJpaStorageRepository implements StorageRepository {
 
     @Override
     public void delete(int id) {
-        storageCrudRepository.deleteById(id);
+        storageCrudRepository.deleteExisted(id);
     }
 
     @Override

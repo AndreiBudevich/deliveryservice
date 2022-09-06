@@ -39,7 +39,7 @@ public class DataJpaOrderRepository implements OrderRepository {
 
     @Override
     public void delete(int id) {
-        orderCrudRepository.deleteById(id);
+        orderCrudRepository.deleteExisted(id);
     }
 
     @Override

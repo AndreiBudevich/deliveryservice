@@ -47,7 +47,7 @@ public class DataJpaOrderDetailRepository implements OrderDetailRepository {
 
     @Override
     public void delete(int id) {
-        orderDetailCrudRepository.deleteById(id);
+        orderDetailCrudRepository.deleteExisted(id);
     }
 
     @Override
