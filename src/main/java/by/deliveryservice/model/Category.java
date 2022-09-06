@@ -18,7 +18,7 @@ import java.util.List;
 public class Category extends NamedEntity {
 
     @ManyToMany
-    @JsonBackReference
+    @JsonBackReference(value = "category-product")
     @JoinTable(name = "product_category",
             joinColumns = @JoinColumn(name = "category_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id"))
@@ -26,5 +26,9 @@ public class Category extends NamedEntity {
 
     public Category(String name) {
         super(null, name);
+    }
+
+    public Category(Integer id, String name) {
+        super(id, name);
     }
 }
