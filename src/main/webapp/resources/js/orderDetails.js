@@ -1,10 +1,15 @@
-
 const ctx = {
     ajaxUrl: orderDetailsAjaxUrl,
     updateTable: function () {
         $.get(orderDetailsAjaxUrl, updateTableByData);
     }
 }
+
+$(function () {
+    if (parameters[3] === "true") {
+        $('#select').addClass('shipped');
+    }
+});
 
 $(function () {
     makeEditable({
@@ -35,7 +40,7 @@ $(function () {
             {
                 "orderable": false,
                 "defaultContent": "",
-                "render": renderEditBtn
+                "render": renderEditBtnWithCheckShipped
             },
             {
                 "orderable": false,
@@ -49,6 +54,16 @@ $(function () {
                 "desc"
             ]
         ],
+        "createdRow": function (row) {
+            if (parameters[3] === "true") {
+                let tds = $(row).children('td');
+                tds.each(function (key) {
+                    if (key > 3) {
+                        $(this).attr("data-order-shipped", true);
+                    }
+                });
+            }
+        }
     });
 });
 
@@ -70,15 +85,37 @@ function renderDeleteRowOrderBtn(data, type, row) {
     }
 }
 
+function renderEditBtnWithCheckShipped(data, type, row) {
+    if (type === "display") {
+        return "<a onclick='updateRowWithCheckShipped(" + row.id + ");'><span class='fa fa-pencil'></span></a>";
+    }
+}
+
+function updateRowWithCheckShipped(id) {
+    if (checkShipped() === "true") {
+        return;
+    }
+    updateRow(id);
+}
+
 function plusWithUpdateRow(idRow) {
+    if (checkShipped() === "true") {
+        return;
+    }
     plusProduct(getIdProduct(idRow));
 }
 
 function minusWithUpdateRow(idRow) {
+    if (checkShipped() === "true") {
+        return;
+    }
     minusProduct(getIdProduct(idRow));
 }
 
 function deleteRowWithUpdateTotalCost(id) {
+    if (checkShipped() === "true") {
+        return;
+    }
     if (confirm(i18n['common.confirm'])) {
         $.ajax({
             url: ctx.ajaxUrl + id,
@@ -119,7 +156,6 @@ function minusProduct(id) {
 
 function saveWithIdProduct() {
     let idRow = $('#detailsForm')[0][0].value;
-
     $.ajax({
         type: "POST",
         url: ctx.ajaxUrl + getIdProduct(idRow),
@@ -132,15 +168,32 @@ function saveWithIdProduct() {
     });
 }
 
-function getIdProduct (idRow) {
+function getIdProduct(idRow) {
     let idProduct;
     let datatable = $('#datatable').DataTable();
     let data = datatable.rows().data();
     data.each(function (value) {
         let idRowActual = value['id'];
-        if (idRowActual.toString()===idRow.toString()) {
+        if (idRowActual.toString() === idRow.toString()) {
             idProduct = value['product']['id'];
         }
     });
     return idProduct;
 }
+
+function checkShipped() {
+    let shipped = parameters[3];
+    if (shipped === "true") {
+        expectedFailNoty("exception.order.shipmentStatus");
+    }
+    return shipped;
+}
+
+function relocateSelectProduct() {
+
+    if (checkShipped() === "true") {
+        return;
+    }
+    location.href = "/order_products?clientId=" + parameters[1] + "&orderId=" + parameters[2];
+}
+
