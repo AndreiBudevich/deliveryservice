@@ -22,6 +22,9 @@
     <webjars-noty.version>3.1.4</webjars-noty.version>
     <webjars-datatables.version>1.12.1</webjars-datatables.version>
     <jstl.version>1.2</jstl.version>
+    <mockito.version>4.7.0</mockito.version>
+    <modelmapper.version>3.1.0</modelmapper.version>
+    <jsoup.version>1.15.3</jsoup.version>
 </properties>
 
 <dependencies>
@@ -48,6 +51,12 @@
         <artifactId>spring-boot-starter-tomcat</artifactId>
         <scope>provided</scope>
     </dependency>
+
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-validation</artifactId>
+    </dependency>
+
     <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-test</artifactId>
@@ -68,7 +77,20 @@
     <dependency>
         <groupId>org.modelmapper</groupId>
         <artifactId>modelmapper</artifactId>
-        <version>2.4.5</version>
+        <version>${modelmapper.version}</version>
+    </dependency>
+
+    <dependency>
+        <groupId>org.jsoup</groupId>
+        <artifactId>jsoup</artifactId>
+        <version>${jsoup.version}</version>
+    </dependency>
+
+    <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-inline</artifactId>
+        <version>${mockito.version}</version>
+        <scope>test</scope>
     </dependency>
 
     <dependency>
