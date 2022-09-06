@@ -7,7 +7,15 @@ tr[data-category-enabled="false"] {
 }
 
 tr[data-order-shipped="true"] {
-    opacity: 0.5;
+    opacity: 0.3;
+}
+
+.shipped {
+    opacity: 0.1;
+}
+
+td[data-order-shipped="true"] {
+    opacity: 0.2;
 }
 
 .error, .message {
