@@ -21,7 +21,7 @@ public class Storage extends BaseEntity{
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "shop_id", nullable = false)
-    @JsonBackReference
+    @JsonBackReference(value = "storage-shop")
     private Shop shop;
 
     @ManyToOne(fetch = FetchType.LAZY)

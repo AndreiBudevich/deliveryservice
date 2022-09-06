@@ -29,7 +29,7 @@ public class Product extends NamedEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "shop_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonBackReference
+    @JsonBackReference(value = "product-shop")
     private Shop shop;
 
     @Column(name = "price", nullable = false)
@@ -39,13 +39,13 @@ public class Product extends NamedEntity {
     private Integer discount;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JsonBackReference
+    @JsonBackReference(value = "category-product")
     @JoinTable(name = "product_category",
             joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Set<Category> categories = new HashSet<>();
 
-    @JsonBackReference
+    @JsonBackReference(value = "order-product")
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "order_product",
             joinColumns = @JoinColumn(name = "product_id"),

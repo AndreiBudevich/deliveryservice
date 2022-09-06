@@ -47,7 +47,7 @@ public class Client extends NamedEntity {
     private LocalDateTime registered;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "client")
-    @JsonBackReference
+    @JsonBackReference(value = "order-client")
     private List<Order> orders = new ArrayList<>();
 
     public Client(String name, String surname, String middleName, String residentialAddress, LocalDate birthday) {
