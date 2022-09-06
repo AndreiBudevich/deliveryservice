@@ -43,6 +43,7 @@ public class Product extends NamedEntity {
     @JoinTable(name = "product_category",
             joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id"))
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<Category> categories = new HashSet<>();
 
     @JsonBackReference(value = "order-product")
@@ -50,6 +51,7 @@ public class Product extends NamedEntity {
     @JoinTable(name = "order_product",
             joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "order_id"))
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<Order> orders = new HashSet<>();
 
     public Product(String name, String description, Shop shop, Long price, Integer discount) {
