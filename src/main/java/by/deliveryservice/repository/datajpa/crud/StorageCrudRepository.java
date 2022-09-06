@@ -15,4 +15,7 @@ public interface StorageCrudRepository extends CommonCrudRepository<Storage> {
 
     @Query("SELECT s FROM Storage s JOIN FETCH s.product JOIN FETCH s.product WHERE s.id = ?1")
     Optional<Storage> get(int id);
+
+    @Query("SELECT s FROM Storage s JOIN FETCH s.product JOIN FETCH s.product WHERE s.product.id = ?1")
+    Optional<Storage> getByProductId(int productId);
 }
