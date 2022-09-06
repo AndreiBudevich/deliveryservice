@@ -3,6 +3,7 @@ package by.deliveryservice.util.validation;
 import by.deliveryservice.HasId;
 import by.deliveryservice.error.ErrorType;
 import by.deliveryservice.error.IllegalRequestDataException;
+import by.deliveryservice.error.NotFoundException;
 import by.deliveryservice.model.Order;
 import lombok.experimental.UtilityClass;
 import org.slf4j.Logger;
@@ -32,6 +33,26 @@ public class ValidationUtil {
     public static void isShipped(Order order) {
         if (order != null && order.isShipped()) {
             throw new DataIntegrityViolationException("order shipped");
+        }
+    }
+
+    public static <T> T checkNotFoundWithId(T object, int id) {
+        checkNotFoundWithId(object != null, id);
+        return object;
+    }
+
+    public static void checkNotFoundWithId(boolean found, int id) {
+        checkNotFound(found, "id=" + id);
+    }
+
+    public static <T> T checkNotFound(T object, String msg) {
+        checkNotFound(object != null, msg);
+        return object;
+    }
+
+    public static void checkNotFound(boolean found, String msg) {
+        if (!found) {
+            throw new NotFoundException("Not found entity with " + msg);
         }
     }
 
