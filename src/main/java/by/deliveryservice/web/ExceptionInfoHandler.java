@@ -29,10 +29,12 @@ public class ExceptionInfoHandler {
     public static final String EXCEPTION_DUPLICATE_NAME_CATEGORY = "exception.category.duplicateName";
     public static final String PRODUCT_NOT_FOUND_BY_ORDER = "exception.product.notFoundByOrder";
     public static final String ORDER_SHIPPED = "exception.order.shipmentStatus";
+    public static final String EXCEPTION_DUPLICATE_CLIENT = "exception.client.duplicate";
 
     private static final Map<String, String> CONSTRAINS_I18N_MAP = Map.of(
             "category_name_idx", EXCEPTION_DUPLICATE_NAME_CATEGORY,
             "product not found by order", PRODUCT_NOT_FOUND_BY_ORDER,
+            "name_surname_middlename_residential_address_idx", EXCEPTION_DUPLICATE_CLIENT,
             "order shipped", ORDER_SHIPPED);
 
     private final MessageSourceAccessor messageSourceAccessor;
