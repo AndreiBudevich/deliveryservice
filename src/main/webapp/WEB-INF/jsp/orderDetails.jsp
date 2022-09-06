@@ -17,8 +17,8 @@
         <div id="orderTotalCost"></div>
         <h3 class="text-center"><spring:message code="order.details.title"/></h3>
         <button type="button"
-                class="btn btn-primary"
-                onclick="document.location='${pageContext.request.contextPath}/order_products?clientId=${param.clientId}&orderId=${param.orderId}'">
+                class="btn btn-primary" id="select"
+                onclick="relocateSelectProduct()">
             <spring:message code="product.order.edit"/>
         </button>
         <table class="table table-striped" id="datatable">
