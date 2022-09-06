@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import static by.deliveryservice.testdata.CategoryTestData.*;
 import static by.deliveryservice.util.JsonUtil.writeValue;
 import static org.hamcrest.Matchers.containsString;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -37,6 +38,21 @@ class CategoryRestControllerTest extends AbstractControllerTest {
     @Test
     void getNotFound() throws Exception {
         perform(MockMvcRequestBuilders.get(REST_URL + NOT_FOUND))
+                .andDo(print())
+                .andExpect(status().isUnprocessableEntity());
+    }
+
+    @Test
+    void delete() throws Exception {
+        perform(MockMvcRequestBuilders.delete(REST_URL + CATEGORY_ID_1))
+                .andDo(print())
+                .andExpect(status().isNoContent());
+        assertFalse(categoryRepository.get(CATEGORY_ID_1).isPresent());
+    }
+
+    @Test
+    void deleteNotFound() throws Exception {
+        perform(MockMvcRequestBuilders.delete(REST_URL + NOT_FOUND))
                 .andDo(print())
                 .andExpect(status().isUnprocessableEntity());
     }
