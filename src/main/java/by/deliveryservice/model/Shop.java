@@ -37,6 +37,13 @@ public class Shop extends NamedEntity {
         this.contact = contact;
     }
 
+    public Shop(Integer id, String name, String address, String description, String contact) {
+        super(id, name);
+        this.address = address;
+        this.description = description;
+        this.contact = contact;
+    }
+
     @Override
     public String toString() {
         return "Shop " +
