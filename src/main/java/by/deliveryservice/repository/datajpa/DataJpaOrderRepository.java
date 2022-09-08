@@ -6,7 +6,6 @@ import by.deliveryservice.repository.OrderRepository;
 import by.deliveryservice.repository.datajpa.crud.CommonCrudRepository;
 import by.deliveryservice.repository.datajpa.crud.OrderCrudRepository;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
