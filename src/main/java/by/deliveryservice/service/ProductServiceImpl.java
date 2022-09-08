@@ -10,8 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
+
+import static by.deliveryservice.util.validation.ValidationUtil.checkNotFoundWithId;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -28,7 +29,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product get(int id) {
-        return Objects.requireNonNull(productRepository.get(id).orElse(null));
+        return checkNotFoundWithId(productRepository.get(id).orElse(null), id);
     }
 
     @Override
@@ -67,7 +68,9 @@ public class ProductServiceImpl implements ProductService {
     @Transactional
     public Product save(Product product, int shopId) {
         Product newProduct = productRepository.save(product, shopId);
-        storageRepository.save(new Storage(null, null, 0), shopId, newProduct.getId());
+        if (product.getId()==null) {
+            storageRepository.save(new Storage(null, null, 0), shopId, newProduct.getId());
+        }
         return productRepository.save(product, shopId);
     }
 
