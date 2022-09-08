@@ -1,5 +1,7 @@
 package by.deliveryservice.model;
 
+import by.deliveryservice.util.validation.NoHtml;
+import by.deliveryservice.web.View;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AccessLevel;
@@ -8,8 +10,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,11 +24,14 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "product", uniqueConstraints =
-        {@UniqueConstraint(columnNames = {"name", "description"},
-                name = "name_description_idx")})
+        {@UniqueConstraint(columnNames = {"name", "description", "shop_id"},
+                name = "name_description_shop_id_idx")})
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Product extends NamedEntity {
 
+    @NotBlank
+    @Size(min = 2, max = 1000)
+    @NoHtml(groups = {View.Web.class})
     @Column(name = "description", nullable = false)
     private String description;
 
@@ -33,8 +42,12 @@ public class Product extends NamedEntity {
     private Shop shop;
 
     @Column(name = "price", nullable = false)
+    @NotNull
+    @Range(min = 1, max = 50000)
     private Long price;
 
+    @NotNull
+    @Range(min = 0, max = 100)
     @Column(name = "discount", nullable = false)
     private Integer discount;
 
@@ -56,6 +69,14 @@ public class Product extends NamedEntity {
 
     public Product(String name, String description, Shop shop, Long price, Integer discount) {
         super(null, name);
+        this.description = description;
+        this.shop = shop;
+        this.price = price;
+        this.discount = discount;
+    }
+
+    public Product(Integer id, String name, String description, Shop shop, Long price, Integer discount) {
+        super(id, name);
         this.description = description;
         this.shop = shop;
         this.price = price;
