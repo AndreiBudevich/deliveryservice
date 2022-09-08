@@ -67,11 +67,12 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional
     public Product save(Product product, int shopId) {
+        boolean createStorage = product.getId() == null;
         Product newProduct = productRepository.save(product, shopId);
-        if (product.getId()==null) {
+        if (createStorage) {
             storageRepository.save(new Storage(null, null, 0), shopId, newProduct.getId());
         }
-        return productRepository.save(product, shopId);
+        return newProduct;
     }
 
     @Override
