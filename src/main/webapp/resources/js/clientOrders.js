@@ -82,6 +82,7 @@ function ship(checkb, id) {
 function addWithSetAddress() {
     form.find(":input").val("");
     $("#modalTitle").html(i18n["addTitle"]);
+    $("#totalCost").val(0);
     $("#deliveryAddress").val(decodeURIComponent(parameters[2]));
 }
 
