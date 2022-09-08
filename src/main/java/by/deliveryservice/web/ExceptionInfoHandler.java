@@ -7,7 +7,6 @@ import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindException;
@@ -26,16 +25,18 @@ import static by.deliveryservice.error.ErrorType.*;
 @Order(Ordered.HIGHEST_PRECEDENCE + 5)
 public class ExceptionInfoHandler {
 
-    public static final String EXCEPTION_DUPLICATE_NAME_CATEGORY = "exception.category.duplicateName";
+    public static final String EXCEPTION_DUPLICATE_CATEGORY = "exception.category.duplicateName";
     public static final String PRODUCT_NOT_FOUND_BY_ORDER = "exception.product.notFoundByOrder";
     public static final String ORDER_SHIPPED = "exception.order.shipmentStatus";
     public static final String EXCEPTION_DUPLICATE_CLIENT = "exception.client.duplicate";
+    public static final String EXCEPTION_DUPLICATE_SHOP = "exception.shop.duplicate";
 
     private static final Map<String, String> CONSTRAINS_I18N_MAP = Map.of(
-            "category_name_idx", EXCEPTION_DUPLICATE_NAME_CATEGORY,
+            "category_name_idx", EXCEPTION_DUPLICATE_CATEGORY,
             "product not found by order", PRODUCT_NOT_FOUND_BY_ORDER,
             "name_surname_middlename_residential_address_idx", EXCEPTION_DUPLICATE_CLIENT,
-            "order shipped", ORDER_SHIPPED);
+            "order shipped", ORDER_SHIPPED,
+            "shop_name_idx", EXCEPTION_DUPLICATE_SHOP);
 
     private final MessageSourceAccessor messageSourceAccessor;
 
