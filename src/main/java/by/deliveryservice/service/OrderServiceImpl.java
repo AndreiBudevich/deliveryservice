@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Objects;
 
+import static by.deliveryservice.util.validation.ValidationUtil.checkNotFoundWithId;
 import static by.deliveryservice.util.validation.ValidationUtil.isShipped;
 
 @Service
@@ -39,7 +40,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order get(int id) {
-        return Objects.requireNonNull(getById(id));
+        return checkNotFoundWithId(getById(id), id);
     }
 
     @Override
