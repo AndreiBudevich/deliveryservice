@@ -1,6 +1,7 @@
 package by.deliveryservice.web.order;
 
 import by.deliveryservice.dto.OrderDto;
+import by.deliveryservice.dto.OrderWithClientDto;
 import by.deliveryservice.model.Order;
 import by.deliveryservice.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
@@ -8,8 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-import static by.deliveryservice.util.OrderUtil.createDto;
-import static by.deliveryservice.util.OrderUtil.getDtos;
+import static by.deliveryservice.util.OrderUtil.*;
 import static by.deliveryservice.util.validation.ValidationUtil.assureIdConsistent;
 import static by.deliveryservice.util.validation.ValidationUtil.checkNew;
 
@@ -19,9 +19,9 @@ public abstract class AbstractOrderController {
     @Autowired
     private OrderService orderService;
 
-    public List<Order> getAll() {
+    public List<OrderWithClientDto> getAll() {
         log.info("getAll for order");
-        return orderService.getAll();
+        return getWithClientDtos(orderService.getAll());
     }
 
     public List<OrderDto> getAllByClientId(int clientId) {

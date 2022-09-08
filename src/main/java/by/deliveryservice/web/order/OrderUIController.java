@@ -1,6 +1,7 @@
 package by.deliveryservice.web.order;
 
 import by.deliveryservice.dto.OrderDto;
+import by.deliveryservice.dto.OrderWithClientDto;
 import by.deliveryservice.model.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -14,7 +15,7 @@ public class OrderUIController extends AbstractOrderController {
 
     @GetMapping("/orders")
     @Override
-    public List<Order> getAll() {
+    public List<OrderWithClientDto> getAll() {
         return super.getAll();
     }
 
