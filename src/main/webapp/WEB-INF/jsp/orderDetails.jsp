@@ -9,6 +9,7 @@
 <script type="text/javascript" src="resources/js/common.js" defer></script>
 <script type="text/javascript" src="resources/js/orderDetails.js" defer></script>
 <script type="text/javascript" src="resources/js/orderTotalCost.js" defer></script>
+<script type="text/javascript" src="resources/js/saveWithIdProduct.js" defer></script>
 
 <jsp:include page="fragments/bodyHeader.jsp"/>
 
