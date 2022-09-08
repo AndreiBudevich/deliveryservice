@@ -26,11 +26,13 @@ public class ProductUIController extends AbstractProductController {
         return super.get(shopId, id);
     }
 
+    @Override
     @PostMapping("/products/{id}/add-category/{categoryId}")
     void addCategory(@PathVariable int id, @PathVariable int categoryId) {
         super.addCategory(id, categoryId);
     }
 
+    @Override
     @PostMapping("/products/{id}/delete-category/{categoryId}")
     void deleteCategory(@PathVariable int id, @PathVariable int categoryId) {
         super.deleteCategory(id, categoryId);
