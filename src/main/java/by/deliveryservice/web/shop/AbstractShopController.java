@@ -7,8 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-import static by.deliveryservice.util.validation.ValidationUtil.assureIdConsistent;
-import static by.deliveryservice.util.validation.ValidationUtil.checkNew;
+import static by.deliveryservice.util.validation.ValidationUtil.*;
 
 @Slf4j
 public abstract class AbstractShopController {
@@ -18,12 +17,7 @@ public abstract class AbstractShopController {
 
     public Shop get(int id) {
         log.info("get shop {}", id);
-        return shopRepository.get(id).orElse(null);
-    }
-
-    public void delete(int id) {
-        log.info("delete shop {}", id);
-        shopRepository.delete(id);
+        return checkNotFoundWithId(shopRepository.get(id).orElse(null), id);
     }
 
     public List<Shop> getAll() {
