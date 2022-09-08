@@ -73,3 +73,8 @@ function saveProduct() {
         successNoty("common.saved");
     });
 }
+
+function add() {
+    $("#modalTitleProduct").html(i18n["addTitle"]);
+    $("#detailsFormProduct").find(":input").val("");
+}
