@@ -3,6 +3,7 @@ package by.deliveryservice.web.product;
 import by.deliveryservice.AbstractControllerTest;
 import by.deliveryservice.model.Product;
 import by.deliveryservice.repository.ProductRepository;
+import by.deliveryservice.repository.StorageRepository;
 import by.deliveryservice.testdata.ProductTestData;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import static by.deliveryservice.testdata.ProductTestData.*;
 import static by.deliveryservice.testdata.ShopTestData.*;
 import static by.deliveryservice.util.JsonUtil.writeValue;
 import static org.hamcrest.Matchers.containsString;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -27,6 +29,9 @@ class ProductRestControllerTest extends AbstractControllerTest {
 
     @Autowired
     ProductRepository productRepository;
+
+    @Autowired
+    StorageRepository storageRepository;
 
     @Test
     void get() throws Exception {
@@ -75,6 +80,7 @@ class ProductRestControllerTest extends AbstractControllerTest {
         newProduct.setId(newId);
         PRODUCT_MATCHER.assertMatch(created, newProduct);
         PRODUCT_MATCHER.assertMatch(productRepository.get(newId).orElse(null), newProduct);
+        assertTrue(storageRepository.getByProductId(newId).isPresent());
     }
 
     @Test
