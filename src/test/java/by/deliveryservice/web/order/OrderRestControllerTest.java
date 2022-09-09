@@ -9,9 +9,15 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.util.Objects;
+
+import static by.deliveryservice.testdata.ClientTestData.CLIENT_ID_1;
 import static by.deliveryservice.testdata.ClientTestData.CLIENT_ID_2;
 import static by.deliveryservice.testdata.OrderTestData.*;
 import static by.deliveryservice.util.JsonUtil.writeValue;
+import static org.hamcrest.Matchers.containsString;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -25,7 +31,7 @@ class OrderRestControllerTest extends AbstractControllerTest {
 
     @Test
     void get() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL + CLIENT_ID_2 + "/orders/" + ORDER_ID_1))
+        perform(MockMvcRequestBuilders.get(REST_URL + CLIENT_ID_1 + "/orders/" + ORDER_ID_1))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -34,9 +40,42 @@ class OrderRestControllerTest extends AbstractControllerTest {
 
     @Test
     void getNotFound() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL + CLIENT_ID_2 + "/orders/" + NOT_FOUND))
+        perform(MockMvcRequestBuilders.get(REST_URL + CLIENT_ID_1 + "/orders/" + NOT_FOUND))
                 .andDo(print())
                 .andExpect(status().isUnprocessableEntity());
+    }
+
+    @Test
+    void delete() throws Exception {
+        perform(MockMvcRequestBuilders.delete(REST_URL + CLIENT_ID_1 + "/orders/" + ORDER_ID_1))
+                .andDo(print())
+                .andExpect(status().isNoContent());
+        assertFalse(orderRepository.get(ORDER_ID_1).isPresent());
+    }
+
+    @Test
+    void ship() throws Exception {
+        assertFalse(Objects.requireNonNull(orderRepository.get(ORDER_ID_1).orElse(null)).isShipped());
+        perform(MockMvcRequestBuilders.post(REST_URL + CLIENT_ID_1 + "/orders/" + ORDER_ID_1))
+                .andDo(print())
+                .andExpect(status().isNoContent());
+        assertTrue(Objects.requireNonNull(orderRepository.get(ORDER_ID_1).orElse(null)).isShipped());
+    }
+
+    @Test
+    void deleteNotFound() throws Exception {
+        perform(MockMvcRequestBuilders.delete(REST_URL + CLIENT_ID_1 + "/orders/" + NOT_FOUND))
+                .andDo(print())
+                .andExpect(status().isUnprocessableEntity());
+    }
+
+    @Test
+    void deleteShipped() throws Exception {
+        perform(MockMvcRequestBuilders.delete(REST_URL + CLIENT_ID_2 + "/orders/" + ORDER_ID_2))
+                .andDo(print())
+                .andExpect(status().isUnprocessableEntity())
+                .andExpect(content().string(containsString("Заказ отгружен, изменения запрещены!")));
+        assertTrue(orderRepository.get(ORDER_ID_1).isPresent());
     }
 
     @Test
@@ -48,9 +87,17 @@ class OrderRestControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    void getAllByClientId() throws Exception {
+        perform(MockMvcRequestBuilders.get(REST_URL + CLIENT_ID_2 + "/orders"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(ORDER_MATCHER.contentJson(order3, order2));
+    }
+
+    @Test
     void update() throws Exception {
         Order updated = getUpdated();
-        perform(MockMvcRequestBuilders.put(REST_URL + CLIENT_ID_2 + "/orders")
+        perform(MockMvcRequestBuilders.put(REST_URL + CLIENT_ID_1 + "/orders")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(writeValue(updated)))
                 .andDo(print())
@@ -61,7 +108,7 @@ class OrderRestControllerTest extends AbstractControllerTest {
     @Test
     void createWithLocation() throws Exception {
         Order newOrder = getNew();
-        ResultActions action = perform(MockMvcRequestBuilders.post(REST_URL + CLIENT_ID_2 + "/orders")
+        ResultActions action = perform(MockMvcRequestBuilders.post(REST_URL + CLIENT_ID_1 + "/orders")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(writeValue(newOrder)))
                 .andExpect(status().isCreated());
@@ -75,7 +122,7 @@ class OrderRestControllerTest extends AbstractControllerTest {
     @Test
     void createInvalid() throws Exception {
         Order invalid = new Order(null, "");
-        perform(MockMvcRequestBuilders.post(REST_URL + CLIENT_ID_2 + "/orders")
+        perform(MockMvcRequestBuilders.post(REST_URL + CLIENT_ID_1 + "/orders")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(writeValue(invalid)))
                 .andDo(print())
@@ -85,14 +132,10 @@ class OrderRestControllerTest extends AbstractControllerTest {
     @Test
     void updateInvalid() throws Exception {
         Order invalid = new Order(ORDER_ID_1, null, "");
-        perform(MockMvcRequestBuilders.put(REST_URL + CLIENT_ID_2 + "/orders")
+        perform(MockMvcRequestBuilders.put(REST_URL + CLIENT_ID_1 + "/orders")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(writeValue(invalid)))
                 .andDo(print())
                 .andExpect(status().isUnprocessableEntity());
     }
 }
-
-/*
-одробности: Ошибочная строка содержит (5, г.Лида, ул. Радунская д.19, null, f, 0, 1)
-        (3, '2022-10-01', 1000, 'г.Лида, ул. Машерова 27', true);*/
