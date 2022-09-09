@@ -1,4 +1,4 @@
-package by.deliveryservice.web.stogare;
+package by.deliveryservice.web.storage;
 
 import by.deliveryservice.model.Storage;
 import by.deliveryservice.repository.StorageRepository;
@@ -7,8 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-import static by.deliveryservice.util.validation.ValidationUtil.assureIdConsistent;
-import static by.deliveryservice.util.validation.ValidationUtil.checkNew;
+import static by.deliveryservice.util.validation.ValidationUtil.*;
 
 @Slf4j
 public abstract class AbstractStorageController {
@@ -18,7 +17,7 @@ public abstract class AbstractStorageController {
 
     public Storage get(int shopId, int id) {
         log.info("get storage {} by shop {}", id, shopId);
-        return storageRepository.get(id).orElse(null);
+        return checkNotFoundWithId(storageRepository.get(id).orElse(null), id);
     }
 
     public List<Storage> getAllWithProduct(int shopId) {
