@@ -1,8 +1,10 @@
 package by.deliveryservice.web.order.details;
 
 import by.deliveryservice.model.OrderDetail;
+import by.deliveryservice.web.View;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,25 +27,28 @@ public class OrderDetailUIController extends AbstractOrderDetailController {
 
     @Override
     @PostMapping("/add-product/{productId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void addProduct(@PathVariable int clientId, @PathVariable int orderId, @PathVariable int productId) {
         super.addProduct(clientId, orderId, productId);
     }
 
     @Override
     @PostMapping("/delete-product/{productId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteProduct(@PathVariable int clientId, @PathVariable int orderId, @PathVariable int productId) {
         super.deleteProduct(clientId, orderId, productId);
     }
 
     @Override
     @DeleteMapping("/details/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable int clientId, @PathVariable int orderId, @PathVariable int id) {
         super.delete(clientId, orderId, id);
     }
 
     @PostMapping("/details/{productId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(OrderDetail orderDetail, @PathVariable int clientId, @PathVariable int orderId, @PathVariable int productId) {
+    public void update(@Validated(View.Web.class) OrderDetail orderDetail, @PathVariable int clientId, @PathVariable int orderId, @PathVariable int productId) {
         super.update(orderDetail, orderDetail.getId(), clientId, orderId, productId);
     }
 }

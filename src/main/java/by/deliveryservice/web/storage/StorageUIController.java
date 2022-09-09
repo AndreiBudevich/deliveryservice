@@ -1,8 +1,10 @@
 package by.deliveryservice.web.storage;
 
 import by.deliveryservice.model.Storage;
+import by.deliveryservice.web.View;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,7 +27,7 @@ public class StorageUIController extends AbstractStorageController {
 
     @PostMapping("/{productId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(Storage storage, @PathVariable int shopId, @PathVariable int productId) {
+    public void update(@Validated(View.Web.class) Storage storage, @PathVariable int shopId, @PathVariable int productId) {
         super.update(storage, storage.getId(), shopId, productId);
     }
 }

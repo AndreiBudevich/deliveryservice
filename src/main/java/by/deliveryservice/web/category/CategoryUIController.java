@@ -1,8 +1,10 @@
 package by.deliveryservice.web.category;
 
 import by.deliveryservice.model.Category;
+import by.deliveryservice.web.View;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,7 +34,7 @@ public class CategoryUIController extends AbstractCategoryController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void createOrUpdate(Category category) {
+    public void createOrUpdate(@Validated(View.Web.class) Category category) {
         if (category.isNew()) {
             super.create(category);
         } else {

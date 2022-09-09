@@ -1,8 +1,10 @@
 package by.deliveryservice.web.shop;
 
 import by.deliveryservice.model.Shop;
+import by.deliveryservice.web.View;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,7 +26,7 @@ public class ShopUIController extends AbstractShopController{
 
     @PostMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void createOrUpdate(Shop shop) {
+    public void createOrUpdate(@Validated(View.Web.class) Shop shop) {
         if (shop.isNew()) {
             super.create(shop);
         } else {

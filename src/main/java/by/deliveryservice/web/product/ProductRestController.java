@@ -42,12 +42,14 @@ public class ProductRestController extends AbstractProductController {
 
     @Override
     @PostMapping("/products/{id}/add-category/{categoryId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     void addCategory(@PathVariable int id, @PathVariable int categoryId) {
         super.addCategory(id, categoryId);
     }
 
     @Override
     @PostMapping("/products/{id}/delete-category/{categoryId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     void deleteCategory(@PathVariable int id, @PathVariable int categoryId) {
         super.deleteCategory(id, categoryId);
     }

@@ -3,8 +3,10 @@ package by.deliveryservice.web.order;
 import by.deliveryservice.dto.OrderDto;
 import by.deliveryservice.dto.OrderWithClientDto;
 import by.deliveryservice.model.Order;
+import by.deliveryservice.web.View;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -40,7 +42,7 @@ public class OrderUIController extends AbstractOrderController {
 
     @PostMapping("/{clientId}/orders")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void createOrUpdate(Order order, @PathVariable int clientId) {
+    public void createOrUpdate(@Validated(View.Web.class) Order order, @PathVariable int clientId) {
         if (order.isNew()) {
             super.create(order, clientId);
         } else {

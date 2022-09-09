@@ -2,10 +2,12 @@ package by.deliveryservice.web.product;
 
 import by.deliveryservice.dto.ProductDto;
 import by.deliveryservice.model.Product;
+import by.deliveryservice.web.View;
 import com.sun.istack.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.lang.Nullable;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,12 +30,14 @@ public class ProductUIController extends AbstractProductController {
 
     @Override
     @PostMapping("/products/{id}/add-category/{categoryId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     void addCategory(@PathVariable int id, @PathVariable int categoryId) {
         super.addCategory(id, categoryId);
     }
 
     @Override
     @PostMapping("/products/{id}/delete-category/{categoryId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     void deleteCategory(@PathVariable int id, @PathVariable int categoryId) {
         super.deleteCategory(id, categoryId);
     }
@@ -53,7 +57,7 @@ public class ProductUIController extends AbstractProductController {
 
     @PostMapping("/{shopId}/products")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void createOrUpdate(Product product, @PathVariable int shopId) {
+    public void createOrUpdate(@Validated(View.Web.class) Product product, @PathVariable int shopId) {
         if (product.isNew()) {
             super.create(product, shopId);
         } else {

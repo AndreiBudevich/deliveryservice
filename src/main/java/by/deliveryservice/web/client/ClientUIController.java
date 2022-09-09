@@ -1,8 +1,10 @@
 package by.deliveryservice.web.client;
 
 import by.deliveryservice.model.Client;
+import by.deliveryservice.web.View;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,7 +33,7 @@ public class ClientUIController extends AbstractClientController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void createOrUpdate(Client client) {
+    public void createOrUpdate(@Validated(View.Web.class) Client client) {
         if (client.isNew()) {
             super.create(client);
         } else {
