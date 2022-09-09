@@ -12,6 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+import static by.deliveryservice.util.validation.ValidationUtil.checkNotFoundWithId;
+import static by.deliveryservice.util.validation.ValidationUtil.isShipped;
+
 @Service
 public class OrderDetailServiceImpl implements OrderDetailService{
 
@@ -31,11 +34,12 @@ public class OrderDetailServiceImpl implements OrderDetailService{
 
     @Override
     public OrderDetail get(int id) {
-        return orderDetailRepository.get(id).orElse(null);
+        return checkNotFoundWithId(orderDetailRepository.get(id).orElse(null), id);
     }
 
     @Override
     public void delete(int clientId, int orderId, int id) {
+        isShipped(getById(orderId));
         orderDetailRepository.delete(id);
         orderTotalCostRecalculation(orderDetailRepository.getAllByOrderId(orderId), orderId, clientId);
     }
@@ -43,12 +47,14 @@ public class OrderDetailServiceImpl implements OrderDetailService{
     @Override
     @Transactional
     public void update(OrderDetail orderDetail, int orderId, int productId, int clientId) {
+        isShipped(getById(orderId));
         saveOrderDetailAndOrderTotalCostRecalculation(orderDetail, orderId, productId, clientId);
     }
 
     @Override
     @Transactional
     public void addProduct(int clientId, int orderId, int productId) {
+        isShipped(getById(orderId));
         OrderDetail orderDetail = orderDetailRepository.getByOrderIdByProductId(orderId, productId).orElse(null);
         if (orderDetail == null) {
             Product product = productRepository.get(productId).orElse(null);
@@ -67,6 +73,7 @@ public class OrderDetailServiceImpl implements OrderDetailService{
     @Override
     @Transactional
     public void deleteProduct(int clientId, int orderId, int productId) {
+        isShipped(getById(orderId));
         OrderDetail orderDetail = orderDetailRepository.getByOrderIdByProductId(orderId, productId).orElse(null);
         if (orderDetail == null) {
             throw new DataIntegrityViolationException("product not found by order " + orderId);
@@ -98,6 +105,10 @@ public class OrderDetailServiceImpl implements OrderDetailService{
     private void saveOrderDetailAndOrderTotalCostRecalculation(OrderDetail orderDetail, int orderId, int productId, int clientId) {
         orderDetailRepository.save(orderDetail, orderId, productId);
         orderTotalCostRecalculation(orderDetailRepository.getAllByOrderId(orderId), orderId, clientId);
+    }
+
+    private Order getById(int id) {
+        return orderRepository.get(id).orElse(null);
     }
 }
 
