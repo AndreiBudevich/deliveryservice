@@ -178,7 +178,7 @@ class ProductRestControllerTest extends AbstractControllerTest {
         perform(MockMvcRequestBuilders.post(REST_URL + "/products/" + PRODUCT_ID_1 + "/add-category/" + CATEGORY_ID_3)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().isOk());
+                .andExpect(status().isNoContent());
         withCategories = productRepository.getWithCategories(PRODUCT_ID_1).orElse(null);
         assert withCategories != null;
         CATEGORY_MATCHER.assertMatch(withCategories.getCategories(), category2, category3);
@@ -192,7 +192,7 @@ class ProductRestControllerTest extends AbstractControllerTest {
         perform(MockMvcRequestBuilders.post(REST_URL + "/products/" + PRODUCT_ID_3 + "/delete-category/" + CATEGORY_ID_3)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().isOk());
+                .andExpect(status().isNoContent());
         withCategories = productRepository.getWithCategories(PRODUCT_ID_1).orElse(null);
         assert withCategories != null;
         CATEGORY_MATCHER.assertMatch(withCategories.getCategories(), category2);
