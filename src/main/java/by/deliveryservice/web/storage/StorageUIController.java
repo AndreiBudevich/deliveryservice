@@ -1,4 +1,4 @@
-package by.deliveryservice.web.stogare;
+package by.deliveryservice.web.storage;
 
 import by.deliveryservice.model.Storage;
 import org.springframework.http.HttpStatus;
