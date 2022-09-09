@@ -25,12 +25,6 @@ public abstract class AbstractStorageController {
         return storageRepository.getAllWithProduct(shopId);
     }
 
-    public Storage create(Storage storage, int shopId, int productId) {
-        checkNew(storage);
-        log.info("create storage {} by shop {} by product {}", storage, shopId, productId);
-        return storageRepository.save(storage, shopId, productId);
-    }
-
     public void update(Storage storage, int id, int shopId, int productId) {
         assureIdConsistent(storage, id);
         log.info("update storage {} by shop {} by product {}", storage, shopId, productId);

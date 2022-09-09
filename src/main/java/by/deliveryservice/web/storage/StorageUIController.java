@@ -25,11 +25,7 @@ public class StorageUIController extends AbstractStorageController {
 
     @PostMapping("/{productId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void createOrUpdate(Storage storage, @PathVariable int shopId, @PathVariable int productId) {
-        if (storage.isNew()) {
-            super.create(storage, shopId, productId);
-        } else {
-            super.update(storage, storage.getId(), shopId, productId);
-        }
+    public void update(Storage storage, @PathVariable int shopId, @PathVariable int productId) {
+        super.update(storage, storage.getId(), shopId, productId);
     }
 }
