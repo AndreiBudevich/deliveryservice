@@ -64,6 +64,11 @@
     </dependency>
 
     <dependency>
+        <groupId>com.fasterxml.jackson.datatype</groupId>
+        <artifactId>jackson-datatype-hibernate5</artifactId>
+    </dependency>
+
+    <dependency>
         <groupId>javax.servlet</groupId>
         <artifactId>jstl</artifactId>
         <version>${jstl.version}</version>
