@@ -2,7 +2,6 @@ package by.deliveryservice.util;
 
 import lombok.experimental.UtilityClass;
 
-import java.util.Collection;
 import java.util.Locale;
 
 @UtilityClass
@@ -13,13 +12,5 @@ public class StringUtil {
 
     public static boolean contains(String actualString, String expectedString) {
         return actualString.toLowerCase(Locale.ROOT).contains(expectedString.toLowerCase(Locale.ROOT));
-    }
-
-    public static <T> String stringBuilderCollection(Collection<T> collection) {
-        StringBuilder stringBuilder = new StringBuilder();
-        collection.forEach(o ->
-                stringBuilder.append("\n").append(o.toString()));
-        stringBuilder.append("\n");
-        return stringBuilder.toString();
     }
 }
