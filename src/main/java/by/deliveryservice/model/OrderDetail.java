@@ -68,5 +68,15 @@ public class OrderDetail extends BaseEntity {
         this.quantity = quantity;
         this.amount = amount;
     }
-}
 
+    @Override
+    public String toString() {
+        return "OrderDetail{" +
+                "id=" + id +
+                ", product id=" + product.getId() + "[" + product.getName() + "]" +
+                ", price=" + price +
+                ", quantity=" + quantity +
+                ", amount=" + amount +
+                '}';
+    }
+}
