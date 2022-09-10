@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static by.deliveryservice.util.DateTimeUtil.getCurrentDateTime;
-import static by.deliveryservice.util.StringUtil.stringBuilderCollection;
 
 @Entity
 @Getter
@@ -93,7 +92,6 @@ public class Client extends NamedEntity {
                 ", middleName='" + middleName + '\'' +
                 ", residentialAddress='" + residentialAddress + '\'' +
                 ", birthday=" + birthday +
-                ", registered=" + registered +
-                ", orders:" + stringBuilderCollection(orders);
+                ", registered=" + registered;
     }
 }
