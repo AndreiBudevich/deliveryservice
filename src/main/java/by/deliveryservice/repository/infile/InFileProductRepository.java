@@ -2,7 +2,7 @@ package by.deliveryservice.repository.infile;
 
 import by.deliveryservice.model.Category;
 import by.deliveryservice.model.Product;
-import by.deliveryservice.repository.ProductRepository;
+import by.deliveryservice.repository.BaseRepository;
 
 import java.util.*;
 
@@ -10,33 +10,11 @@ import static by.deliveryservice.util.EntityUtil.getEntitiesByIdsArray;
 import static by.deliveryservice.util.StringUtil.contains;
 import static by.deliveryservice.util.StringUtil.getSplit;
 
-public class InFileProductRepository extends InFileRepository<Product> implements ProductRepository {
+public class InFileProductRepository extends InFileRepository<Product> implements BaseRepository<Product> {
 
     public InFileProductRepository() {
         super("json/products.json", Product.class);
     }
-
-    public void addCategories(Integer id, Category... categories) {
-        addOrDeleteCategories(id, "add", categories);
-    }
-
-
-    public void deleteCategories(Integer id, Category... categories) {
-        addOrDeleteCategories(id, "delete", categories);
-    }
-
-    private void addOrDeleteCategories(Integer id, String operation, Category... categories) {
-        Product product = get(id);
-        Arrays.asList(categories).forEach(category -> {
-            if (operation.equals("add")) {
-                product.getCategories().add(category);
-            } else {
-                product.getCategories().remove(category);
-            }
-        });
-        saveAndPrint(product);
-    }
-
 
     public List<Product> getSortPrice() {
         readInFile();
@@ -45,9 +23,8 @@ public class InFileProductRepository extends InFileRepository<Product> implement
                 .toList();
     }
 
-
     //search by fields
-    public List<Product> getAllWithFilter(String... attributes) {
+    public List<Product> findByAttributes(String... attributes) {
         if (attributes.length < 5) {
             System.err.println("Не верно заданы атрибуты");
         }
@@ -69,20 +46,5 @@ public class InFileProductRepository extends InFileRepository<Product> implement
 
     private boolean containsName(String actualString, String expectedString) {
         return expectedString.equals("*") || contains(actualString, expectedString);
-    }
-
-    @Override
-    public List<Product> getAllWithFilter(String nameContains, String descriptionContains, String shopNameContains, Long priceFrom, Long priceUpTo, Integer discountFrom, Integer discountUpTo, String[] actualStringIdsCategories) {
-        return null;
-    }
-
-    @Override
-    public Optional<Product> getWithCategories(int id) {
-        return Optional.empty();
-    }
-
-    @Override
-    public Product save(Product product, int shopId) {
-        return null;
     }
 }
