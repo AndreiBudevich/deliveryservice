@@ -19,9 +19,9 @@ public class ProductServiceImplInFile {
         this.inFileCategoryRepository = new InFileCategoryRepository();
     }
 
-    public Product save(Product product) {
+    public Product save(Product product, int shopId) {
         boolean createStorage = product.getId() == null;
-        Product newProduct = inFileProductRepository.save(product);
+        Product newProduct = inFileProductRepository.save(product, shopId);
         if (createStorage) {
             inFileStorageRepository.save(new Storage(product.getShop(), product, 0));
         }
