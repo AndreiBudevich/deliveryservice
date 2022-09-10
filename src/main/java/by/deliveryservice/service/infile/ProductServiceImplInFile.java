@@ -6,26 +6,14 @@ import by.deliveryservice.model.Storage;
 import by.deliveryservice.repository.infile.InFileCategoryRepository;
 import by.deliveryservice.repository.infile.InFileProductRepository;
 import by.deliveryservice.repository.infile.InFileStorageRepository;
+import by.deliveryservice.service.AbstractProductService;
 
-public class ProductServiceImplInFile {
+import java.util.List;
 
-    private final InFileProductRepository inFileProductRepository;
-    private final InFileStorageRepository inFileStorageRepository;
-    private final InFileCategoryRepository inFileCategoryRepository;
+public class ProductServiceImplInFile extends AbstractProductService {
 
     public ProductServiceImplInFile() {
-        this.inFileProductRepository = new InFileProductRepository();
-        this.inFileStorageRepository = new InFileStorageRepository();
-        this.inFileCategoryRepository = new InFileCategoryRepository();
-    }
-
-    public Product save(Product product, int shopId) {
-        boolean createStorage = product.getId() == null;
-        Product newProduct = inFileProductRepository.save(product, shopId);
-        if (createStorage) {
-            inFileStorageRepository.save(new Storage(product.getShop(), product, 0));
-        }
-        return newProduct;
+        super(new InFileProductRepository(), new InFileStorageRepository(), new InFileCategoryRepository());
     }
 
     public void addCategory(int id, int categoryId) {
@@ -37,9 +25,9 @@ public class ProductServiceImplInFile {
     }
 
     private void addOrDelete(int id, int categoryId, String nameMethod) {
-        Product product = inFileProductRepository.get(id).orElse(null);
+        Product product = productRepository.get(id).orElse(null);
         if (product != null) {
-            Category category = inFileCategoryRepository.get(categoryId).orElse(null);
+            Category category = categoryRepository.get(categoryId).orElse(null);
             if (category != null) {
                 if ("add".equals(nameMethod)) {
                     product.getCategories().add(category);
@@ -48,9 +36,21 @@ public class ProductServiceImplInFile {
                 if ("delete".equals(nameMethod)) {
                     product.getCategories().remove(category);
                 }
-                inFileProductRepository.save(product);
+                productRepository.save(product, product.getShop().getId());
             }
         }
+    }
+
+    public void setQuantity(int productId, int quantity) {
+        Storage storage = storageRepository.getByProductId(productId).orElse(null);
+        if (storage != null) {
+            storage.setQuantity(quantity);
+            storageRepository.save(storage, storage.getShop().getId(), productId);
+        }
+    }
+
+    public List<Storage> getShopProducts(int shopId) {
+        return storageRepository.getAllWithProduct(shopId);
     }
 }
 
