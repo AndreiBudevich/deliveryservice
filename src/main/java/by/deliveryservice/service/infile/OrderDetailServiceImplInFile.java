@@ -9,6 +9,7 @@ import by.deliveryservice.service.AbstractOrderDetailService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Objects;
 
@@ -30,6 +31,7 @@ public class OrderDetailServiceImplInFile extends AbstractOrderDetailService {
         return orderDetailRepository.getAllByOrderId(orderId);
     }
 
+    @Transactional
     public void addProduct(int orderId, int productId) {
         try {
             int clientId = getIdClient(orderId);
@@ -40,6 +42,7 @@ public class OrderDetailServiceImplInFile extends AbstractOrderDetailService {
         }
     }
 
+    @Transactional
     public void deleteProduct(int orderId, int productId) {
         try {
             int clientId = getIdClient(orderId);
