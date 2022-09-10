@@ -51,4 +51,14 @@ public class Storage extends BaseEntity{
         this.product = product;
         this.quantity = quantity;
     }
+
+    @Override
+    public String toString() {
+        return "Storage{" +
+                "id=" + id +
+                ", shop id=" + shop.getId() + "[" + shop.getName() + "]" +
+                ", product id=" + product.getId() + "[" + product.getName() + "]" +
+                ", quantity=" + quantity +
+                '}';
+    }
 }
