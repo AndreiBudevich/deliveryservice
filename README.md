@@ -38,10 +38,10 @@ order/addProducts/id_shop/id_shop, id_product_1, id_product_2 ... id_product_N
 order/addProducts/id_shop/id_shop, id_product_1, id_product_2 ... id_product_N
 
 #### Pattern add Categories in Product
-product/addcategories/id_product/id_category_1, id_category_2 ... id_category_N
+product/addCategory/id_product/id_category_1
 
 #### Pattern delete Categories in Product
-product/deletecategories/id_product/id_category_1, id_category_2 ... id_category_N
+product/deleteCategory/id_product/id_category_1
 
 #### Pattern get Shop grouping Products in Shop 
 
@@ -92,22 +92,10 @@ order/setAddress/id_order/text in address
 
 #### Example add Categories in Product
 
-- product/addcategories/1/2
-- product/addcategories/2/2
-- product/addcategories/3/2, 3
-- product/addcategories/4/2, 3
-- product/addcategories/5/2, 3
-- product/addcategories/7/1, 3
-- product/addcategories/7/1, 3
+- product/addCategory/1/2
 
 #### Example delete Categories in Product
-- product/deletecategories/1/2
-- product/deletecategories/2/2
-- product/deletecategories/3/2, 3
-- product/deletecategories/4/2, 3
-- product/deletecategories/5/2, 3
-- product/deletecategories/7/1, 3
-- product/deletecategories/7/1, 3
+- product/deleteCategory/1/2
 
 #### Example add Products in Shop
 shop/addProducts/1/1, 2, 3
