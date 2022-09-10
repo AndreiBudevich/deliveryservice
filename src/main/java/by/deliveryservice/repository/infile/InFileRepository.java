@@ -6,8 +6,8 @@ import by.deliveryservice.repository.BaseRepository;
 import java.util.*;
 
 import static by.deliveryservice.util.FileUtil.isEmpty;
-import static by.deliveryservice.util.JsonUtil.mapReadValues;
-import static by.deliveryservice.util.JsonUtil.writeEntity;
+import static by.deliveryservice.util.json.JsonUtil.mapReadValues;
+import static by.deliveryservice.util.json.JsonUtil.writeEntity;
 
 public class InFileRepository<T extends BaseEntity> implements BaseRepository<T> {
 
@@ -58,7 +58,7 @@ public class InFileRepository<T extends BaseEntity> implements BaseRepository<T>
         } else {
             T tOld = repositoryInMemory.get(t.getId());
             if (tOld != null) {
-                updateEntity(t, tOld);
+                update(t, tOld);
                 System.out.println("update " + t + " by id :" + tOld.getId());
             } else {
                 System.out.println("update didn't");
@@ -84,7 +84,7 @@ public class InFileRepository<T extends BaseEntity> implements BaseRepository<T>
         return Collections.max(repositoryInMemory.keySet());
     }
 
-    protected void updateEntity(T t, T tOld) {
+    protected void update(T t, T tOld) {
         repositoryInMemory.computeIfPresent(t.getId(), (id, oldEntity) -> t);
     }
 
