@@ -2,16 +2,11 @@ package by.deliveryservice.repository.infile;
 
 import by.deliveryservice.model.Client;
 import by.deliveryservice.model.Order;
-import by.deliveryservice.model.Product;
-import by.deliveryservice.repository.OrderRepository;
-import jdk.jshell.spi.ExecutionControl;
+import by.deliveryservice.repository.BaseRepository;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 import java.util.Optional;
 
-public class InFileOrderRepository extends InFileRepository<Order> implements OrderRepository {
+public class InFileOrderRepository extends InFileRepository<Order> implements BaseRepository<Order> {
 
     InFileClientRepository inFileClientRepository = new InFileClientRepository();
 
@@ -20,44 +15,17 @@ public class InFileOrderRepository extends InFileRepository<Order> implements Or
     }
 
     @Override
-    protected void updateEntity(Order order, Order orderOld) {
+    protected void update(Order order, Order orderOld) {
         order.setRegistered(orderOld.getRegistered());
         repositoryInMemory.computeIfPresent(order.getId(), (id, oldClient) -> order);
     }
 
-    @Override
-    public List<Order> getAllByClientId(int clientId) {
-        return Collections.emptyList();
-    }
-
-    @Override
     public Order save(Order order, int clientId) {
         Optional<Client> client = inFileClientRepository.get(clientId);
         if (client.isPresent()) {
             order.setDeliveryAddress(client.orElse(null).getResidentialAddress());
         }
         return super.save(order);
-    }
-
-    public void addProducts(Integer id, Product... products) {
-        addOrDeleteProducts(id, "add", products);
-    }
-
-    public void deleteProducts(Integer id, Product... products) {
-        addOrDeleteProducts(id, "delete", products);
-    }
-
-    private void addOrDeleteProducts(Integer id, String operation, Product... products) {
-       /* Order order = get(id);
-        Arrays.asList(products).forEach(product -> {
-            if (operation.equals("add")) {
-                order.getProducts().add(product);
-            } else {
-                order.getProducts().remove(product);
-            }
-        });
-        order.setTotalCost(calculationTotalCost(order.getProducts()));
-        saveAndPrint(order);*/
     }
 
     public void setAddress(Integer id, String deliveryAddress) {
