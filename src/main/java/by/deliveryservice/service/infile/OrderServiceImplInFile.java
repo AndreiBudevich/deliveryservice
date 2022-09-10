@@ -1,15 +1,24 @@
 package by.deliveryservice.service.infile;
 
+import by.deliveryservice.model.Order;
+import by.deliveryservice.repository.OrderRepository;
 import by.deliveryservice.repository.infile.InFileOrderRepository;
-import by.deliveryservice.repository.infile.InFileShopRepository;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class OrderServiceImplInFile {
 
-    InFileShopRepository shopRepository;
-    InFileOrderRepository orderRepository;
+    private final OrderRepository orderRepository;
 
     public OrderServiceImplInFile() {
-        this.shopRepository = new InFileShopRepository();
         this.orderRepository = new InFileOrderRepository();
+    }
+
+    public void setAddress(Integer id, String deliveryAddress) {
+        Order order = orderRepository.get(id).orElse(null);
+        assert order != null;
+        order.setDeliveryAddress(deliveryAddress);
+        orderRepository.save(order, order.getClient().getId());
+        log.info("set new address {} by order {}", deliveryAddress, id);
     }
 }
