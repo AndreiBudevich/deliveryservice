@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
 
+import static by.deliveryservice.error.ExceptionMessage.ERROR_READING_FROM_CONSOLE;
+import static by.deliveryservice.error.ExceptionMessage.INVALID_COMMAND_ENTERED;
 import static by.deliveryservice.util.EntityBuilder.createEntity;
 import static by.deliveryservice.util.RepositoryUtil.getRepositoryClass;
 import static by.deliveryservice.util.StringUtil.getSplit;
@@ -34,6 +36,7 @@ public class ControllerFileRepository {
     private static final String SET_ADDRESS = "setaddress";
     private static final String GET_SHOP_PRODUCTS = "getshopproducts";
     private static final String SET_QUANTITY = "setquantity";
+    private static final String SHIP = "ship";
 
     private static final String ORDER = "order";
     private static final String PRODUCT = "product";
@@ -41,12 +44,10 @@ public class ControllerFileRepository {
     private static final String CATEGORY = "category";
     private static final String SHOP = "shop";
 
-    private static final String EXCEPTION_MESSAGE = "Неверно введена команда";
-
     private static final Map<String, String[]> extendedCommands = new HashMap<>();
     private static final Set<String> baseCommands = new HashSet<>(Arrays.asList(GET_ALL, DELETE, CREATE));
     private static final String[] productsCommands = new String[]{UPDATE, GET_SORT_PRICE, ADD_CATEGORY, DELETE_CATEGORY, FIND_BY_ATTRIBUTES};
-    private static final String[] orderCommands = new String[]{GET, ADD_PRODUCT, DELETE_PRODUCT, SET_ADDRESS};
+    private static final String[] orderCommands = new String[]{GET, ADD_PRODUCT, DELETE_PRODUCT, SET_ADDRESS, SHIP};
     private static final String[] shopCommands = new String[]{UPDATE, SET_QUANTITY, GET_SHOP_PRODUCTS};
     private static final String[] clientCommands = new String[]{UPDATE};
     private static final String[] categoryCommands = new String[]{UPDATE};
@@ -72,7 +73,7 @@ public class ControllerFileRepository {
                 controller(parameters);
             } else {
                 if (!parameters[0].equals("stop")) {
-                    log.info(EXCEPTION_MESSAGE);
+                    log.info(INVALID_COMMAND_ENTERED);
                 }
             }
         } while (!parameters[0].equals("stop"));
@@ -84,7 +85,7 @@ public class ControllerFileRepository {
         try {
             topic = br.readLine();
         } catch (IOException exc) {
-            log.info("Ошибка при чтении с консоли");
+            log.info(ERROR_READING_FROM_CONSOLE);
         }
         return topic;
     }
@@ -106,9 +107,10 @@ public class ControllerFileRepository {
                 case (GET) -> print(ProxyUtil.getInstance(OrderDetailServiceImplInFile.class, parameters[1], getId(parameters[2])));
                 case (ADD_PRODUCT), (DELETE_PRODUCT) -> ProxyUtil.getInstance(OrderDetailServiceImplInFile.class, nameMethod, getId(parameters[2]), getId(parameters[3]));
                 case (SET_ADDRESS) -> ProxyUtil.getInstance(OrderServiceImplInFile.class, nameMethod, getId(parameters[2]), parameters[3]);
+                case (SHIP) -> ProxyUtil.getInstance(OrderServiceImplInFile.class, nameMethod, getId(parameters[2]));
             }
         } catch (Exception e) {
-            log.info(EXCEPTION_MESSAGE);
+            log.info(INVALID_COMMAND_ENTERED);
         }
     }
 

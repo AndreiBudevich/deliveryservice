@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
 
+import static by.deliveryservice.error.ExceptionMessage.NO_DATA_SAVED;
 import static by.deliveryservice.util.FileUtil.isEmpty;
 import static by.deliveryservice.util.json.JsonUtil.mapReadValues;
 import static by.deliveryservice.util.json.JsonUtil.writeEntity;
@@ -76,7 +77,7 @@ public class InFileRepository<T extends BaseEntity> implements BaseRepository<T>
 
     protected void readInFile() {
         if (isEmpty(nameFile)) {
-            log.info("Нет сохраненных данных");
+            log.info(NO_DATA_SAVED);
             return;
         }
         repositoryInMemory = mapReadValues(nameFile, Integer.class, clazz);

@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.*;
 
 
+import static by.deliveryservice.error.ExceptionMessage.ATTRIBUTES_ARE_INCORRECT;
 import static by.deliveryservice.util.CategoryUtil.getCategories;
 import static by.deliveryservice.util.StringUtil.contains;
 import static by.deliveryservice.util.StringUtil.getSplit;
@@ -34,7 +35,7 @@ public class InFileProductRepository extends InFileRepository<Product> implement
     //search by fields
     public List<Product> findByAttributes(String... attributes) {
         if (attributes.length < 5) {
-            log.info("Не верно заданы атрибуты");
+            log.info(ATTRIBUTES_ARE_INCORRECT);
         }
         readInFile();
         return repositoryInMemory.values().stream()
