@@ -4,9 +4,15 @@ import by.deliveryservice.model.Client;
 import by.deliveryservice.model.Order;
 import by.deliveryservice.repository.ClientRepository;
 import by.deliveryservice.repository.OrderRepository;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataIntegrityViolationException;
 
 import java.util.List;
 
+import static by.deliveryservice.error.ExceptionMessage.ORDER_SHIPPED_NO_CHANGES;
+import static by.deliveryservice.util.validation.ValidationUtil.isShipped;
+
+@Slf4j
 public class InFileOrderRepository extends InFileRepository<Order> implements OrderRepository {
 
     private final ClientRepository clientRepository;
@@ -19,6 +25,17 @@ public class InFileOrderRepository extends InFileRepository<Order> implements Or
     @Override
     public List<Order> getAllByClientId(int clientId) {
         throw new UnsupportedOperationException("getAllByClientId");
+    }
+
+    @Override
+    public void delete(int id) {
+        try {
+            Order order = get(id).orElse(null);
+            isShipped(order);
+            super.delete(id);
+        } catch (DataIntegrityViolationException e) {
+            log.info(ORDER_SHIPPED_NO_CHANGES);
+        }
     }
 
     @Override

@@ -58,6 +58,10 @@ Java Delivery service Project
 
 - order/setAddress/id_order/text in address
 
+#### Pattern ship an Order
+
+order/ship/id_order
+
 #### Example Create
 
 - shop/create/Auchan; г.Лида, ул. Машерова 63; Продовольственный магазин; 80447324144
@@ -140,3 +144,7 @@ Java Delivery service Project
 #### Example  set Address in Order
 
 - order/setAddress/1/Докучаева 63
+
+#### Example ship an Order
+
+- order/ship/1
