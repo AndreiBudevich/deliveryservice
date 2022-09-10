@@ -17,38 +17,38 @@ Java Delivery service Project
 - update order pattern -> order/update/id_order/id_client
 
 #### Pattern getAll
--getAll client(category, order, product, shop, pattern) -> entity/getAll
+- getAll client(category, order, product, shop, pattern) -> entity/getAll
 
 #### Pattern delete
--client(category, order, product, shop, pattern) -> entity/delete/id
+- client(category, order, product, shop, pattern) -> entity/delete/id
 
 #### Pattern find By Attributes
 - product/findbyattributes/text in mame; text in mame description; id_shop; price; price; id_category_1, id_category_2 ...id_category_N
 
 #### Pattern add Products in Shop
-shop/addProducts/id_shop/id_shop, id_product_1, id_product_2 ... id_product_N
+- shop/addProducts/id_shop/id_shop, id_product_1, id_product_2 ... id_product_N
 
 #### Pattern delete Products in Shop
-shop/addProducts/id_shop/id_shop, id_product_1, id_product_2 ... id_product_N
+- shop/addProducts/id_shop/id_shop, id_product_1, id_product_2 ... id_product_N
 
 #### Pattern add Products in Order
-order/addProducts/id_shop/id_shop, id_product_1, id_product_2 ... id_product_N
+- order/addProducts/id_shop/id_shop, id_product_1, id_product_2 ... id_product_N
 
 #### Pattern delete Products in Order
-order/addProducts/id_shop/id_shop, id_product_1, id_product_2 ... id_product_N
+- order/addProducts/id_shop/id_shop, id_product_1, id_product_2 ... id_product_N
 
 #### Pattern add Categories in Product
-product/addCategory/id_product/id_category_1
+- product/addCategory/id_product/id_category_1
 
 #### Pattern delete Categories in Product
-product/deleteCategory/id_product/id_category_1
+- product/deleteCategory/id_product/id_category_1
 
 #### Pattern get Shop grouping Products in Shop 
 
-shop/getshopproducts/id_shop
+- shop/getshopproducts/id_shop
 
 #### Pattern set Address in Order
-order/setAddress/id_order/text in address
+- order/setAddress/id_order/text in address
 
 
 #### Example Create
@@ -69,14 +69,14 @@ order/setAddress/id_order/text in address
 - category/create/бытовая техника
 - category/create/товары со скидкой
 
--client/create/Будевич; Андрей; Чеславович; г.Лида, ул. Радунская д.19; 1986-04-02
--client/create/Будевич; Татьяна; Александровна; г.Лида, ул. Машерова 21; 1990-06-20
--client/create/Будевич; Татьяна; Александровна; г.Лида, ул. Докучаева 63; 1979-09-21
+- client/create/Будевич; Андрей; Чеславович; г.Лида, ул. Радунская д.19; 1986-04-02
+- client/create/Будевич; Татьяна; Александровна; г.Лида, ул. Машерова 21; 1990-06-20
+- client/create/Будевич; Татьяна; Александровна; г.Лида, ул. Докучаева 63; 1979-09-21
 
--order/create/1
--order/create/1
--order/create/2
--order/create/3
+- order/create/1
+- order/create/1
+- order/create/2
+- order/create/3
 
 #### Example Update
 - shop/update/3/5 Элемент; г.Лида, ул. Тавлая 10; Магазин бытовой техники; 80294544545
@@ -98,29 +98,29 @@ order/setAddress/id_order/text in address
 - product/deleteCategory/1/2
 
 #### Example add Products in Shop
-shop/addProducts/1/1, 2, 3
-shop/addProducts/2/2, 6, 8
+- shop/addProducts/1/1, 2, 3
+- shop/addProducts/2/2, 6, 8
 
 #### Example delete Products in Shop
-shop/deleteProducts/1/1, 2, 3
-shop/deleteProducts/2/2, 6, 8
+- shop/deleteProducts/1/1, 2, 3
+- shop/deleteProducts/2/2, 6, 8
 
 #### Example add Products in Order
-order/addProducts/1/1, 2, 3
-order/addProducts/2/2, 6, 8
+- order/addProducts/1/1, 2, 3
+- order/addProducts/2/2, 6, 8
 
 #### Example delete Products in Order
-order/deleteProducts/1/1, 2, 3
-order/deleteProducts/2/2, 6, 8
+- order/deleteProducts/1/1, 2, 3
+- order/deleteProducts/2/2, 6, 8
 
 #### Example findByAttributes
-product/findbyattributes/Телевизор LG; Smart; 1; 3000; 0; *
-product/findbyattributes/Теле; Sm; *; *; *; 1
-product/findbyattributes/Теле; Sm; *; *; *; *
+- product/findbyattributes/Телевизор LG; Smart; 1; 3000; 0; *
+- product/findbyattributes/Теле; Sm; *; *; *; 1
+- product/findbyattributes/Теле; Sm; *; *; *; *
 
 #### Example get Shop Products in Shop
 
-shop/getshopproducts/1
+- shop/getshopproducts/1
 
 #### Example  set Address in Order
-order/setAddress/1/Докучаева 63
+- order/setAddress/1/Докучаева 63
