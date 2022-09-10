@@ -8,7 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
 
-import static by.deliveryservice.util.EntityUtil.getEntitiesByIdsArray;
+
+import static by.deliveryservice.util.CategoryUtil.getCategories;
 import static by.deliveryservice.util.StringUtil.contains;
 import static by.deliveryservice.util.StringUtil.getSplit;
 import static by.deliveryservice.util.validation.ValidationUtil.checkNotFoundWithId;
@@ -48,7 +49,7 @@ public class InFileProductRepository extends InFileRepository<Product> implement
 
     private boolean containsCategories(Set<Category> expectedCategories, String[] actualStringIdsCategories) {
         return actualStringIdsCategories[0].equals("*") || !Collections.disjoint(expectedCategories,
-                Arrays.asList(Objects.requireNonNull(getEntitiesByIdsArray(Category.class, actualStringIdsCategories))));
+                Arrays.asList(Objects.requireNonNull(getCategories(actualStringIdsCategories))));
     }
 
     private boolean containsName(String actualString, String expectedString) {
