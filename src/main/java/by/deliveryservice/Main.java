@@ -1,8 +1,7 @@
 package by.deliveryservice;
 
 import by.deliveryservice.controller.ControllerFileRepository;
-import by.deliveryservice.util.json.JsonUtil;
-import by.deliveryservice.util.json.ProductSerialize;
+import by.deliveryservice.util.json.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
@@ -15,6 +14,9 @@ public class Main {
     static {
         SimpleModule module = new SimpleModule();
         module.addSerializer(new ProductSerialize());
+        module.addSerializer(new OrderSerialize());
+        module.addSerializer(new OrderDetailSerialize());
+        module.addSerializer(new StorageSerialize());
         mapper.registerModule(module);
     }
 
@@ -23,6 +25,4 @@ public class Main {
         ControllerFileRepository.runApplication();
     }
 }
-
-
 
