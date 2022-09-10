@@ -28,7 +28,7 @@ public class DateTimeUtil {
         try {
             return LocalDate.parse(stringBirthday, DATE_FORMATTER);
         } catch (DateTimeParseException e) {
-            log.info("Unable to recognize date");
+            log.info("Невозможно распознать дату");
             return null;
         }
     }
