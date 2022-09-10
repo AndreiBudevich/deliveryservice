@@ -2,7 +2,6 @@ package by.deliveryservice.service;
 
 import by.deliveryservice.model.Category;
 import by.deliveryservice.model.Product;
-import by.deliveryservice.model.Storage;
 import by.deliveryservice.repository.CategoryRepository;
 import by.deliveryservice.repository.ProductRepository;
 import by.deliveryservice.repository.StorageRepository;
@@ -15,26 +14,15 @@ import java.util.Set;
 import static by.deliveryservice.util.validation.ValidationUtil.checkNotFoundWithId;
 
 @Service
-public class ProductServiceImpl implements ProductService {
-
-    private final ProductRepository productRepository;
-    private final StorageRepository storageRepository;
-    private final CategoryRepository categoryRepository;
+public class ProductServiceImpl extends AbstractProductService implements ProductService {
 
     public ProductServiceImpl(ProductRepository productRepository, StorageRepository storageRepository, CategoryRepository categoryRepository) {
-        this.productRepository = productRepository;
-        this.storageRepository = storageRepository;
-        this.categoryRepository = categoryRepository;
+        super(productRepository, storageRepository, categoryRepository);
     }
 
     @Override
     public Product get(int id) {
         return checkNotFoundWithId(productRepository.get(id).orElse(null), id);
-    }
-
-    @Override
-    public void delete(int id) {
-        productRepository.delete(id);
     }
 
     @Override
@@ -67,12 +55,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional
     public Product save(Product product, int shopId) {
-        boolean createStorage = product.getId() == null;
-        Product newProduct = productRepository.save(product, shopId);
-        if (createStorage) {
-            storageRepository.save(new Storage(null, null, 0), shopId, newProduct.getId());
-        }
-        return newProduct;
+        return super.save(product, shopId);
     }
 
     @Override
