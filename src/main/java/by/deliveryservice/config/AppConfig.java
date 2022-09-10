@@ -1,5 +1,10 @@
 package by.deliveryservice.config;
 
+import by.deliveryservice.util.json.JsonUtil;
+import com.fasterxml.jackson.databind.Module;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -49,5 +54,15 @@ public class AppConfig implements WebMvcConfigurer {
         resolver.setCookieDomain("localhost");
         resolver.setCookieMaxAge(60 * 60);
         return resolver;
+    }
+
+    @Bean
+    Module module() {
+        return new Hibernate5Module();
+    }
+
+    @Autowired
+    public void storeObjectMapper(ObjectMapper objectMapper) {
+        JsonUtil.setMapper(objectMapper);
     }
 }
