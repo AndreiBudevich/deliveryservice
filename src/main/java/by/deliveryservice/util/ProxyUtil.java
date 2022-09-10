@@ -9,12 +9,12 @@ import java.util.Arrays;
 @UtilityClass
 public class ProxyUtil {
 
-    public static Object getInstance(Class <?> clazz, String nameMethod, Object... args) {
+    public static Object getInstance(Class<?> clazz, String nameMethod, Object... args) {
         try {
             Method currentMethod = getCurrentMethod(clazz, nameMethod);
             assert currentMethod != null;
-            return currentMethod.invoke(clazz.newInstance(), args);
-        } catch (InstantiationException | InvocationTargetException | IllegalAccessException e) {
+            return currentMethod.invoke(clazz.getDeclaredConstructor().newInstance(), args);
+        } catch (InstantiationException | InvocationTargetException | IllegalAccessException | NoSuchMethodException e) {
             e.printStackTrace();
             return null;
         }
