@@ -13,7 +13,7 @@ import static by.deliveryservice.util.validation.ValidationUtil.checkNotFoundWit
 import static by.deliveryservice.util.validation.ValidationUtil.isShipped;
 
 @Service
-public class OrderDetailServiceImpl extends AbstractOrderDetailServiceImpl implements OrderDetailService {
+public class OrderDetailServiceImpl extends AbstractOrderDetailService implements OrderDetailService {
 
     public OrderDetailServiceImpl(OrderDetailRepository orderDetailRepository, ProductRepository productRepository, OrderRepository orderRepository) {
         super(orderDetailRepository, productRepository, orderRepository);

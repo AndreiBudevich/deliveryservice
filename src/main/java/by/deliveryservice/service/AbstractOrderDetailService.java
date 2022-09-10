@@ -12,13 +12,13 @@ import java.util.List;
 
 import static by.deliveryservice.util.validation.ValidationUtil.isShipped;
 
-public class AbstractOrderDetailServiceImpl {
+public class AbstractOrderDetailService {
 
     protected OrderDetailRepository orderDetailRepository;
     protected ProductRepository productRepository;
     protected OrderRepository orderRepository;
 
-    public AbstractOrderDetailServiceImpl(OrderDetailRepository orderDetailRepository, ProductRepository productRepository, OrderRepository orderRepository) {
+    public AbstractOrderDetailService(OrderDetailRepository orderDetailRepository, ProductRepository productRepository, OrderRepository orderRepository) {
         this.orderDetailRepository = orderDetailRepository;
         this.productRepository = productRepository;
         this.orderRepository = orderRepository;
