@@ -40,7 +40,10 @@ public class InFileOrderDetailRepository extends InFileRepository<OrderDetail> i
 
     @Override
     public List<OrderDetail> getAllByOrderIdWithProduct(int orderId) {
-        throw new UnsupportedOperationException("getAllByOrderIdWithProduct");
+        readInFile();
+        return repositoryInMemory.values().stream()
+                .filter(orderDetail -> orderDetail.getOrder().getId() == orderId)
+                .toList();
     }
 
     @Override
