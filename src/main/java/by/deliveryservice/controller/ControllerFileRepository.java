@@ -2,6 +2,7 @@ package by.deliveryservice.controller;
 
 import by.deliveryservice.model.BaseEntity;
 import by.deliveryservice.model.Product;
+import by.deliveryservice.service.infile.OrderDetailServiceImplInFile;
 import by.deliveryservice.service.infile.OrderServiceImplInFile;
 import by.deliveryservice.service.infile.ProductServiceImplInFile;
 import by.deliveryservice.util.ProxyUtil;
@@ -19,17 +20,21 @@ import static by.deliveryservice.view.EntityPrint.print;
 
 public class ControllerFileRepository {
 
+    private static final String UPDATE = "update";
+    private static final String ORDER = "order";
+    private static final String PRODUCT = "product";
+
     private static final Map<String, String[]> extendedCommands = new HashMap<>();
-    private static final Set<String> baseCommands = new HashSet<>(Arrays.asList("getall", "delete", "create", "update"));
-    private static final String[] productsCommands = new String[]{"getsortprice", "addcategory", "deletecategory", "findbyattributes"};
-    private static final String[] orderCommands = new String[]{"addproducts", "deleteproducts", "setaddress"};
-    private static final String[] shopCommands = new String[]{"addproducts", "deleteproducts", "getshopproducts"};
+    private static final Set<String> baseCommands = new HashSet<>(Arrays.asList("getall", "delete", "create"));
+    private static final String[] productsCommands = new String[]{UPDATE, "getsortprice", "addcategory", "deletecategory", "findbyattributes"};
+    private static final String[] orderCommands = new String[]{UPDATE, "get", "addproduct", "deleteproduct", "setaddress"};
+    private static final String[] shopCommands = new String[]{UPDATE, "addproducts", "deleteproducts", "getshopproducts"};
 
     static {
         extendedCommands.put("client", null);
         extendedCommands.put("category", null);
-        extendedCommands.put("order", orderCommands);
-        extendedCommands.put("product", productsCommands);
+        extendedCommands.put(ORDER, orderCommands);
+        extendedCommands.put(PRODUCT, productsCommands);
         extendedCommands.put("shop", shopCommands);
     }
 
@@ -69,19 +74,26 @@ public class ControllerFileRepository {
         String nameMethod = parameters[1].toLowerCase(Locale.ROOT);
         try {
             switch (nameMethod) {
+                case ("get"):
+                    print(ProxyUtil.getInstance(OrderDetailServiceImplInFile.class, parameters[1], getId(parameters[2])));
+                    break;
                 case ("getall"):
                 case ("getsortprice"):
                     print(ProxyUtil.getInstance(clazzRepository, nameMethod));
                     break;
                 case ("create"):
-                    if (parameters[0].equals("product")) {
+                    if (parameters[0].equals(PRODUCT)) {
                         ProxyUtil.getInstance(ProductServiceImplInFile.class, "save",
-                                creatEntityFromString("product", getSplit(parameters[2], "; ")));
+                                creatEntityFromString(PRODUCT, getSplit(parameters[2], "; ")));
+                    }
+                    if (parameters[0].equals(ORDER)) {
+                        ProxyUtil.getInstance(clazzRepository, "save",
+                                creatEntityFromString(ORDER, new String[0]), getId(parameters[2]));
                     } else {
                         saveOrUpdate(clazzRepository, parameters[0], nameMethod, null, parameters[2]);
                     }
                     break;
-                case ("update"):
+                case (UPDATE):
                     saveOrUpdate(clazzRepository, parameters[0], nameMethod, parameters[2], parameters[3]);
                     break;
                 case ("delete"):
@@ -97,17 +109,17 @@ public class ControllerFileRepository {
                 case ("deletecategory"):
                     ProxyUtil.getInstance(ProductServiceImplInFile.class, parameters[1], getId(parameters[2]), getId(parameters[3]));
                     break;
-                case ("addproducts"):
-                case ("deleteproducts"): {
-                    if (parameters[0].equals("order")) {
-                        operationsEntities(Product.class, OrderServiceImplInFile.class, nameMethod, parameters[2], parameters[3]);
+                case ("addproduct"):
+                case ("deleteproduct"): {
+                    if (parameters[0].equals(ORDER)) {
+                        ProxyUtil.getInstance(OrderDetailServiceImplInFile.class, nameMethod, getId(parameters[2]), getId(parameters[3]));
                     } else {
                         operationsEntities(Product.class, clazzRepository, nameMethod, parameters[2], parameters[3]);
                     }
                     break;
                 }
                 case ("setaddress"):
-                    ProxyUtil.getInstance(clazzRepository, nameMethod, Integer.parseInt(parameters[2]), parameters[3]);
+                    ProxyUtil.getInstance(OrderServiceImplInFile.class, nameMethod, Integer.parseInt(parameters[2]), parameters[3]);
                     break;
             }
         } catch (Exception e) {
@@ -119,7 +131,7 @@ public class ControllerFileRepository {
     private static void saveOrUpdate(Class<?> clazzRepository, String stringNameEntity, String nameMethod, String id, String fields) {
         BaseEntity baseEntity = creatEntityFromString(stringNameEntity, getSplit(fields, "; "));
         if (baseEntity != null) {
-            if (nameMethod.equalsIgnoreCase("update")) {
+            if (nameMethod.equalsIgnoreCase(UPDATE)) {
                 baseEntity.setId(Integer.parseInt(id));
             }
             ProxyUtil.getInstance(clazzRepository, "save", baseEntity);
@@ -134,9 +146,12 @@ public class ControllerFileRepository {
 
     //checking the command line for validity
     private static boolean checkAcceptableCommand(String entityExpectedName, String commandExpectedName) {
-        return extendedCommands.containsKey(entityExpectedName)
-                && baseCommands.contains(commandExpectedName.toLowerCase(Locale.ROOT)) || Arrays.stream(extendedCommands.get(entityExpectedName))
-                .anyMatch(c -> c.equalsIgnoreCase(commandExpectedName));
+        if (extendedCommands.containsKey(entityExpectedName)) {
+            return extendedCommands.containsKey(entityExpectedName)
+                    && baseCommands.contains(commandExpectedName.toLowerCase(Locale.ROOT)) || Arrays.stream(extendedCommands.get(entityExpectedName))
+                    .anyMatch(c -> c.equalsIgnoreCase(commandExpectedName));
+        }
+        return false;
     }
 
     private static Integer getId(String id) {
