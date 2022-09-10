@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -35,6 +36,7 @@ public class Order extends BaseEntity {
     private Client client;
 
     @Column(name = "registered", nullable = false, columnDefinition = "timestamp default now()", updatable = false)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime registered = getCurrentDateTime();
 
     @Column(name = "total_cost", nullable = false)
@@ -63,12 +65,13 @@ public class Order extends BaseEntity {
 
     @Override
     public String toString() {
-        return "Order " +
+        return "Order{" +
                 "id=" + id +
-                ", client=" + client +
+                ", client id=" + client.getId() + "[" + client.getSurname() + "]" +
                 ", registered=" + registered +
                 ", totalCost=" + totalCost +
-                ", deliveryAddress='" + deliveryAddress;
+                ", deliveryAddress='" + deliveryAddress + '\'' +
+                ", shipped=" + shipped +
+                '}';
     }
 }
-
