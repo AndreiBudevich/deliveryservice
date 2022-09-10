@@ -9,7 +9,7 @@ public class InFileClientRepository extends InFileRepository<Client> {
     }
 
     @Override
-    protected void updateEntity(Client client, Client clientOld) {
+    protected void update(Client client, Client clientOld) {
         client.setRegistered(clientOld.getRegistered());
         repositoryInMemory.computeIfPresent(client.getId(), (id, oldClient) -> client);
     }
