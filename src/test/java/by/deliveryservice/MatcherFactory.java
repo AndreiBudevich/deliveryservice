@@ -1,6 +1,6 @@
 package by.deliveryservice;
 
-import by.deliveryservice.util.JsonUtil;
+import by.deliveryservice.util.json.JsonUtil;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.ResultMatcher;

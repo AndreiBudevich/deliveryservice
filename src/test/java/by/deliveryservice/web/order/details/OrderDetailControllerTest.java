@@ -16,7 +16,7 @@ import static by.deliveryservice.testdata.ClientTestData.CLIENT_ID_2;
 import static by.deliveryservice.testdata.OrderDetailTestData.*;
 import static by.deliveryservice.testdata.OrderTestData.*;
 import static by.deliveryservice.testdata.ProductTestData.*;
-import static by.deliveryservice.util.JsonUtil.writeValue;
+import static by.deliveryservice.util.json.JsonUtil.writeValue;
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;

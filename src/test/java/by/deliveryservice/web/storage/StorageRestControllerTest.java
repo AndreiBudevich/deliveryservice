@@ -9,7 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static by.deliveryservice.testdata.StorageTestData.*;
-import static by.deliveryservice.util.JsonUtil.writeValue;
+import static by.deliveryservice.util.json.JsonUtil.writeValue;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;

@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 
 import static by.deliveryservice.testdata.ClientTestData.*;
-import static by.deliveryservice.util.JsonUtil.writeValue;
+import static by.deliveryservice.util.json.JsonUtil.writeValue;
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;

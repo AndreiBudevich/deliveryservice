@@ -14,7 +14,7 @@ import java.util.Objects;
 import static by.deliveryservice.testdata.ClientTestData.CLIENT_ID_1;
 import static by.deliveryservice.testdata.ClientTestData.CLIENT_ID_2;
 import static by.deliveryservice.testdata.OrderTestData.*;
-import static by.deliveryservice.util.JsonUtil.writeValue;
+import static by.deliveryservice.util.json.JsonUtil.writeValue;
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;

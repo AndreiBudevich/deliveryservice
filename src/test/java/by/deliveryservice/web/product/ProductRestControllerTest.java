@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import static by.deliveryservice.testdata.CategoryTestData.*;
 import static by.deliveryservice.testdata.ProductTestData.*;
 import static by.deliveryservice.testdata.ShopTestData.*;
-import static by.deliveryservice.util.JsonUtil.writeValue;
+import static by.deliveryservice.util.json.JsonUtil.writeValue;
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
