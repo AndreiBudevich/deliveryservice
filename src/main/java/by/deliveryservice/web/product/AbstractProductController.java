@@ -25,11 +25,6 @@ public abstract class AbstractProductController {
         return createDto(productService.get(id));
     }
 
-    public void delete(int shopId, int id) {
-        log.info("delete product {} by shop {}", id, shopId);
-        productService.delete(id);
-    }
-
     public List<ProductDto> getAll() {
         log.info("getAll for product");
         return getDtos(productService.getAll());
