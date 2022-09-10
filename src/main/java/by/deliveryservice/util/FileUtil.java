@@ -1,5 +1,6 @@
 package by.deliveryservice.util;
 
+import by.deliveryservice.util.json.JsonUtil;
 import lombok.experimental.UtilityClass;
 
 import java.io.File;
