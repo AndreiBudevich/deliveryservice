@@ -1,55 +1,62 @@
-Java Delivery service Project 
+Java Delivery service Project
 ===============================
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/8c11d384cb914092b7037e31eeaafdd4)](https://www.codacy.com/gh/AndreiBudevich/deliveryservice/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=AndreiBudevich/deliveryservice&amp;utm_campaign=Badge_Grade)
 
 #### Pattern create
+
 - create client pattern -> client/create/surname; name; middleName; residentialAddress; birthday
 - create category pattern -> category/create/name;
 - create shop pattern -> shop/create/name; address; description; contact
-- create product pattern -> product/create/id_shop/name; description; price; discount;
+- create product pattern -> product/create/id_shop; name; description; price; discount;
 - create order pattern -> order/create/id_client; id_shop;
 
 #### Pattern update
+
 - update client pattern -> client/update/id_client/surname; name; middleName; residentialAddress; birthday
-- update category pattern -> category/id_category/update/name;
+- update category pattern -> category/update/id_category/name;
 - update shop pattern -> shop/update/id_shop/name; address; description; contact
-- update product pattern -> product/id_product/update/name; description; id_shop; price; discount;
-- update order pattern -> order/update/id_order/id_client
+- update product pattern -> product/update/id_product/id_shop; name; description;  price; discount
 
 #### Pattern getAll
+
 - getAll client(category, order, product, shop, pattern) -> entity/getAll
 
 #### Pattern delete
+
 - client(category, order, product, shop, pattern) -> entity/delete/id
 
 #### Pattern find By Attributes
-- product/findbyattributes/text in mame; text in mame description; id_shop; price; price; id_category_1, id_category_2 ...id_category_N
 
-#### Pattern add Products in Shop
-- shop/addProducts/id_shop/id_shop, id_product_1, id_product_2 ... id_product_N
+- product/findByAttributes/text in mame; text in mame description; id_shop; price; price; id_category_1, id_category_2
+  ...id_category_N
 
-#### Pattern delete Products in Shop
-- shop/addProducts/id_shop/id_shop, id_product_1, id_product_2 ... id_product_N
+#### Pattern set quantity Products in Shop
+
+- shop/setQuantity/id_product_1/quantity
 
 #### Pattern add Products in Order
-- order/addProducts/id_shop/id_shop, id_product_N
+
+- order/addProducts/id_order/id_product_N
 
 #### Pattern delete Products in Order
-- order/addProducts/id_shop/id_shop, id_product_N
+
+- order/addProducts/id_order/id_product_N
 
 #### Pattern add Categories in Product
+
 - product/addCategory/id_product/id_category_N
 
 #### Pattern delete Categories in Product
+
 - product/deleteCategory/id_product/id_category_N
 
-#### Pattern get Shop grouping Products in Shop 
+#### Pattern get Shop grouping Products in Shop
 
-- shop/getshopproducts/id_shop
+- shop/getShopProducts/id_shop
 
 #### Pattern set Address in Order
-- order/setAddress/id_order/text in address
 
+- order/setAddress/id_order/text in address
 
 #### Example Create
 
@@ -57,13 +64,13 @@ Java Delivery service Project
 - shop/create/Евроопт; г.Лида, ул. Советская 1; Продовольственный магазин; 80297634349
 - shop/create/5 Элемент; г.Лида, ул. Тавлая 10; Продовольственный магазин; 80294544545
 
-- product/create/1/Телевизор LG; Smart; 3000; 0
-- product/create/2/Телевизор Samsung; Smart; 3500; 0
-- product/create/1/Фен Philips; c насадками; 150; 10
-- product/create/3/Фен Brun; без насадок; 200; 10
-- product/create/3/Микроволновка; с грилем; 500; 10
-- product/create/2/Апельсины; цена за кг.; 10; 3
-- product/create/2/Бананы; цена за кг.; 7; 5
+- product/create/1; Телевизор LG; Smart; 3000; 0
+- product/create/2; Телевизор Samsung; Smart; 3500; 0
+- product/create/1; Фен Philips; c насадками; 150; 10
+- product/create/3; Фен Brun; без насадок; 200; 10
+- product/create/3; Микроволновка; с грилем; 500; 10
+- product/create/2; Апельсины; цена за кг.; 10; 3
+- product/create/2; Бананы; цена за кг.; 7; 5
 
 - category/create/продукты
 - category/create/бытовая техника
@@ -79,48 +86,57 @@ Java Delivery service Project
 - order/create/3
 
 #### Example Update
+
 - shop/update/3/5 Элемент; г.Лида, ул. Тавлая 10; Магазин бытовой техники; 80294544545
+- client/update/3/Будевич; Ксения; Андреевна; г.Лида, ул. Радунская д.25; 2012-26-07
+- category/update/4/Свежайшие продукты;
+- product/update/7/1; персик; поштучно; 1; 0
 
 #### Example getAll
+
 - client/getAll
 
 #### Example delete
+
 - client/delete/1
 
 #### Example getSortPrice Products
-- product/getsortprice
+
+- product/getSortPrice
 
 #### Example add Categories in Product
 
 - product/addCategory/1/2
 
 #### Example delete Categories in Product
+
 - product/deleteCategory/1/2
 
 #### Example add Products in Shop
-- shop/addProducts/1/1, 2, 3
-- shop/addProducts/2/2, 6, 8
 
-#### Example delete Products in Shop
-- shop/deleteProducts/1/1, 2, 3
-- shop/deleteProducts/2/2, 6, 8
+- shop/setQuantity/1/400
+- shop/setQuantity/2/400
 
 #### Example add Products in Order
+
 - order/addProduct/1/1
 - order/addProduct/2/2
 
 #### Example delete Products in Order
+
 - order/deleteProduct/1/1
 - order/deleteProduct/2/2
 
 #### Example findByAttributes
-- product/findbyattributes/Телевизор LG; Smart; 1; 3000; 0; *
-- product/findbyattributes/Теле; Sm; *; *; *; 1
-- product/findbyattributes/Теле; Sm; *; *; *; *
+
+- product/findByAttributes/Телевизор LG; Smart; 1; 3000; 0; *
+- product/findByAttributes/Теле; Sm; *; *; *; 1
+- product/findByAttributes/Теле; Sm; *; *; *; *
 
 #### Example get Shop Products in Shop
 
-- shop/getshopproducts/1
+- shop/getShopProducts/1
 
 #### Example  set Address in Order
+
 - order/setAddress/1/Докучаева 63
