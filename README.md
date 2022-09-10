@@ -6,7 +6,7 @@ Java Delivery service Project
 - create client pattern -> client/create/surname; name; middleName; residentialAddress; birthday
 - create category pattern -> category/create/name;
 - create shop pattern -> shop/create/name; address; description; contact
-- create product pattern -> product/create/name; description; id_shop; price; price;
+- create product pattern -> product/create/id_shop/name; description; price; discount;
 - create order pattern -> order/create/id_client; id_shop;
 
 #### Pattern update
@@ -32,16 +32,16 @@ Java Delivery service Project
 - shop/addProducts/id_shop/id_shop, id_product_1, id_product_2 ... id_product_N
 
 #### Pattern add Products in Order
-- order/addProducts/id_shop/id_shop, id_product_1, id_product_2 ... id_product_N
+- order/addProducts/id_shop/id_shop, id_product_N
 
 #### Pattern delete Products in Order
-- order/addProducts/id_shop/id_shop, id_product_1, id_product_2 ... id_product_N
+- order/addProducts/id_shop/id_shop, id_product_N
 
 #### Pattern add Categories in Product
-- product/addCategory/id_product/id_category_1
+- product/addCategory/id_product/id_category_N
 
 #### Pattern delete Categories in Product
-- product/deleteCategory/id_product/id_category_1
+- product/deleteCategory/id_product/id_category_N
 
 #### Pattern get Shop grouping Products in Shop 
 
@@ -57,13 +57,13 @@ Java Delivery service Project
 - shop/create/Евроопт; г.Лида, ул. Советская 1; Продовольственный магазин; 80297634349
 - shop/create/5 Элемент; г.Лида, ул. Тавлая 10; Продовольственный магазин; 80294544545
 
-- product/create/Телевизор LG; Smart; 1; 3000; 0
-- product/create/Телевизор Samsung; Smart; 2; 3500; 0
-- product/create/Фен Philips; c насадками; 1; 150; 10
-- product/create/Фен Brun; без насадок; 3; 200; 10
-- product/create/Микроволновка; с грилем; 3; 500; 10
-- product/create/Апельсины; цена за кг.; 2; 10; 3
-- product/create/Бананы; цена за кг.; 2; 7; 5
+- product/create/1/Телевизор LG; Smart; 3000; 0
+- product/create/2/Телевизор Samsung; Smart; 3500; 0
+- product/create/1/Фен Philips; c насадками; 150; 10
+- product/create/3/Фен Brun; без насадок; 200; 10
+- product/create/3/Микроволновка; с грилем; 500; 10
+- product/create/2/Апельсины; цена за кг.; 10; 3
+- product/create/2/Бананы; цена за кг.; 7; 5
 
 - category/create/продукты
 - category/create/бытовая техника
@@ -106,12 +106,12 @@ Java Delivery service Project
 - shop/deleteProducts/2/2, 6, 8
 
 #### Example add Products in Order
-- order/addProducts/1/1, 2, 3
-- order/addProducts/2/2, 6, 8
+- order/addProduct/1/1
+- order/addProduct/2/2
 
 #### Example delete Products in Order
-- order/deleteProducts/1/1, 2, 3
-- order/deleteProducts/2/2, 6, 8
+- order/deleteProduct/1/1
+- order/deleteProduct/2/2
 
 #### Example findByAttributes
 - product/findbyattributes/Телевизор LG; Smart; 1; 3000; 0; *
