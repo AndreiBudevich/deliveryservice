@@ -1,9 +1,9 @@
 package by.deliveryservice.controller;
 
 import by.deliveryservice.model.BaseEntity;
-import by.deliveryservice.model.Category;
 import by.deliveryservice.model.Product;
 import by.deliveryservice.service.infile.OrderServiceImplInFile;
+import by.deliveryservice.service.infile.ProductServiceImplInFile;
 import by.deliveryservice.util.ProxyUtil;
 
 import java.io.BufferedReader;
@@ -17,11 +17,11 @@ import static by.deliveryservice.util.RepositoryUtil.getRepositoryClass;
 import static by.deliveryservice.util.StringUtil.getSplit;
 import static by.deliveryservice.view.EntityPrint.print;
 
-public class Controller {
+public class ControllerFileRepository {
 
     private static final Map<String, String[]> extendedCommands = new HashMap<>();
     private static final Set<String> baseCommands = new HashSet<>(Arrays.asList("getall", "delete", "create", "update"));
-    private static final String[] productsCommands = new String[]{"getsortprice", "addcategories", "deletecategories", "findbyattributes"};
+    private static final String[] productsCommands = new String[]{"getsortprice", "addcategory", "deletecategory", "findbyattributes"};
     private static final String[] orderCommands = new String[]{"addproducts", "deleteproducts", "setaddress"};
     private static final String[] shopCommands = new String[]{"addproducts", "deleteproducts", "getshopproducts"};
 
@@ -33,7 +33,7 @@ public class Controller {
         extendedCommands.put("shop", shopCommands);
     }
 
-    private Controller() {
+    private ControllerFileRepository() {
     }
 
     public static void runApplication() {
@@ -74,10 +74,15 @@ public class Controller {
                     print(ProxyUtil.getInstance(clazzRepository, nameMethod));
                     break;
                 case ("create"):
-                    saveAndUpdate(clazzRepository, parameters[0], nameMethod, null, parameters[2]);
+                    if (parameters[0].equals("product")) {
+                        ProxyUtil.getInstance(ProductServiceImplInFile.class, "save",
+                                creatEntityFromString("product", getSplit(parameters[2], "; ")));
+                    } else {
+                        saveOrUpdate(clazzRepository, parameters[0], nameMethod, null, parameters[2]);
+                    }
                     break;
                 case ("update"):
-                    saveAndUpdate(clazzRepository, parameters[0], nameMethod, parameters[2], parameters[3]);
+                    saveOrUpdate(clazzRepository, parameters[0], nameMethod, parameters[2], parameters[3]);
                     break;
                 case ("delete"):
                     ProxyUtil.getInstance(clazzRepository, nameMethod, Integer.parseInt(parameters[2]));
@@ -88,9 +93,9 @@ public class Controller {
                 case ("findbyattributes"):
                     print(ProxyUtil.getInstance(clazzRepository, nameMethod, (Object) getSplit(parameters[2], "; ")));
                     break;
-                case ("addcategories"):
-                case ("deletecategories"):
-                    operationsEntities(Category.class, clazzRepository, nameMethod, parameters[2], parameters[3]);
+                case ("addcategory"):
+                case ("deletecategory"):
+                    ProxyUtil.getInstance(ProductServiceImplInFile.class, parameters[1], getId(parameters[2]), getId(parameters[3]));
                     break;
                 case ("addproducts"):
                 case ("deleteproducts"): {
@@ -111,7 +116,7 @@ public class Controller {
     }
 
     //The method gets fields from an array of strings and saves or updates the entities
-    private static void saveAndUpdate(Class<?> clazzRepository, String stringNameEntity, String nameMethod, String id, String fields) {
+    private static void saveOrUpdate(Class<?> clazzRepository, String stringNameEntity, String nameMethod, String id, String fields) {
         BaseEntity baseEntity = creatEntityFromString(stringNameEntity, getSplit(fields, "; "));
         if (baseEntity != null) {
             if (nameMethod.equalsIgnoreCase("update")) {
@@ -132,5 +137,9 @@ public class Controller {
         return extendedCommands.containsKey(entityExpectedName)
                 && baseCommands.contains(commandExpectedName.toLowerCase(Locale.ROOT)) || Arrays.stream(extendedCommands.get(entityExpectedName))
                 .anyMatch(c -> c.equalsIgnoreCase(commandExpectedName));
+    }
+
+    private static Integer getId(String id) {
+        return Integer.parseInt(id);
     }
 }
