@@ -5,7 +5,7 @@ import by.deliveryservice.repository.infile.InFileClientRepository;
 import by.deliveryservice.repository.infile.InFileOrderDetailRepository;
 import by.deliveryservice.repository.infile.InFileOrderRepository;
 import by.deliveryservice.repository.infile.InFileProductRepository;
-import by.deliveryservice.service.AbstractOrderDetailServiceImpl;
+import by.deliveryservice.service.AbstractOrderDetailService;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.Objects;
 import static by.deliveryservice.util.validation.ValidationUtil.checkNotFoundWithId;
 
 @Slf4j
-public class OrderDetailServiceImplInFile extends AbstractOrderDetailServiceImpl {
+public class OrderDetailServiceImplInFile extends AbstractOrderDetailService {
 
     private final InFileClientRepository clientRepository;
 
