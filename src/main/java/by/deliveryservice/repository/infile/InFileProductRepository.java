@@ -2,18 +2,25 @@ package by.deliveryservice.repository.infile;
 
 import by.deliveryservice.model.Category;
 import by.deliveryservice.model.Product;
-import by.deliveryservice.repository.BaseRepository;
+import by.deliveryservice.repository.ProductRepository;
+import by.deliveryservice.repository.ShopRepository;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
 
 import static by.deliveryservice.util.EntityUtil.getEntitiesByIdsArray;
 import static by.deliveryservice.util.StringUtil.contains;
 import static by.deliveryservice.util.StringUtil.getSplit;
+import static by.deliveryservice.util.validation.ValidationUtil.checkNotFoundWithId;
 
-public class InFileProductRepository extends InFileRepository<Product> implements BaseRepository<Product> {
+@Slf4j
+public class InFileProductRepository extends InFileRepository<Product> implements ProductRepository {
+
+    private final ShopRepository shopRepository;
 
     public InFileProductRepository() {
         super("json/products.json", Product.class);
+        this.shopRepository = new InFileShopRepository();
     }
 
     public List<Product> getSortPrice() {
@@ -26,7 +33,7 @@ public class InFileProductRepository extends InFileRepository<Product> implement
     //search by fields
     public List<Product> findByAttributes(String... attributes) {
         if (attributes.length < 5) {
-            System.err.println("Не верно заданы атрибуты");
+            log.info("Не верно заданы атрибуты");
         }
         readInFile();
         return repositoryInMemory.values().stream()
@@ -46,5 +53,21 @@ public class InFileProductRepository extends InFileRepository<Product> implement
 
     private boolean containsName(String actualString, String expectedString) {
         return expectedString.equals("*") || contains(actualString, expectedString);
+    }
+
+    @Override
+    public List<Product> getAllWithFilter(String nameContains, String descriptionContains, String shopNameContains, Long priceFrom, Long priceUpTo, Integer discountFrom, Integer discountUpTo, String[] actualStringIdsCategories) {
+        throw new UnsupportedOperationException("getAllWithFilter");
+    }
+
+    @Override
+    public Optional<Product> getWithCategories(int id) {
+        throw new UnsupportedOperationException("getWithCategories");
+    }
+
+    @Override
+    public Product save(Product product, int shopId) {
+        product.setShop(checkNotFoundWithId(shopRepository.get(shopId).orElse(null), shopId));
+        return super.save(product);
     }
 }
