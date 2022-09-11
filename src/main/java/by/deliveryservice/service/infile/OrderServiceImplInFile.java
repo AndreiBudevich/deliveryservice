@@ -3,12 +3,10 @@ package by.deliveryservice.service.infile;
 import by.deliveryservice.model.Order;
 import by.deliveryservice.model.OrderDetail;
 import by.deliveryservice.model.Storage;
-import by.deliveryservice.repository.OrderDetailRepository;
-import by.deliveryservice.repository.OrderRepository;
-import by.deliveryservice.repository.StorageRepository;
 import by.deliveryservice.repository.infile.InFileOrderDetailRepository;
 import by.deliveryservice.repository.infile.InFileOrderRepository;
 import by.deliveryservice.repository.infile.InFileStorageRepository;
+import by.deliveryservice.service.AbstractOrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 
@@ -20,16 +18,10 @@ import static by.deliveryservice.error.ExceptionMessage.ORDER_SHIPPED_NO_CHANGES
 import static by.deliveryservice.util.validation.ValidationUtil.isShipped;
 
 @Slf4j
-public class OrderServiceImplInFile {
-
-    private final OrderRepository orderRepository;
-    private final OrderDetailRepository orderDetailRepository;
-    private final StorageRepository storageRepository;
+public class OrderServiceImplInFile extends AbstractOrderService {
 
     public OrderServiceImplInFile() {
-        this.storageRepository = new InFileStorageRepository();
-        this.orderDetailRepository = new InFileOrderDetailRepository();
-        this.orderRepository = new InFileOrderRepository();
+        super(new InFileOrderRepository(), new InFileOrderDetailRepository(), new InFileStorageRepository());
     }
 
     public void setAddress(Integer id, String deliveryAddress) {
@@ -40,13 +32,14 @@ public class OrderServiceImplInFile {
         log.info("set new address {} by order {}", deliveryAddress, id);
     }
 
+    @Override
     @Transactional
     public void ship(int id) {
         try {
             Order order = getById(id);
             isShipped(order);
             List<OrderDetail> all = orderDetailRepository.getAllByOrderIdWithProduct(id);
-            all.forEach(oD -> recalculationStorage(oD.getQuantity(), oD.getProduct().getId()));
+            all.forEach(oD -> recalculationStorageWithSave(oD.getQuantity(), oD.getProduct().getId()));
             Objects.requireNonNull(order).setShipped(true);
             orderRepository.save(order, order.getClient().getId());
             log.info("Заказ отгружен");
@@ -55,16 +48,10 @@ public class OrderServiceImplInFile {
         }
     }
 
-    private Order getById(int id) {
-        return orderRepository.get(id).orElse(null);
-    }
-
-    private void recalculationStorage(int shippedQuantity, int productId) {
+    private void recalculationStorageWithSave(int shippedQuantity, int productId) {
         Storage storage = storageRepository.getByProductId(productId).orElse(null);
         assert storage != null;
-        Integer oldQuantity = storage.getQuantity();
-        Integer newQuantity = oldQuantity - shippedQuantity;
-        storage.setQuantity(newQuantity);
+        setQuantity(storage, shippedQuantity);
         storageRepository.save(storage, storage.getShop().getId(), productId);
     }
 }
