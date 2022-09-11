@@ -20,7 +20,7 @@ import static by.deliveryservice.util.StringUtil.getSplit;
 import static by.deliveryservice.view.EntityPrint.print;
 
 @Slf4j
-public class ControllerFileRepository {
+public class ConsoleCommandController {
 
     private static final String UPDATE = "update";
     private static final String GET_ALL = "getall";
@@ -60,7 +60,7 @@ public class ControllerFileRepository {
         extendedCommands.put(SHOP, shopCommands);
     }
 
-    private ControllerFileRepository() {
+    private ConsoleCommandController() {
     }
 
     public static void runApplication() {
@@ -97,8 +97,8 @@ public class ControllerFileRepository {
         try {
             switch (nameMethod) {
                 case (GET_ALL), (GET_SORT_PRICE) -> print(ProxyUtil.getInstance(clazzRepository, nameMethod));
-                case (CREATE) -> saveOrUpdate(clazzRepository, parameters[0], nameMethod, null, parameters[2]);
-                case (UPDATE) -> saveOrUpdate(clazzRepository, parameters[0], nameMethod, getId(parameters[2]), parameters[3]);
+                case (CREATE) -> saveOrUpdate(clazzRepository, parameters[0], null, parameters[2]);
+                case (UPDATE) -> saveOrUpdate(clazzRepository, parameters[0], getId(parameters[2]), parameters[3]);
                 case (DELETE) -> ProxyUtil.getInstance(clazzRepository, nameMethod, getId(parameters[2]));
                 case (GET_SHOP_PRODUCTS) -> print(ProxyUtil.getInstance(ProductServiceImplInFile.class, nameMethod, getId(parameters[2])));
                 case (SET_QUANTITY) -> ProxyUtil.getInstance(ProductServiceImplInFile.class, nameMethod, getId(parameters[2]), Integer.parseInt(parameters[3]));
@@ -115,7 +115,7 @@ public class ControllerFileRepository {
     }
 
     //The method gets fields from an array of strings and saves or updates the entities
-    private static void saveOrUpdate(Class<?> clazzRepository, String nameEntity, String nameMethod, Integer id, String fields) {
+    private static void saveOrUpdate(Class<?> clazzRepository, String nameEntity, Integer id, String fields) {
         String[] splitFields = getSplit(fields, "; ");
         if (nameEntity.equals(ORDER)) {
             ProxyUtil.getInstance(clazzRepository, "save", createEntity(ORDER, new String[0]), getId(splitFields[0]));

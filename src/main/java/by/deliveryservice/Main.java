@@ -1,6 +1,6 @@
 package by.deliveryservice;
 
-import by.deliveryservice.controller.ControllerFileRepository;
+import by.deliveryservice.controller.ConsoleCommandController;
 import by.deliveryservice.util.json.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
@@ -22,7 +22,7 @@ public class Main {
 
     public static void main(String[] args) {
         JsonUtil.setMapper(mapper);
-        ControllerFileRepository.runApplication();
+        ConsoleCommandController.runApplication();
     }
 }
 
